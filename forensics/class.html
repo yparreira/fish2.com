@@ -1,0 +1,228 @@
+<html>
+
+<head>
+
+<title>Computer Forensics Analysis Class Handouts</title>
+
+</head>
+
+<body bgcolor="#ffffff">
+
+<center>
+<p align=center>
+<h1>Computer Forensics Analysis Class Handouts</h1>
+</p>
+</center>
+
+<hr>
+<p>
+
+On August 6th, 1999, Dan Farmer 
+and Wietse
+Venema (<a href="http://www.watson.ibm.com/">IBM T.J. Watson Research Center</a>)
+presented a full-day free class on UNIX computer forensics analysis,
+sponsored by IBM.
+
+The class was attended by an audience of over 200 and was given at
+the IBM T.J.  Watson Research Center near Yorktown Heights (NY).
+
+<p>
+
+At the end of the class, official 
+<a href="/forensics/eln-badge.jpg">gold Internet Detective badges</a>
+were handed out to attendees, courtesy of Earthlink Network.
+
+<p>
+<hr>
+<p>
+
+<h4>TCT</h4>
+
+The Coroner's Toolkit (TCT), described in the class, is
+available for downloading <a href="/tct/">here</a>.
+
+<p>
+<hr>
+<p>
+
+<h4>Class Transparencies</h4>
+
+All slides used in presenting the class are below, in postscript and PDF
+form (the latter require <a href="http://www.adobe.com/">AcroRead 4.0</a>
+from adobe to read; thanks to Simson Garfinkle for creating them.)  The PS 
+files were created with MS Power Point (e.g. those done by Dan) require 
+a PostScript level 3 printer: old printers and old GHOSTVIEW versions 
+have problems.  The files created with XFIG (e.g. those created by Wietse)
+are actually a concatenation of many little files. They will not display 
+properly if your viewer expects embedded pagination information. In order to view, 
+try, for example:
+
+<blockquote>
+<p><tt>cat file.ps | ghostview -landscape -</tt>
+</blockquote>
+
+<p>
+
+This material amounts to 215 pages, so you can save a tree by
+printing double sided - or, better yet, print out the six-to-a-page
+version created by Dave Dittrich which compacts them by a considerable
+amount, and remains very easy to read.
+
+<p>
+
+<a href="six-by.tar.gz">A gzip'd tar file containing all the ps files, six
+to a page - <strong>recommended!</strong></a><br>
+
+<a href="f.tar.gz">A gzip'd tar file containing all the ps & pdf files</a><br>
+<a href="f.pdf.tar.gz">Gzip'd tar file containing all the pdf files</a><br>
+<a href="f.ps.tar.gz">Gzip'd tar file containing all the ps files</a><br>
+
+<p>
+<hr>
+<p>
+
+<strong>Individual Files and Summaries</strong>
+<p>
+
+<UL>
+
+<li> <strong>Introduction</strong>
+
+<a href="/forensics/intro.ps">(intro.ps)</a>,
+<a href="/forensics/intro.pdf">(intro.pdf)</a>
+
+<p> Dan gives a look ahead to the rest of the day, what the class
+will and won't cover, and discusses basic principles.
+
+<p>
+
+<li> <strong>Basic UNIX file system</strong>
+
+<a href="/forensics/basic-files.ps">(basic-files.ps)</a>,
+<a href="/forensics/basic-files.pdf">(basic-files.pdf)</a>
+
+<p> Wietse presents a first case, and discusses limitations of
+computer forensics analysis, the triangle of trust, and the reverse
+Turing test.
+
+<p>
+
+<li> <strong>Freezing the scene</strong>
+
+<a href="/forensics/freezing.ps">(freezing.ps)</a>,
+<a href="/forensics/freezing.pdf">(freezing.pdf)</a>
+
+<p> Dan explains what one needs to be aware of when capturing
+information after an intrusion, what techniques to use, and what
+mistakes to avoid. Central elements are the Heisenberg principle
+of computer forensics and the order of volatility.
+
+<p>
+
+<li> <strong>Time travel</strong>
+
+<a href="/forensics/time-travel.ps">(time-travel.ps)</a>,
+<a href="/forensics/time-travel.pdf">(time-travel.pdf)</a>
+
+<p> Wietse reconstructs the course of events from logfiles and from
+other time-related information. This section is illustrated with
+a short 
+post-mortem intrusion analysis</a> 
+that Wietse wrote up a couple years ago -
+<a href="/forensics/intrusion-report.ps">PS version</a>,
+<a href="/forensics/intrusion-report.pdf">PDF version</a>.
+
+<p>
+
+<li> <strong>Reconstruction of actions</strong>
+
+<a href="/forensics/command-reconstruction.ps">(command-reconstruction.ps)</a>,
+<a href="/forensics/command-reconstruction.pdf">(command-reconstruction.pdf)</a>
+
+<p>Dan has the floor. This section is illustrated with two hand-outs:
+what the intruder sees (
+<a href="/forensics/handout-1.ps">PS version</a>,
+<a href="/forensics/handout-1.pdf">PDF version</a>) and
+what file system time stamps (
+<a href="/forensics/handout-1b.ps">PS version</a>,
+<a href="/forensics/handout-1b.pdf">PDF version</a>)
+the intruder leaves behind.
+
+<p>
+
+<li> <strong>Processes</strong>
+
+<a href="/forensics/processes.ps">(processes.ps)</a>,
+<a href="/forensics/processes.pdf">(processes.pdf)</a>
+
+<p>
+
+<p> Wietse figures out the purpose of an unknown program that
+runs on the system, without disturbing it, and without giving it
+a chance to inflict damage to the system it runs on.
+
+<p>
+
+<li> <strong>Decompilation</strong>
+
+<a href="/forensics/programs.ps">(programs.ps)</a>,
+<a href="/forensics/programs.pdf">(programs.pdf)</a>
+
+<p>
+
+<p> In the middle of the graveyard shift, Wietse figures out the
+purpose of a program file without actually running it. In this
+session, Tsutomu Shimumura said: "adb is your friend". Dan replied:
+"no, adb is <b>your</b> friend!"
+
+<p>
+
+<li> <strong>Networks</strong>
+
+<a href="/forensics/networks.ps">(networks.ps)</a>,
+<a href="/forensics/networks.pdf">(networks.pdf)</a>
+
+<p> Dan discusses what information is left behind in the network
+in the wake of an incident. It is impossible to erase all traces,
+but then it can be hard to get that data from providers, telco's,
+etc.
+
+<p>
+
+<li> <strong>Advanced UNIX file system</strong>
+
+<a href="/forensics/advanced-files.ps">(advanced-files.ps)</a>,
+<a href="/forensics/advanced-files.pdf">(advanced-files.pdf)</a>
+
+<p> Wietse goes into the gory details of collecting information
+about removed files, discusses how to hide information in and
+in-between files and file systems, and how to erase traces from
+UNIX file systems.
+
+<p>
+
+<li> <strong>Lazarus</strong> 
+
+<a href="/forensics/lazarus.ps">(lazarus.ps)</a>,
+<a href="/forensics/lazarus.pdf">(lazarus.pdf)</a>
+
+<p> Dan presents of a novel tool that makes sense out of thrashed
+files, how it works, why it works, and what its limitations are.
+
+<p>
+
+<li> <strong>Conclusion</strong>
+
+<a href="/forensics/conclusion.ps">(conclusion.ps)</a>,
+<a href="/forensics/conclusion.pdf">(conclusion.pdf)</a><br>
+
+<p> Dan ends the day with a summary of best practices: what you
+need at the very least in order to be prepared for an incident.
+
+</ul>
+
+</body>
+
+</html>
+
+

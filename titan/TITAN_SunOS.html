@@ -1,0 +1,135 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (X11; U; SunOS 5.7 i86pc) [Netscape]">
+</head>
+<body>
+
+<center>
+<h1>
+<img SRC="bigmap.jpg" </CENTER ></h1></center>
+
+<center><font color="#3366FF">Titan's view of the world</font>
+<p>
+<hr></center>
+
+<ul>
+<center><!-- Published by Quadralay WebWorks HTML Lite 1.5.1 --><a NAME="10346"></a>
+<p><a NAME="417926"></a></center>
+
+<center>
+<h1>
+<font color="#3366FF">TITAN 3.8 SunOS 4.1.X</font></h1></center>
+
+<center><a NAME="417927"></a></center>
+
+<center>
+<h1>
+Descriptions as to what each module does.</h1></center>
+<a href="Titan-Config">Titan-Config</a> This script&nbsp; figures
+out which OS you are using and makes the appropriate links from the topmost
+directory to the shell scripts accordingly.
+<p><a href="arch/sol1sun4/bin/Titan">Titan</a> Titan runs all the
+shell scripts in the $TITANDIR/bin/modules directory that are a) files
+and b) executable. Titan accepts the -C (config + [filename]), -I (intro),
+-F (fix) or -V (verify) flag.
+<p><a href="arch/sol1sun4/bin/Titan.top">Titan.top</a> just a copy
+of Titan with the paths changed so that when Titan-Config makes a copy
+in the topmost directory things work as intended.
+<p><a href="arch/sol1sun4/bin/Titanreport">TitanReport</a> This module
+runs all titan modules in the "-verify" mode and sends the results via
+e-mail. This is intended to run as a cron job or as a audit utility. See
+the<a href="FAQ.html"> FAQ f</a>or more.
+<p><a href="arch/sol1sun4/bin/sample.Server">Sample.Server</a>, <a href="arch/sol1sun4/bin/sample.config">sample.config</a>
+, and <a href="arch/sol1sun4/bin/sample.list">sample.list</a>&nbsp;
+These files are used as templates for&nbsp; use when running "Titan -c
+config-file" . See the <a href="FAQ.html">FAQ</a> for more in sample.configs
+<p><a href="arch/sol1sun4/lib/backtit.sh">backtit.sh </a>This modules
+is called by "Titan-Config" when run "Titan-Config -i" (install). Backtit.sh
+makes a backup copy of all the files Titan modifies (backtit.sh currently
+does not backup file permission changes)
+<p><a href="arch/sol1sun4/lib/untit.sh">untit.sh</a> Untit.sh is
+called by "Titan-Config" when run 'Titan-Config -d" (deinstall) Untit.sh
+replaces the files modified by Titan with the original un-secure versions,
+and is provided as a recovery mechanism if we were to aggressive about
+securing the system.
+<p>&nbsp;<a href="arch/sol1sun4/bin/modules/aliases.sh">aliases.sh</a>
+aliases.sh goes through /etc/aliases looking for "|" and disabling them
+when found.
+<p><a href="arch/sol1sun4/bin/modules/decode.sh">decode.sh</a> checks
+/etc/aliases for decode alias, and removes it. Separate from aliases.sh
+since you may have a different policy for servers and desktops. This one
+only removes the decode alias not the other "|" from /etc/aliases.
+<p><a href="arch/sol1sun4/bin/modules/duplicate-root.sh">duplicate-root.sh</a>
+Checks for any accounts that are uid 0 that are not named "root"
+<p><a href="arch/sol1sun4/bin/modules/hosts-equiv.sh">hosts-equiv.sh</a>
+Checks for the infamous "+"&nbsp; in /etc/hosts.equiv
+<p><a href="arch/sol1sun4/bin/modules/inetd.sh">inetd.sh</a> Disables
+most all&nbsp; inbound services from /etc/inetd.conf. These daemons give
+out information or are potential "denial of service" problems. rexd, ftp,
+finger, systat, netstat, rusersd, sprayd, and walld.&nbsp; Modify the chatty
+daemons variable to add subtract things you wish to leave running.
+<p><a href="arch/sol1sun4/bin/modules/is_root">is_root</a> this is
+not intended to be run by users. The other scripts call this as a generic
+check for execution as root.
+<p><a href="arch/sol1sun4/bin/modules/mkshadow.sh">mkshadow.sh</a>
+This script was modified from a script originally written by Scott Leadley.
+The script sets up shadowed password files in SunOS. A required piece is
+the rpc.pwdauthd either from SunOS C2/BSM package or from the patch containing
+rpc.pwdauthd.
+<p><a href="arch/sol1sun4/bin/optional">optional directory</a>. This
+directory contains two compressed tar files. The first one <a href="arch/sol1sun4/bin/optional/noshell.tar.Z">noshell.tar.Z</a>
+contains a replacement program for the login shell of non-users such as
+"bin" or "lp" This code was written by Michele D. Crabb, and is not a part
+of Titan or Titan's License agreement. It is provided here strictly because
+I think its a useful program and an enhancement to titan functionality.
+The second piece in the optional directory is a <font color="#FF0000">NON-Supported
+(by Sun)</font> patch for the SunOS kernel which turns off the forwarding
+of source routed packets. The file is called <a href="arch/sol1sun4/bin/optional/source-routing-patch.tar.Z">source-routing-patch.tar.Z</a>
+for obvious reasons. I originally released this back in 1991 to the firewalls
+alias.
+<p><a href="arch/sol1sun4/bin/modules/passwd.sh">passwd.sh</a> Check
+for accounts with no password
+<p><a href="arch/sol1sun4/bin/modules/rhosts.sh">rhosts.sh</a> Check
+for null /.rhosts and of course "+" in /.rhosts
+<p><a href="arch/sol1sun4/bin/modules/rootpath.sh">rootpath.sh</a>
+Check root's path for the infamous "."
+<p><a href="arch/sol1sun4/bin/modules/rootchk.sh">rootchk.sh</a>
+A more strict version or rootpath.sh. This one also changes any files listed
+in roots path to be owned by root. important such that others can't modify
+binaries that root may run.
+<p><a href="arch/sol1sun4/bin/modules/routed-quiet.sh">routed-quiet.sh</a>
+Move /usr/etc/in.routed to /usr/etc/in.routed.asetorigional then build
+a wrapper starting routed -q. This is done to be compatible with the ASET
+package.
+<p><a href="arch/sol1sun4/lib/sanity_check">sanity_check</a> This
+isn't intended to be run by users (thus no .sh extension) It is called
+by the other scripts to check to make sure scripts are called with at least
+one additional argument (-i/-v/-f)
+<p><a href="arch/sol1sun4/bin/modules/tftp-disable.sh">tftp-disable.sh</a>
+check that tftpd disabled used for systems that are not Diskless Servers
+<p><a href="arch/sol1sun4/bin/modules/tftpServer.sh">tftpServer.sh</a>
+Add secure tftp switch Diskless Workstation Server
+<p><a href="arch/sol1sun4/bin/modules/ttytab.sh">ttytab.sh</a> Fix
+ttytab to disable b -s problem
+<p><a href="arch/sol1sun4/bin/modules/tune-perms.sh">tune-perms.sh.</a>
+Runs a modified file permission fixes from 100103-12 patch Tune attributes
+on file system objects This portion will set file system object permissions
+to a more secure setting.
+<p><a href="arch/sol1sun4/bin/modules/utmp.sh">utmp.sh</a> Checks
+/etc/utmp to ensure its not world writeable.
+<p><a href="arch/sol1sun4/bin/modules/uucp-disabled.sh">uucp-disabled.sh</a>
+Disable login shell for uucp
+<p><a href="arch/sol1sun4/bin/modules/ypserver-client.sh">ypserver-client.sh</a>
+Checks that /etc/passwd on ypserver does not have the client line of ":0:+"
+<p>&nbsp;
+<p>&nbsp;
+<p>
+<p>
+<center>
+<p><a href="TITAN_documentation.html">Back to Titan's Main Document</a></center>
+</ul>
+
+</body>
+</html>

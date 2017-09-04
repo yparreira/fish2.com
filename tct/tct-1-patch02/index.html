@@ -1,0 +1,1022 @@
+This patch fixes a few bugs in the mactime and makes the ils and
+ils2mac utilities more useful for exploring the inodes of deleted
+files. See the CHANGES file below for details.
+
+To appy the patch:
+
+- step into the tct-1.01 top-level directory
+
+- execute "make tidy"
+
+- feed this file as standard input to the patch command.
+
+- execute "make" to rebuild the programs.
+
+	Wietse
+
+Prereq: 1.01
+diff -cr --new-file ../tct-1.01/patchlevel ./patchlevel
+*** ../tct-1.01/patchlevel	Tue Aug  1 19:51:13 2000
+--- ./patchlevel	Tue Aug  8 21:16:32 2000
+***************
+*** 1 ****
+! 1.01
+--- 1 ----
+! 1.02
+diff -cr --new-file ../tct-1.01/CHANGES ./CHANGES
+*** ../tct-1.01/CHANGES	Tue Aug  1 18:52:34 2000
+--- ./CHANGES	Tue Aug  8 20:03:39 2000
+***************
+*** 1,3 ****
+--- 1,34 ----
++ 
++ Tue Aug  8 11:46:19 PDT 2000
++ 
++ o	created "help-recovering-file", added note to README.FIRST
++ 
++ Sat Aug  5 11:34:26 PDT 2000
++ 
++ o	mactime time range repaired, fixed docs, -l option slightly
++ 	fixed... perhaps deprecation in the future?
++ 
++ Fri Aug  4 20:06:15 EDT 2000
++ 
++ o	ils and ils2mac now include device names for more
++ 	readable mactime reports of dead inodes.
++ 
++ o	mactime could not run with current working directory
++ 	different from $TCT_HOME.
++ 
++ o	mactime -d could destroy an existing $DATA/body file.
++ 
++ o	mactime -d turned on verbosity, instead of letting -v do that.
++ 
++ o	mactime -s (suid) flag used an obsolete method of getting data.
++ 
++ o	ils2mac broke because perl split() can't see the difference
++ 	between empty last fields and missing last fields.
++ 
++ o	mactime mistakenly skipped files with all-zero time stamps.
++ 
++ o	ils2mac now emits ls -l like info for mactime compatibility.
++ 
+  Tue Aug  1 13:50:20 PDT 2000
+  
+  o	Prepend our directory list to @INC rather than clobbering it.
+diff -cr --new-file ../tct-1.01/README.FIRST ./README.FIRST
+*** ../tct-1.01/README.FIRST	Mon Jul 31 21:24:29 2000
+--- ./README.FIRST	Tue Aug  8 20:03:39 2000
+***************
+*** 1,8 ****
+  
+  
+          NOTE: If you've just been broken into and are desperate for help,
+!               read the "help-when-broken-into" file.
+! 
+  
+  The Coroner's Toolkit (TCT) - a Brief Introduction
+  
+--- 1,8 ----
+  
+  
+          NOTE: If you've just been broken into and are desperate for help,
+!               read the "help-when-broken-into" file.  If you've deleted
+!               a file and want to recover it, read "help-recovering-file".
+  
+  The Coroner's Toolkit (TCT) - a Brief Introduction
+  
+diff -cr --new-file ../tct-1.01/bin/mactime ./bin/mactime
+*** ../tct-1.01/bin/mactime	Mon Aug  7 19:55:30 2000
+--- ./bin/mactime	Tue Aug  8 21:23:22 2000
+***************
+*** 7,13 ****
+  #
+  #  Usage:
+  #
+! #	$0 [-dDfhlnpRsty] [-g group] [-p passwd] [-u user] \
+  #	   [-b bodyfile] time1[-time2] [-d directory]
+  #
+  # 	By default, use an easy to type user date... not much granularity.
+--- 7,13 ----
+  #
+  #  Usage:
+  #
+! #	$0 [-DfhlnpRsty] [-d directory] [-g group] [-p passwd] [-u user] \
+  #	   [-b bodyfile] time1[-time2] [-d directory]
+  #
+  # 	By default, use an easy to type user date... not much granularity.
+***************
+*** 91,101 ****
+  #  atime, mtime, and ctime are the keys to this enchalada.
+  #
+  
+  $running_under_grave_robber = 1;
+- 
+  $TCT_HOME = "";
+  require "$TCT_HOME/conf/coroner.cf";
+  
+  require "getopts.pl";
+  require "tm_misc.pl";
+  require "suck_table.pl";
+--- 91,106 ----
+  #  atime, mtime, and ctime are the keys to this enchalada.
+  #
+  
++ #
++ # Workaround for setting @INC before "use" is called.
++ #
++ BEGIN {
+  $running_under_grave_robber = 1;
+  $TCT_HOME = "";
+  require "$TCT_HOME/conf/coroner.cf";
++ }
+  
++ require "body_init.pl";
+  require "getopts.pl";
+  require "tm_misc.pl";
+  require "suck_table.pl";
+***************
+*** 105,111 ****
+  require "command.pl";
+  use Date::Manip;
+  
+! $time_difference = &gmt_vs_local();
+  
+  #
+  #  the three time types
+--- 110,116 ----
+  require "command.pl";
+  use Date::Manip;
+  
+! # $time_difference = &gmt_vs_local();
+  
+  #
+  #  the three time types
+***************
+*** 124,130 ****
+  chop($_ = &command_to_string($DATE));
+  
+  # Fri Jun 11 09:43:23 PDT 1999
+! ($year) = /^\S+\s\S+\s\S+\s\S+\s.*\s(\d\d\d\d)$/;
+  
+  #
+  #
+--- 129,135 ----
+  chop($_ = &command_to_string($DATE));
+  
+  # Fri Jun 11 09:43:23 PDT 1999
+! ($year) = /^\S+\s+\S+\s+\S+\s+\S+\s.*\s+(\d\d\d\d)$/;
+  
+  #
+  #
+***************
+*** 145,151 ****
+  if ($opt_h) { $html = 1; }
+  
+  if ($opt_b) { $body = $opt_b; }
+! else        { $body = "$TCT_HOME/data/$hostname/body"; }
+  
+  # requires the -d flag
+  if ($opt_B) {
+--- 150,159 ----
+  if ($opt_h) { $html = 1; }
+  
+  if ($opt_b) { $body = $opt_b; }
+! else {
+! 	if (!$opt_d) { $body = "$TCT_HOME/data/$hostname/body"; }
+! 	else         { $body = "tmp.mactime.$$"; }
+! 	}
+  
+  # requires the -d flag
+  if ($opt_B) {
+***************
+*** 159,165 ****
+  if ($opt_s) { $flag_suid = 1; }
+  if ($opt_t) { $time_machine = 1; }
+  if ($opt_u) { $s_user = $opt_u; }
+! if ($opt_d) { $verbose = 1; }
+  if ($opt_y) { $year_first = 1; }
+  
+  if ($opt_g) { $GROUP = $opt_g; }
+--- 167,173 ----
+  if ($opt_s) { $flag_suid = 1; }
+  if ($opt_t) { $time_machine = 1; }
+  if ($opt_u) { $s_user = $opt_u; }
+! if ($opt_v) { $verbose = 1; }
+  if ($opt_y) { $year_first = 1; }
+  
+  if ($opt_g) { $GROUP = $opt_g; }
+***************
+*** 186,193 ****
+  $time_one = $ARGV[0];
+  
+  # a range of times are divided by 
+! if ("-" =~ /$time_one/) {
+! 	print "splitting date ($time_one)...\n";
+  	($time_one, $time_two) = split(/-/, $time_one);
+  	}
+  
+--- 194,201 ----
+  $time_one = $ARGV[0];
+  
+  # a range of times are divided by 
+! if (!$last && $time_one =~ /-/) {
+! 	print "splitting date ($time_one)...\n" if $debug;
+  	($time_one, $time_two) = split(/-/, $time_one);
+  	}
+  
+***************
+*** 250,255 ****
+--- 258,265 ----
+  	($dow_in, $mon_in, $day_in, $year_in, $t_in, $x, $t_out, $elapsed) =
+  		split(/\s+/, $time_one);
+  	
++ 	print "(!$dow_in || !$mon_in || !$day_in || !$year_in || !$t_in || !$x || !$t_out || !$elapsed)\n" if $debug;
++ 
+  	die "\nInvalid date format for \"last\"-style input:\n\n\t$time_one\n\n"
+  		if (!$dow_in || !$mon_in || !$day_in || !$year_in || 
+  		    !$t_in || !$x || !$t_out || !$elapsed);
+***************
+*** 299,307 ****
+  
+  	print "Logged out + : $date_out\n" if $debug;
+  
+! 	print "\tLS: $month_to_digit{$mon_in},$day_in,$year_in,$h,$m,0\n" if $debug;
+  	
+! 	$in_seconds = &Date_SecsSince1970($month_to_digit{$mon_in},$day_in,$year_in,$h,$m,0) + $time_difference;
+  
+  	die "Need a date after 1970\n" if ($in_seconds <= 0);
+  
+--- 309,317 ----
+  
+  	print "Logged out + : $date_out\n" if $debug;
+  
+! 	print "\tConverting: $month_to_digit{$mon_in},$day_in,$year_in,$h,$m,0\n" if $debug;
+  	
+! 	$in_seconds = &Date_SecsSince1970GMT($month_to_digit{$mon_in},$day_in,$year_in,$h,$m,0) + $time_difference;
+  
+  	die "Need a date after 1970\n" if ($in_seconds <= 0);
+  
+***************
+*** 316,326 ****
+  
+  	$time_out="$digit_to_month{$mon_out} $day_out $year_out $h_out:$m_out";
+  
+! 	print "\tFinal-OUT: $mon_out,$day_out,$year_out,$h_out,$m_out,0\n" if $debug;
+  
+! 	$out_seconds = &Date_SecsSince1970($mon_out,$day_out,$year_out,$h_out,$m_out,0);
+  
+  	print "FINAL!!!\n\n$in_seconds\n$out_seconds\n\n" if $debug;
+  
+  	}	# if "last" time format...
+  
+--- 326,338 ----
+  
+  	$time_out="$digit_to_month{$mon_out} $day_out $year_out $h_out:$m_out";
+  
+! 	print "\tConv-OUT: $mon_out,$day_out,$year_out,$h_out,$m_out,0\n" if $debug;
+  
+! 	$out_seconds = &Date_SecsSince1970GMT($mon_out,$day_out,$year_out,$h_out,$m_out,0) + $time_difference;
+  
+  	print "FINAL!!!\n\n$in_seconds\n$out_seconds\n\n" if $debug;
++ 	print "\t (TO-TI) " if $debug;
++ 	print $out_seconds - $in_seconds . "\n\n" if $debug;
+  
+  	}	# if "last" time format...
+  
+***************
+*** 337,345 ****
+--- 349,370 ----
+  	#
+  	die("\nneed a date") unless (defined($time_one));
+  
++ 	if ($time_two) {
++ 		$parsed_date2 = &ParseDate($time_two);
++ 
++ 		die "\nInvalid date (t2) format for \"date\"-style input:\n\n\t$time_two\n\n" unless ($parsed_date2);
++ 
++ 		$out_seconds = &UnixDate($parsed_date2, "%s");
++ 		die "Need a date after 1970 for the 2nd date\n" if ($out_seconds <= 0);
++ 
++ 		print "OS: $out_seconds\n" if $debug;
++ 		}
++ 
+  	$parsed_date = &ParseDate($time_one);
+  	die "\nInvalid date (out) format for \"date\"-style input:\n\n\t$time_one\n\n" unless($parsed_date);
+  
++ 	print "PDs: $in_seconds, $out_seconds\n" if $debug;
++ 
+  #
+  #  Use some sort of easy user date... not much granularity.  Of
+  # the format date/month/year - 4/5/1962 - full four digit year, for Y2K ;-)
+***************
+*** 365,377 ****
+  if ($opt_B) { %table = &suck_table($body_out); }
+  else        { %table = &suck_table($body); }
+  
+- # if ($opt_B) {
+- # 	die "Can't open $body_out\n" unless open(BODY, "$body_out");
+- # 	}
+- # else {
+- # 	die "Can't open $body\n" unless open(BODY, "$body");
+- # 	}
+- 
+  # print "ATIME? " . $table{'labels'}{"st_atime"} . "\n";
+  # print "DTIME? " . $table{'labels'}{"st_dtime"} . "\n";
+  
+--- 390,395 ----
+***************
+*** 423,433 ****
+  	#
+  	# we generally need some value in mactimes... but not always...
+  	#
+- 	# next if (!$st_atime || !$st_mtime || !$st_ctime);
+  	if (!$st_atime && !$st_mtime && !$st_ctime && !$dtime) {
+  		warn "Invalid format line at line in file $file:\n$_\n"
+  			if $debug;
+! 		next;
+  		}
+  
+  	#
+--- 441,450 ----
+  	#
+  	# we generally need some value in mactimes... but not always...
+  	#
+  	if (!$st_atime && !$st_mtime && !$st_ctime && !$dtime) {
+  		warn "Invalid format line at line in file $file:\n$_\n"
+  			if $debug;
+! 		# next;
+  		}
+  
+  	#
+***************
+*** 471,495 ****
+  
+  	}
+  
+- close(BODY);
+- 
+  #
+  # suck in all the S[UG]ID files, if any... don't worry if it's not there
+  #
+! if ($flag_suid && open(SBODY, "$DATA/$body.S")) {
+! 	while (<SBODY>) {
+! 		(($md5,$file,$st_dev,$st_ino,$st_mode,$st_ls,$st_nlink,
+! 		  $st_uid,$st_gid,$st_rdev,$st_size,$st_atime,$st_mtime,
+! 		  $st_ctime,$st_blksize,$st_blocks) = 
+! 			($_ =~ /(\S+)\s+(\S+)\s+([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)/)) || warn "$body.S: illegal record: $_";
+! 		
+  		$all_su_files{$file} = $file;
+  		}
+- 
+- 	close(SBODY);
+  	}
+  
+  unlink($body) if $walk_the_plank && !$save_body;
+  
+  #
+  #  The purpose of the program - print out the results!
+--- 488,508 ----
+  
+  	}
+  
+  #
+  # suck in all the S[UG]ID files, if any... don't worry if it's not there
+  #
+! if ($flag_suid && -s "$DATA/$body.S") {
+! 	%su_files = &suck_table("$body.S");
+! 	for $n (0..$#{$table{'data'}}) {
+! 		$_ = join('|', @{$su_files{'data'}[$n]});
+! 		print "Body DB $_\n" if $debug;
+! 		($md5,$file,$x) = &tm_split($_);
+  		$all_su_files{$file} = $file;
+  		}
+  	}
+  
+  unlink($body) if $walk_the_plank && !$save_body;
++ unlink("$body.S") if $walk_the_plank && !$save_body;
+  
+  #
+  #  The purpose of the program - print out the results!
+***************
+*** 499,507 ****
+  print "Start of Time Selected ($time_one)\n" if $debug;
+  
+  for $key (sort keys %all_files_used) {
+  	($time, $file) = split(/,/,$key);
+  
+! 	print "T-in minus Curr = ", $in_seconds - $time, "\n" if $debug;
+  	next if ($in_seconds > $time);
+  
+  	($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)=localtime($time);
+--- 512,523 ----
+  print "Start of Time Selected ($time_one)\n" if $debug;
+  
+  for $key (sort keys %all_files_used) {
++ 
++ 	next if $marker;
++ 
+  	($time, $file) = split(/,/,$key);
+  
+! 	print "T-in minus Currfile time = ", $in_seconds - $time, "\n" if $debug;
+  	next if ($in_seconds > $time);
+  
+  	($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst)=localtime($time);
+***************
+*** 512,526 ****
+  	# the month here is 0-11, not 1-12, like what we want
+  	$mon++;
+  
+! 	print "\t($sec,$min,$hour,MDay: $mday,M: $mon,$year,$wday,$yday,$isdst) = ($time)\n" if $debug;
+  
+  	#
+  	# mark the end of time2, the end of the time span desired
+  	#
+! 	# if ($time >= $out_seconds && !$marker) {
+! 	# 	print "\nEnd of Time Selected ($time_two)\n";
+! 	# 	$marker = 1;
+! 	# 	}
+  
+  	# print "\n$time\t$all_files_used{$key}\t$file\n";
+  	#
+--- 528,543 ----
+  	# the month here is 0-11, not 1-12, like what we want
+  	$mon++;
+  
+! 	print "\t$file ($sec,$min,$hour,MDay: $mday,M: $mon,$year,$wday,$yday,$isdst) = ($time)\n" if $debug;
+  
+  	#
+  	# mark the end of time2, the end of the time span desired
+  	#
+! 	if ($out_seconds && $time >= $out_seconds && !$marker) {
+! 		print "\nEnd ($time) of Time Selected ($out_seconds/$time_two)\n" if $debug;
+! 		$marker = 1;
+! 		next;
+! 		}
+  
+  	# print "\n$time\t$all_files_used{$key}\t$file\n";
+  	#
+***************
+*** 565,571 ****
+  	# code, see below... bleah!  Oh gods of programming, why didn't
+  	# you give me a bigger brain?
+  	#
+! 	print "XXX: $all_files_used{$key} ($dtime)\n" if $debug;
+  
+  	if ($dtime) {
+  		$mactime = $all_files_used{$key};
+--- 582,588 ----
+  	# code, see below... bleah!  Oh gods of programming, why didn't
+  	# you give me a bigger brain?
+  	#
+! 	print "XXX: $all_files_used{$key} (dtime - $dtime)\n" if $debug;
+  
+  	if ($dtime) {
+  		$mactime = $all_files_used{$key};
+diff -cr --new-file ../tct-1.01/conf/coroner.cf ./conf/coroner.cf
+*** ../tct-1.01/conf/coroner.cf	Mon Aug  7 19:55:30 2000
+--- ./conf/coroner.cf	Tue Aug  8 21:23:21 2000
+***************
+*** 6,12 ****
+  
+  $ETC    = "$TCT_HOME/etc"  unless $ETC;
+  
+! @INC = ("$TCT_HOME/lib", "$TCT_HOME/conf", @INC);
+  
+  #
+  #  Where all the full pathnames to the various shell binaries used live
+--- 6,12 ----
+  
+  $ETC    = "$TCT_HOME/etc"  unless $ETC;
+  
+! @INC = ("$TCT_HOME/lib", "$TCT_HOME/conf", "$TCT_HOME", @INC);
+  
+  #
+  #  Where all the full pathnames to the various shell binaries used live
+diff -cr --new-file ../tct-1.01/extras/ils2mac ./extras/ils2mac
+*** ../tct-1.01/extras/ils2mac	Mon Aug  7 19:55:30 2000
+--- ./extras/ils2mac	Tue Aug  8 21:23:22 2000
+***************
+*** 20,37 ****
+  require "$TCT_HOME/conf/coroner.cf";
+  require "tm_misc.pl";
+  require "hostname.pl";
+! 
+! #
+! # print out the TM header for a body file
+! #
+! chop($hostname = &hostname());
+! print "class|host|start_time\n";
+! print "body|", $hostname, "|", time(), "\n";
+  
+  #
+  # Read the time machine origin records (host, time, etc.).
+  # Skip over grave robber thrash.
+- # XXX Should not most origin fields be passed on to the output?
+  #
+  chop($line = <>);
+  chop($line = <>) if ($line !~ /class/);
+--- 20,30 ----
+  require "$TCT_HOME/conf/coroner.cf";
+  require "tm_misc.pl";
+  require "hostname.pl";
+! require "crunch.pl";
+  
+  #
+  # Read the time machine origin records (host, time, etc.).
+  # Skip over grave robber thrash.
+  #
+  chop($line = <>);
+  chop($line = <>) if ($line !~ /class/);
+***************
+*** 42,47 ****
+--- 35,52 ----
+      || die "$ARGV: No origin data record.\n";
+  ($#origin_in_labels == $#origin_in_fields)
+      || die "$ARGV: Inconsistent origin field count ($#origin_in_labels $#origin_in_fields).\n";
++ for (0..$#origin_in_labels) {
++     ${"f_$origin_in_labels[$_]"} = $origin_in_fields[$_];
++ }
++ $f_device = "disk" unless $f_device;
++ print "class=$f_class host=$f_host device=$f_device start_time=$f_start_time\n"
++     if $debug;
++ 
++ #
++ # print out the TM header for a body file
++ #
++ &tm_print("class", "host", "device", "start_time");
++ &tm_print("body", $f_host, $f_device, $f_start_time);
+  
+  #
+  # Read the data dictionary with input field names and positions.
+***************
+*** 56,61 ****
+--- 61,67 ----
+  #
+  @data_out_labels = ("md5", "file", "st_dev", "st_ino", "st_mode", "st_ls", "st_nlink", "st_uid", "st_gid", "st_rdev", "st_size", "st_atime", "st_mtime", "st_ctime", "st_blksize", "st_blocks");
+  $file_out_field = 1;
++ $ls_out_field = 5;
+  
+  &tm_print(@data_out_labels);
+  
+***************
+*** 77,82 ****
+--- 83,90 ----
+  #
+  $ino_in_field = $data_in_position{"st_ino"};
+  $alloc_in_field = $data_in_position{"st_alloc"};
++ $mode_in_field = $data_in_position{"st_mode"};
++ $f_device =~ s/.*\///;
+  
+  while (chop($line = <>)) {
+      @data_in_fields = &tm_split($line);
+***************
+*** 85,93 ****
+      for $offset (0..$#data_out_labels) {
+  	$data_out_fields[$offset] = $data_in_fields[$data_mapping[$offset]];
+      }
+      $data_out_fields[$file_out_field] = 
+  	($data_in_fields[$alloc_in_field] eq "a" ?
+! 	    "<live-$data_in_fields[$ino_in_field]>" :
+! 	    "<dead-$data_in_fields[$ino_in_field]>");
+      &tm_print(@data_out_fields);
+  }
+--- 93,103 ----
+      for $offset (0..$#data_out_labels) {
+  	$data_out_fields[$offset] = $data_in_fields[$data_mapping[$offset]];
+      }
++     $data_out_fields[$ls_out_field] =
++ 	&faux_ls("", oct($data_in_fields[$mode_in_field]));
+      $data_out_fields[$file_out_field] = 
+  	($data_in_fields[$alloc_in_field] eq "a" ?
+! 	    "<$f_device-live-$data_in_fields[$ino_in_field]>" :
+! 	    "<$f_device-dead-$data_in_fields[$ino_in_field]>");
+      &tm_print(@data_out_fields);
+  }
+diff -cr --new-file ../tct-1.01/help-recovering-file ./help-recovering-file
+*** ../tct-1.01/help-recovering-file	Wed Dec 31 19:00:00 1969
+--- ./help-recovering-file	Tue Aug  8 21:15:28 2000
+***************
+*** 0 ****
+--- 1,257 ----
++ So you've deleted an important file(s), or perhaps been broken into and
++ have your file system smashed by a vindictive system cracker, or some
++ other disaster has struck.  You need that file back, but Unix has no
++ way to recover lost data that hasn't been backed up.  You hunt around
++ for help, answers, anything, and perhaps run across this software or
++ had heard about it in the back of your mind.
++ 
++ To begin with, your data is *possibly* still out there somewhere -
++ TCT cannot help you if the data wasn't saved to disk first, however,
++ and it will take some time to hunt for data.
++ 
++ The following are problems for data recovery:
++ 
++ o	you do not have root privileges on the machine
++ 
++ o	you're inexperienced with Unix
++ 
++ o	you're in a hurry
++ 
++ o	the file is anything but small (say, greater than 15-20K).
++ 	It's still possible to recover larger files, but can be a
++ 	lot more difficult.
++ 
++ If you've lost email - especially a lot of it - you might look
++ at the "rip-mail" program in the "lazarus/post-processing" subdir.
++ 
++ We'd *HIGHLY* suggest you practicing on a few dummy files.  Go
++ ahead, remove some test files and follow the instructions below.
++ It's not that hard.
++ 
++ What you need in order to recover a deleted file:
++ 
++ o       A bit of knowledge about your system.
++ 
++ o	Spare disk space.  If not on your system, then on another system
++ 	that you can hook the original disk up to.  You'll need at least
++ 	*220%* of the free disk space of the file system that the file
++ 	was lost in.  The 220% is needed by:
++ 
++ 		100% = The unallocated blocks that you'll be recovering
++ 
++ 		120% = Roughly the space lazarus will consume.  It'll
++ 		       be at least 100% + some additional space.
++ 
++ o	At least a few hours of time (much of this will not be you doing 
++ 	any work, but the programs involved are slow).
++ 
++ 
++ CLIFF NOTES
++ ------------
++ 
++ The quick version is this:
++ 
++ 	Use "unrm" to recover the data, from the file system with
++ 	the lost file, to another file system; run lazarus, and
++ 	comb through the results until you find your data.
++ 
++ 
++ UNABRIDGED VERSION
++ -------------------
++ 
++ OK, you have the will, the time, and the disk space.  What now?
++ Reconstructing data is a two step process - recovering the data from
++ the unallocated section of the media with unrm and then reconstructing
++ it with lazarus.  You might try to read the man pages for unrm & lazarus,
++ or the file "lazarus.README", which will go on and on about how lazarus
++ and unrm work.  Failing that, this is a perhaps kindler and gentler
++ approach to the problem.
++ 
++ 
++ #1.  Determine the file system the lost file was on.  For those not
++ 	familiar with this concept, try typing (the "%" is the prompt -
++ 	"#" is used when it must be done by root):
++ 
++ 		% df /directory/where/file/was
++ 
++ 	("/bin/df -k" or "/usr/ucb/df" for solaris users)
++ 
++ This will return something like:
++ 
++ 	Filesystem           1k-blocks      Used Available Use% Mounted on
++ 	/dev/sda1              1008872    246788    710836  26% /
++ 
++ (Note - the "available column actually lies.  It has about 10% *MORE* than 
++ this available.  This is because Unix keeps a bit of space (typically 10% of 
++ the drive's capacity) in reserve (writable only by root) for performance 
++ and safety reasons.)
++ 
++ The first column ("/dev/sda1" in this case), is what we're interested in.
++ With the mantra "you need 220% of the free space available somewhere else"
++ in mind, if you have this 1GB disk with 710MB free, you'd want a second 
++ disk with at least 710MB x 220%, or some 1.6 GB free. If that space
++ is not available locally, perhaps you can find a machine elsewhere
++ on the network that has the space.
++ 
++ 
++ #2.  Save the unallocated blocks of that Filesystem - use the "unrm" tool
++ for this.  This may sound foolish, but UNDER NO CIRCUMSTANCES SHOULD YOU 
++ RECOVER DATA TO THE SAME FILE SYSTEM IT WAS LOST ON!!!!  If this isn't 
++ clear to you, consider; your data is in that free area out there somewhere.
++ You'd be filling up that free space with itself, essentially at random 
++ locations.  There'd be a more than significant chance you'd blow away your 
++ lost file before you got it.
++ 
++ Anyway, let's say you have two file systems, /dev/sda1 & /dev/sda2,
++ and you want to recover a file from the first.  As root you would...
++ 
++ 	a) Decide where on /dev/sda2 that you'll keep the results of
++ 	   the experiment.  I'll call this "/path/to/TCT" (for simplicity,
++ 	   this is also where TCT is installed).
++ 
++ 	b) type:
++ 
++ 		% cd /path/to/TCT
++ 
++ 	   and:
++ 
++ 		% bin/unrm /dev/sda1  >  /path/to/TCT/unrm_ouput
++ 
++ You'll probably need to wait several minutes, depending on how big the
++ disk is that you're unrm'ing from.
++ 
++ That's it, you've recovered your file!  Well, if it was on the disk
++ it's in that big file you just created ("/path/to/TCT/unrm_ouput").
++ You can, if you wish, try to scrounge through that binary thing to
++ recover your data.  Or you can move on to #3.
++ 
++ 
++ #3.  Run Lazarus on the output of unrm.  Typically this is done like:
++ 
++ 	% bin/lazarus -h unrm_output
++ 
++ The -h flag generates HTML output, which we can view with a browser.
++ Lazarus splits that big binary file into many smaller chunks.  It creates
++ two directories, one of which is called "blocks" and has *lots* of files
++ in it.  Hopefully your data is in there.
++ 
++ 
++ #4.  Now the hard part.  If you know what your file looks like, and it
++ has some unusual words or something in it, then you can try method A.
++ If not, go to method B below.
++ 
++ Method A
++ ---------
++ 
++ Let's say you lost a the last letter that your Dad wrote to you before
++ he died, and all you really remember is that he wrote something about a
++ Studebaker automobile he had as a kid.  "Studebaker" is a great word to
++ search for because the odds are that not a lot of files have that word
++ in it.
++ 
++ So you use your best friend "grep" on the blocks that were saved:
++ 
++ 	% grep -il studebaker blocks/* > matching_files
++ 
++ (-i ignores case, -l lists the file names)
++ 
++ If you see a match, examine the file(s) listed with a good pager that
++ can handle binary data, such as "less".  If you find it, congrats!
++ 
++ The above approach may fail with an error like "Argument list too
++ long" when there are many files. In that case, try the more robust
++ but more verbose version:
++ 
++ 	% find blocks -type f -print | xargs grep -il studebaker >matching_files
++ 
++ If you're looking for something that isn't so unique, think of keywords
++ that might help you out (like your name, employers, etc.)  You could
++ then do something like:
++ 
++ 	% egrep -il 'keyword1|keyword2|...' blocks/*.txt > matching_files
++ 
++ Images are likewise easy to examine; simply do something like ("xv" is a 
++ fine Unix image viewer/editor, "gimp" and others can also be used):
++ 
++ 	% xv blocks/*.gif blocks/*.jpg
++ 
++ Text based log files (syslog, message, etc.), even though they will 
++ often be spread out all over the disk because of the way they are written
++ (a few records at a time), are actually potentially easy to recover -
++ and in the correct order - because of the wonderful time stamp on each
++ line; the simplest way (until a better log analyzer is written) is to
++ (the tr(1) is in there to remove nulls; commands such as sort don't
++ like nulls in the files they work with!):
++ 
++ 	% cat blocks/*.l.txt | tr -d '\000' | sort -u > all-logs
++ 
++ And then browse through them.  A few bits and pieces will probably
++ be lost (due to the fragmentation at block and fragment boundaries),
++ but it's a good way to start.
++ 
++ Some data, like C source code, is very easy to confuse with other
++ types of program files and text, so a combined arms approach that
++ uses grep & the browser is sometimes useful (more on the browser 
++ approach in a bit).
++ 
++ Another good way to find source code is if you know of a specific #include
++ file that the code uses or a specific output line that the program emits -
++ a simple:
++ 
++ 	% grep -l rpcsvc/sm_inter.h blocks/*.[cpt].txt
++ 
++ Will find any files that have rpcsvc/sm_inter.h in them (not a lot,
++ probably! ;-))	This sort of brute force approach can be quite useful.
++ 
++ Again, beware of concatenating lots of recovered blocks/files
++ together and performing text based searches or operations on them
++ (sort, grep, uniq, etc.)
++ 
++ 
++ Method B
++ ---------
++ 
++ Browsin' time.  The browser approach, while much nicer looking, is
++ not so great when you're looking for that one lost file. However,
++ a browser can be helpful when you're looking for interesting files
++ in general.  To start up the browser just have it open up the main
++ HTML file you created previously with lazarus - it'll have a name
++ like "unrm_output.frame.html" if the original data was called
++ "unrm_output".
++ 
++ If done correctly you'll see large map of your disk made up from
++ letters, and a small HTML frame that shows what all the letters in
++ the large map mean.  You can use your browser's internal search
++ function or simply browse through the map looking for things of
++ interest.  Clicking on a link will display the data in that file
++ (unless it has unprintable data).
++ 
++ Some data - like C source code - is hard for lazarus to distinguish
++ from other types of program files and text, so a combined arms approach 
++ that uses grep & the browser can be useful.  For instance, if you
++ have a section of data that looks like thus on the disk map:
++ 
++ 	....CccPpC..Hh....
++ 
++ The first three recognized text types - C, P, and C - might all be
++ the same type of text (C).  Finding the block # by simply putting
++ your mouse over the link and then concatenating the files or
++ examining them manually is great.
++ 
++ The browser based approach can be especially useful if you have 
++ lots of files on a disk.  Because Unix file systems often will have a
++ strong sense of locality that is tied to the directories that the
++ files were once in, you can use the graphical browser to locate
++ an interesting looking section of the disk and try to hunt either
++ using the browser or via standard Unix tools on the saved blocks
++ once you've found an area that looks promising.
++ 
++ 
++ As you can see (if you've read this far), this is *far* from being
++ an automated process.  However, you really can recover stuff.  In the
++ future the process will hopefully become less arduous, either if we
++ put some of the features we've been thinking about (being able to search
++ from the browser, displaying all data irrespective of its printability,
++ etc.) or if others work on this important problem.
++ 
++ Good luck recovering your data!
+diff -cr --new-file ../tct-1.01/lib/crunch.pl ./lib/crunch.pl
+*** ../tct-1.01/lib/crunch.pl	Sun Jul 30 19:39:20 2000
+--- ./lib/crunch.pl	Thu Aug  3 13:45:38 2000
+***************
+*** 181,187 ****
+  if ($mode & 000002) { $ls .= "w"; } else { $ls .= "-"; }
+  if ($mode & 000001) { $ls .= "x"; } else { $ls .= "-"; }
+  
+! if (-l $file) {
+  	$points_to = readlink($file);
+  	$ls .= " -> $points_to";
+  	# $real_file = &realpath($file);
+--- 181,187 ----
+  if ($mode & 000002) { $ls .= "w"; } else { $ls .= "-"; }
+  if ($mode & 000001) { $ls .= "x"; } else { $ls .= "-"; }
+  
+! if ($file && -l $file) {
+  	$points_to = readlink($file);
+  	$ls .= " -> $points_to";
+  	# $real_file = &realpath($file);
+diff -cr --new-file ../tct-1.01/lib/suck_table.pl ./lib/suck_table.pl
+*** ../tct-1.01/lib/suck_table.pl	Sun Jul 30 19:39:20 2000
+--- ./lib/suck_table.pl	Thu Aug  3 14:59:20 2000
+***************
+*** 50,57 ****
+      $ref = \@{$table{'data'}};
+      for ($n = 0; chop($line = <TABLE>); $n++) {
+  	@{$ref->[$n]} = &tm_split($line);
+  	($#labels == $#{$ref->[$n]})
+! 	    || die "$path: Inconsistent data field count: $line\n";
+      }
+  
+      #
+--- 50,59 ----
+      $ref = \@{$table{'data'}};
+      for ($n = 0; chop($line = <TABLE>); $n++) {
+  	@{$ref->[$n]} = &tm_split($line);
++ 	($#labels > $#{$ref->[$n]})
++ 	    && ($#{$ref->[$n]} = $#labels);
+  	($#labels == $#{$ref->[$n]})
+! 	    || die "$path: Inconsistent data field count $#labels != $#{$ref->[$n]}: $line\n";
+      }
+  
+      #
+***************
+*** 59,64 ****
+--- 61,72 ----
+      #
+      close(TABLE);
+      return %table;
++ }
++ 
++ if (!$running_under_grave_robber) {
++     $running_under_grave_robber = 1;
++     require "tm_misc.pl";
++     &suck_table($ARGV[0]);
+  }
+  
+  1;
+diff -cr --new-file ../tct-1.01/man/man1/mactime.1 ./man/man1/mactime.1
+*** ../tct-1.01/man/man1/mactime.1	Sun Jul 30 19:39:20 2000
+--- ./man/man1/mactime.1	Sun Aug  6 21:24:19 2000
+***************
+*** 22,28 ****
+  ]
+  time1
+  [
+! .B time2
+  ]
+  .SH DESCRIPTION
+  .I mactime
+--- 22,28 ----
+  ]
+  time1
+  [
+! .B -time2
+  ]
+  .SH DESCRIPTION
+  .I mactime
+diff -cr --new-file ../tct-1.01/src/fstools/ils.c ./src/fstools/ils.c
+*** ../tct-1.01/src/fstools/ils.c	Sun Jul 30 19:39:20 2000
+--- ./src/fstools/ils.c	Fri Aug  4 10:52:58 2000
+***************
+*** 139,145 ****
+  
+  /* print_header - print time machine header */
+  
+! static void print_header(void)
+  {
+      char    hostnamebuf[BUFSIZ];
+      unsigned long now;
+--- 139,145 ----
+  
+  /* print_header - print time machine header */
+  
+! static void print_header(const char *device)
+  {
+      char    hostnamebuf[BUFSIZ];
+      unsigned long now;
+***************
+*** 152,159 ****
+      /*
+       * Identify table type and table origin.
+       */
+!     printf("class|host|start_time\n");
+!     printf("ils|%s|%lu\n", hostnamebuf, now);
+  
+      /*
+       * Identify the fields in the data that follow.
+--- 152,159 ----
+      /*
+       * Identify table type and table origin.
+       */
+!     printf("class|host|device|start_time\n");
+!     printf("ils|%s|%s|%lu\n", hostnamebuf, device, now);
+  
+      /*
+       * Identify the fields in the data that follow.
+***************
+*** 170,181 ****
+  static void print_inode(INUM_T inum, FS_INODE *fs_inode, int flags,
+  			        char *unused_context)
+  {
+-     static int header_done = 0;
+- 
+-     if (header_done == 0) {
+- 	print_header();
+- 	header_done = 1;
+-     }
+      printf("%lu|%c|%d|%d|%lu|%lu|%lu",
+  	   (ULONG) inum, (flags & FS_FLAG_ALLOC) ? 'a' : 'f',
+  	   (int) fs_inode->uid, (int) fs_inode->gid,
+--- 170,175 ----
+***************
+*** 278,288 ****
+      /*
+       * Open the file system.
+       */
+!     fs = fs_open(argv[optind++], fstype);
+  
+      /*
+       * List the named inodes.
+       */
+      if (optind < argc) {
+  	while ((start = argv[optind]) != 0) {
+  	    last = split_at(start, '-');
+--- 272,288 ----
+      /*
+       * Open the file system.
+       */
+!     fs = fs_open(argv[optind], fstype);
+! 
+!     /*
+!      * Print the time machine header.
+!      */
+!     print_header(argv[optind]);
+  
+      /*
+       * List the named inodes.
+       */
++     optind++;
+      if (optind < argc) {
+  	while ((start = argv[optind]) != 0) {
+  	    last = split_at(start, '-');

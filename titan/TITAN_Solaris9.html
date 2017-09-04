@@ -1,0 +1,516 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.78 [en] (X11; U; SunOS 5.9 sun4u) [Netscape]">
+</head>
+<body>
+
+<center>
+<h1>
+<img SRC="bigmap.jpg" </CENTER ></h1></center>
+
+<center><font color="#3366FF">Titan's view of the world</font>
+<p>
+<hr></center>
+
+<ul>
+<center><!-- Published by Quadralay WebWorks HTML Lite 1.5.1 --><a NAME="10346"></a></center>
+
+<center>
+<h1>
+<font color="#3333FF">TITAN 4.0 for Solaris 9</font></h1></center>
+
+<center>
+<h1>
+Descriptions as to what each module does:</h1></center>
+<b>Titan top level directory. This directory exists because of so many
+subtle changes done to solaris 9 syntax, and new solaris 9 features. It
+just got too messy to keep solaris 2.[1-7] modules and still put in the
+solaris 9 functionality.</b>
+<center>
+<p><a NAME="418052"></a></center>
+<a href="../../arch/sol9sun4/bin/Titan">Titan&nbsp;</a> Titan is the program
+which runs all the other shell scripts (*.sh) and accepts either the -I
+(intro) -F (fix) -C (configuration) [ + filename] )or -V (verify) flag.
+<p><a href="../../arch/minumize-OS/minimizeOS.sh">MinimizeOS</a> is a new
+module that takes a configuration file and does a pkgrm of all modules
+that are not found in the configuration file. This minimizes the OS and
+removes unused (and potentially insecure) packages from the system.Use
+with caution.
+<p><a href="../../arch/sol9sun4/bin/init4.sh-generic">init4.sh-generic</a>
+<br>This script checks and turns off ALL server side services. init4.sh-generic
+creates a new system run level of run-level 4 which only has client side
+network services enabled.
+<p>&nbsp;init4.sh-generic when run the first time with init4.sh-generic
+-f;&nbsp; will create links for all start up
+<br>&nbsp;scripts from /etc/rc2.d and /etc/rc3.d into the new /etc/rc4.d
+and replaces the&nbsp; "S" for "Start" with a "K" for kill in front of
+the script to keep the script from running when run-level 4 is entered.
+<br>This is done such that by either booting into run-level 4 or by changing
+run-level from another run-level into run-level 4 (entering "init 4" as
+root) will cause all server side services to be shut down. This includes
+inetd! as well as any other services run out of inetd including telnetd,
+ftpd, and any other daemon ("*d") that is a listening server for your system.
+This makes your system act as
+<br>a (mostly) standalone black-box which allows outbound connections,
+but does not accept ANY in-bound connections from "standard" services.
+<p>&nbsp;NOTE: This does *not* disable any services that are started up
+by any other method such as by users or root from the command line, or
+via cron.
+<p>&nbsp;This utility is quite useful for laptops or other desktop systems
+that are going to connect to the Internet temporarily. It is also useful
+as a starting point for Servers where you want to manually install a single
+service (after running init4.sh-generic -f).
+<p>&nbsp;You can manually add back in a startup script (like /etc/rc4.d/S99sshd
+or
+<br>&nbsp;/etc/rc4.d/httpd) by editing the init4.sh-generic script and
+changing the NEEDEDSVC
+<br>&nbsp;variable (or just do it manually) . This would then be the only
+listening service/server; everything else would not listen for remote connections.
+<p>&nbsp;It checks the following directories
+<br>&nbsp;/etc/rc2.d /etc/rc3.d
+<p>&nbsp;NOTE2: To make init run level 4 the DEFAULT run level for the
+system, change the line in /etc/inittab:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Default Solaris uses run
+level 3:
+<br>&nbsp;&nbsp;&nbsp; FROM:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+is:3:initdefault:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CHANGE this line&nbsp; -after-
+running the init4.sh-generic script:
+<br>&nbsp;&nbsp;&nbsp; TO:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+is:4:initdefault:
+<p><a href="../../arch/sol9sun4/bin/Titan.top">Titan.top </a>This module
+is the same as Titan except the path has been modified so that When "Titan-Config"
+is run, Titan can be run from the top most directory.
+<p><a href="../../arch/sol9sun4/bin/TitanReport">TitanReport</a>. This
+file runs all Titan modules in the $TITANDIR/bin/modules directory using
+the "-v" flag. TitanReport then sends email with&nbsp; the results. Titanreport
+is intended to run out of cron, or as an auditing tool. See the<a href="FAQ.html">
+FAQ</a> for more.
+<p><a href="../../arch/sol9sun4/bin/sample.Desktop">Sample.Desktop</a>,
+<a href="../../arch/sol9sun4/bin/sample.Firewall">sample.Firewall</a>,
+<a href="../../arch/sol9sun4/bin/sample.Server">sample.Server</a>,
+<a href="../../arch/sol9sun4/bin/sample.config">sample.config.</a>
+These files are used as sample templates when titan is run as "Titan -c
+config-file". See the <a href="FAQ.html">FAQ</a> for more.
+<p><a href="../../arch/sol9sun4/lib/backtit.sh">backtit.sh </a>This modules
+is called by "Titan-Config" when run "Titan-Config -i" (install). Backtit.sh
+makes a backup copy of all the files Titan modifies (backtit.sh currently
+does not backup file permission changes) SEE Note above!
+<p><a href="../../arch/sol9sun4/lib/untit.sh">untit.sh</a> Untit.sh is
+called by "Titan-Config" when run 'Titan-Config -d" (de-install) Untit.sh
+replaces the files modified by Titan with the original unsecured versions,
+and is provided as a recovery mechanism if we were too aggressive about
+securing the system.
+<p><b>src1 directory</b>
+<p><a href="../../src1/noshell.c">noshell.c</a> This is the preferred way
+of doing a noshell. This should be statically compiled (see <a href="../../src1/makefile">Titan.v4.0/src1/Makefile</a>)
+and should replace the shell script that disable-accounts.sh placed in
+/usr/sbin/noshell.
+<p><a href="../../src1/noshell-simple.c">noshell-simple.c</a> This is a
+simplified version of noshell.c . I don't expect this to get much use,
+but&nbsp; should be statically compiled (see <a href="../../src1/Makefile">Titan,v4.0/src1/Makefile</a>)
+and replace the /usr/sbin/noshell script that disable-accounts.sh creates.
+the script that disable-accounts.sh creates is better than nothing,&nbsp;
+(better than /bin/true which is also a shell script) but a statically linked
+C program is the best way to go.
+<p><a href="../../src1/Makefile.linux">Titan,v4.0/src1/Makefile.linux</a>
+It turned out that with a few simple changes to the makefile, that noshell
+and runas worked fine with Linux distributions (probably other Unix variants
+too).
+<p><a href="../../src1/runas.c">runas.c</a> This is a simple generic program
+that allows administrators to start daemons as non privileged users, and
+optionally to run in a chrooted environment. A really good example is the
+license manager daemon. Sun sets the license manager daemon (in /etc/rc2.d/S85lmgrd)
+to start up with the command (line 84 on my system) :
+<p>su nobody -c $lic_srvr_start
+<p>This isn't bad, but it requires that the user shell for user "nobody"
+be a valid shell. Well being paranoid, Titan sets the shell to "noshell"
+so when some intruder tries to login as user "nobody" we get a warning
+message. So to get the license manager daemon to start, while keeping our
+security intact, we change the /etc/rc2.d/S86lmgrd to use runas with the
+following syntax:
+<p>&nbsp;&nbsp; /sbin/runas 60001 60001&nbsp;&nbsp;&nbsp;&nbsp; 022 $lic_srvr_start
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+^^^^^&nbsp; ^^^^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^^^
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nobodyUID&nbsp;
+nobodyGID&nbsp;&nbsp; umask to use
+<p>viola! Secure as well as functional. With the latest runas.c you can
+also run things in a chrooted environment. This isn't required for the
+license manager daemon, but will come in handy for http daemons.
+<br>&nbsp;
+<p><b>Titan modules (arch/sol9sun4/bin/modules)</b>
+<p><a href="../../arch/sol9sun4/bin/modules/add-cmask.sh">add-cmask.sh&nbsp;</a>
+Adds system wide CMASK New in Solaris 9. Replaces add-umask.sh
+<p><a href="../../arch/sol9sun4/bin/modules/adjust-arp-timers.sh">adjust-arp-timers.sh</a>&nbsp;
+This changes the system configuration to shorten the ARP expiration timer&nbsp;
+to one minute instead of the default 20 minutes.
+<p><a href="../../arch/sol9sun4/bin/modules/aset.sh">aset.sh</a> This module
+was contributed by Jason R. Rhoads mailto:jasonr@net.com. aset.sh is a&nbsp;
+Titan wrapper around the Solaris Automated Security Enhancement Tool (ASET)
+<p><a href="../../arch/sol9sun4/bin/modules/automount.sh">automount.sh&nbsp;</a>
+Disables the automounter at boot time. (old version for compatibility)
+<p><a href="../../arch/sol9sun4/bin/modules/automount2.sh">automount2.sh.</a>
+Moves aside the /etc/rc2.d/S74automount file so that automounter doesn't
+start up at boot.
+<p><a href="../../arch/sol9sun4/bin/modules/bsm.sh">bsm.sh</a> bsm.sh verifies
+that the Basic Security Module (BSM) is enabled and configures auditing
+events by modifying /etc/security/audit_control. Auditing is configured
+to log all logins, admin operations (whether or not they succeed), as well
+as failures of all types except object attribute access failures. Auditing
+flags can be changed by editing this script. Note: When run in Fix mode
+and BSM was not previously enabled, it will be neccessary to reboot.
+<p><a href="../../arch/sol9sun4/bin/modules/cde.sh">cde.sh</a> This module
+sets up CDE to not allow XDMCP logins from remote. In order to do this
+we: 1) Move /usr/dt/config/Xaccess to /usr/dt/config/Xaccess.0701021137
+2) Move /etc/dt/config/Xaccess to /etc/dt/config/Xaccess.0701021137 (if
+it exists) 3) Replace the Xaccess file with a minimal one 4) chmod the
+file to work
+<p><a href="../../arch/sol9sun4/bin/modules/create-issue.sh">create.issue.sh</a>
+Creates the /etc/issue banner that gets displayed at login time. NOTE:
+see ssh-banner.sh below. You also need to enable that as well for ssh (new
+in Sol9)
+<p><a href="../../arch/sol9sun4/bin/modules/cronset.sh">cronset.sh.</a>
+This script check/fixes CRONLOG-YES in /etc/default/cron, rotates the cron
+log files at 2Mb, and changes cron permissions.
+<p><a href="../../arch/sol9sun4/bin/modules/decode.sh">decode.sh </a>Looks
+for any&nbsp; ``|'' in /etc/aliases and fixes if found.
+<p><a href="../../arch/sol9sun4/bin/modules/defloginparams.sh">defloginparams.sh</a>
+Resets the /etc/default/login parameters to a stricter mode.&nbsp; Variables
+are in the script to allow you to match <b><i>your</i></b> security policy
+<p><a href="../../arch/sol9sun4/bin/modules/defpwparams.sh">defpwparams.sh</a>
+Resets the /etc/default/password parameters to be stricter. Variables are
+in the script to allow you to match <b><i>your</i></b> security
+<p><a href="../../arch/sol9sun4/bin/modules/disable-L1-A.sh">disable-L1-A.sh
+</a>Solaris
+2.6 and newer only. This disables the L1-A or stop-A keyboard sequence
+by modifying /etc/default/kbd.
+<p><a href="../../arch/sol9sun4/bin/modules/disable-NFS-2.6.sh">disable-NFS-2.6.sh</a>
+This checks that the NFS system port is set as a privileged port. Works
+with solaris 2.6 and newer using the new ndd definitions:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ndd /dev/tcp tcp_extra_priv_ports
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ndd /dev/udp udp_extra_priv_ports
+<p><a href="../../arch/sol9sun4/bin/modules/disable-accounts.sh">disable-accounts.sh</a>
+Disables ``system'' accounts like ``bin'' and ``daemon'' and creates a
+/usr/sbin/noshell script. NOTE! The noshell script should only be a place
+holder until you compile and install the noshell&nbsp; statically linked
+C program. NOTE: if you don't have a root password set, titan WILL disable
+root as well.
+<p><a href="../../arch/sol9sun4/bin/modules/disable-afbinit.sh">disable-afbinit.sh</a>
+Disables the afbinit service from starting. part of the OEM packages.
+<p><a href="../../arch/sol9sun4/bin/modules/disable-cachefs.sh">disable-cachefs.sh</a>
+Name change from nuke-cachefs.sh Note: some systems require cachefs to
+run. HA systems as one example.
+<p><a href="../../arch/sol9sun4/bin/modules/disable-core-sol8.sh">disable-core-sol8.sh</a>
+This modules uses coreadm to disable core files. No reboot is required!
+<p><a href="../../arch/sol9sun4/bin/modules/disable-ncalogd.sh">disable-flashprom.sh
+</a>Disables the flasprom daemon from listening for flashprom updates (from
+afar)
+<p><a href="../../arch/sol9sun4/bin/modules/disable-ifbinit.sh">disable-ifbinit.sh</a>
+Disables ifbinit daemon from starting (OEM package)
+<p><a href="../../arch/sol9sun4/bin/modules/disable-L1-A.sh">disable-L1-A.sh</a>.
+Stops the L1-A sequence from being used
+<p><a href="../../arch/sol9sun4/bin/modules/disable-llc2.sh">disable-llc2.sh</a>
+Disables llc2 daemon (OEM package)
+<p><a href="../../arch/sol9sun4/bin/modules/disable-ncalogd.sh">disable-ncalogd.sh</a>
+Disables ncalogd from running (OEM package)
+<p><a href="../../arch/sol9sun4/bin/modules/disable-ping-echo.sh">disable-ping-echo.sh</a>&nbsp;
+This disables ip_respond_to_echo_broadcast so that specific ping crashes
+don't work . It also hides the system from some network probe agents that
+use broadcast ping to discover hosts to probe.
+<p><a href="../../arch/sol9sun4/bin/modules/disable_ip_holes.sh">disable_ip_holes.sh</a>
+Disables ip_forward ip_forward_directed_broadcasts, ip_source_routed,&nbsp;
+and ip_ignore_redirect 1, ect.
+<p><a href="../../arch/sol9sun4/bin/modules/disable-pppd.sh">disable-pppd.sh</a>
+Disables PPP daemon. Only needed for&nbsp; dialup.
+<p><a href="../../arch/sol9sun4/bin/modules/disable-services.sh">disable-services.sh</a>
+This disables various services from running during startup.&nbsp; By default
+it will turn off S73nfs.client ,S74autofs, S80lp, S88sendmail, S71rpc,
+S99dtlogin, S28nfs.server, and&nbsp; S76snmpdx.&nbsp; These
+<br>default services that are disabled can be changed by editing the DISABLERC
+variable in the script.
+<p><a href="../../arch/sol9sun4/bin/modules/2.6dmi.sh">dmi-2.6.sh</a> Simply
+moves aside all the dmi daemons start up files. DMI doesn't do any authentication
+; allows core dumps and seems to allow you to start up arbitrary services.
+It isn't well documented on what it actually does.
+<p><a href="../../arch/sol9sun4/bin/modules/eeprom.sh">eeprom.sh</a>&nbsp;
+Check Only. This checks to see if you set an eeprom password ("eeprom security-mode
+= command" is recommended; and then move/remove the eeprom command support
+from the kernel) If you don't set a eeprom password, a bad guy might set
+one for you (eeprom security-mode = full) and then halt your system. Then
+since you don't know the password, you cannot reboot (DOS attack)
+<p><a href="../../arch/sol9sun4/bin/modules/file-own.sh">file-own.sh</a>
+Changes system files (mainly in /usr ) to be owned by "root"." I personally
+don't like anything that the root user is going to run not being owned
+by root. When /usr/bin is owned by user ``bin'' user ``bin can trojan anything
+root runs; thus bin=root. Thus I change everything back to root to begin
+with. We need not mention NFS where root=nobody but bin=bin; I think you
+get the point.
+<p><a href="../../arch/sol9sun4/bin/modules/fix-cronpath.sh">fix-cronpath.sh</a>
+Changes permission and ownership of things run out of roots cron.&nbsp;
+Otherwise every time cron is run a new trojan/setuid-root-file could be
+created.
+<p><a NAME="418095"></a>
+<p><a href="../../arch/sol9sun4/bin/modules/fix-modes.sh">fix-modes.sh</a>
+modes.c modes;&nbsp; (From Casper Dik). Fixes all the mode 775 directories
+and binaries and changes the ownership to root where needed. The modes.c&nbsp;
+may need&nbsp; to be compiled locally.
+<p>- <font color="#FF0000">Big note here!</font> - REMEMBER to <b>re-run
+this</b> whenever you add packages or patches!! If you don't, the modes
+get brain dead again. This should be run (-v) often such as out of cron
+or at least after adding any vendor patches. Then run -f as needed.
+<p><a href="../../arch/sol9sun4/bin/modules/fix-stack.sol2.6.sh">fix-stack.sol2.6.sh</a>
+Solaris 2.6 has the protect_stack ability built-in as a /etc/system configurable
+option. This blocks many of the stack smashing bugs from working.
+<p><a href="../..//arch/sol9sun4/bin/modules/ftp-2.6_secure.sh">ftp-2.6_secure.sh</a>
+This works with Solaris 2.6 and newer version of in.ftpd. It adds in a
+umask (UMASK=077) into /etc/default/ftpd, and also creates a short ftp
+login warning message by creating /etc/ftp-banner. There is a size limit
+imposed on the ftp banner, so if you modify
+<br>this script, be cognizant of the length restriction.&nbsp; <font color="#FF0000">Caution</font>
+- if you reset the Titan default for UMASK, care should be taken. It is
+possible to reset the umask value to a LESS secure mode (letting ftp create
+executable binaries or suid binaries would be a <b>bad</b> thing!)
+<p><a href="../../arch/sol9sun4/bin/modules/ftpusers.sh">ftpusers.sh</a>
+Creates a sane /etc/ftpusers which stops users such as root or "bin" from
+using ftp. This prevents "root" from ftping over a new /etc/shadow file,
+and forces the administrators to ftp as themselves and then "su" to root
+thus keeping the audit trail&nbsp; (more) intact.
+<p><a href="../../arch/sol9sun4/bin/modules/hosts.equiv.sh">hosts.equiv.sh</a>
+Checks for /etc/hosts.equiv. it should also check /etc/nsswitch.conf "password
+and group" entries but currently doesn't.
+<p><a href="../../arch/sol9sun4/bin/modules/hostallow.sh">hostallow.sh</a>
+New for solaris 9. NOTE: this only applies to ssh/sshd. See tcp_wrap.sh
+for all other services started out of inetd (in.telnetd, ect.)
+<p><a href="../../arch/sol9sun4/bin/modules/inetd.sh">inetd.sh</a> Changes
+/etc/inetd.conf&nbsp; and turns off most of the services.&nbsp; You will
+want to&nbsp; localize this.&nbsp; For desktops for instance you might
+want to leave on the services for calendar manager and tooltalk (assuming
+windows) My suggestion is to turn on tcp_wrappers support with tcp_wrap.sh
+and wrap all services. Then get ssh and turn off rsh/rlogin and ftp and
+only use ssh/scp for remote access needs.
+<p><a href="../../arch/sol9sun4/bin/modules/inetd2.sh">inetd2.sh</a> A
+more restrictive version of the inetd.sh module. This one turns off everything,
+and runs a little cleaner for things like firewalls.
+<p><a href="../../arch/sol9sun4/bin/modules/inetsvc.sh">inetsvc.sh</a>.
+This modules changes /etc/init.d/inetsvc to a minimum version such that
+named (DNS server), multicast, and DHCP are not supported. Obviously if
+you are on a DNS server, or a laptop that uses DHCP, you may not want to
+run this module. But for everything else, it helps by not allowing the
+system to be bothered by these system calls.
+<p><a NAME="418928"></a><a href="../../arch/sol9sun4/bin/modules/keyserv2.8.sh">keyserv2.9.sh</a>
+New in sol9. Changes the keyserv startup /etc/default/keyserv changing
+ENABLE_NOBODY_KEYS=YES to ENABLE_NOBODY_KEYS=NO.
+<p><a href="../../arch/sol9sun4/bin/modules/log-tcp.sh">log-tcp.sh
+</a>Adds
+the "-t" flag to in.inetd startup in /etc/rc2.d/S72inetsvc to trace all
+incoming TCP services.
+<p><a href="../../arch/sol9sun4/bin/modules/loginlog.sh">loginlog.sh</a>
+Fixes the syntax so that (assuming Sun patches) log entries are made for
+failed login attempts.
+<p><a href="../../arch/sol9sun4/bin/modules/login_failed_retries.sh">login_failed_retries.sh
+</a>This
+program modifies /etc/default/login taking advantage of Solaris 8's RETRIES
+variable, which determines the number of failed logins that will be allowed
+before login exits.
+<p><a href="../../arch/sol9sun4/bin/modules/lpsched.sh">lpsched.sh</a>
+Disables lp. For firewalls, and non-print servers. Probably want to leave
+this service on for desktops.
+<p><a href="../../arch/sol9sun4/bin/modules/nddconfig2.8.sh">nddconfig.2.9.sh</a>&nbsp;
+Creates /etc/rc2.d/<a href="../../arch/sol9sun4/lib/nddconfig">S70nddconfig</a>
+and sets all of the kernel network modules that have to do with security
+(that we know of)
+<p><a href="../../arch/sol9sun4/bin/modules/nfs-portmon.sh">nfs-portmon.sh</a>&nbsp;
+Turns on NFS port monitoring for solaris.
+<p><a href="../../arch/sol9sun4/bin/modules/nsswitch.sh">nsswitch.sh</a>&nbsp;
+Modifies /etc/nsswitch.conf removing all the nis/nis+/dns entries. This
+is useful on a firewall, but you may want to tune it down a little on networked
+servers and desktops.&nbsp; It also sets password and group to only look
+at local password/group files; again network servers or desktops might
+not want this behavior.
+<p><a href="../../arch/sol9sun4/bin/modules/nuke-dtlogin.sh">nuke-dtlogin.sh</a>
+This program simply renames S99dtlogin to s99dtlogin so that dtlogin does
+not start at system boot.
+<p><a href="../../arch/sol9sun4/bin/modules/nuke-nfs-client.sh">nuke-nfs-client.sh</a>For
+systems that don't use NFS, and for NFS servers. Disables NFS client
+<p><a href="../../arch/sol9sun4/bin/modules/nuke-nfs-serv.sh">nuke-nfs-serv.sh</a>
+For desktops and those systems that will never be exporting filesystems.
+<p><a href="../../arch/sol9sun4/bin/modules/nuke-nscd.sh">nuke-nscd.sh</a>&nbsp;
+Disables the Name Service Cache Daemon. Useful on firewalls, but may not
+apply to desktops.
+<p><a href="../../arch/sol9sun4/bin/modules/nuke-powerd.sh">nuke-powerd.sh
+</a>This
+program simply renames S85power to s85power so that powerd does not start
+at system boot
+<p><a href="../../arch/sol9sun4/bin/modules/nuke-rpc.sh">nuke-rpc.sh</a>
+Just eliminates RPC. Used for Servers and Firewalls.
+<p><a href="../../arch/sol9sun4/bin/modules/nuke-sendmail.sh">nuke-sendmail.sh</a>
+This module does as it implies. Disables sendmail. This modules should
+be used on Firewalls that are not sendmail servers, Servers that are not
+sendmail servers, and all desktops that have their mail delivered to a
+server.
+<p><a href="../../arch/sol9sun4/bin/modules/nuke-smc.sh">nuke-smc.sh</a>
+This module stops the Sun Management Console from starting.
+<p><a href="../../arch/sol9sun4/bin/modules/2.6-pam-rhosts.sh">pam-rhosts-2.6.sh</a>
+This solaris 2.6 module saves and modifies the /etc/pam.conf file removing
+the line: " rlogin&nbsp; auth sufficient /usr/lib/security/pam_rhosts_auth.so.1"
+such that rhosts are not allowed by the PAM system.
+<p><a href="../../arch/sol9sun4/bin/modules/passwd.sh">passwd.sh</a> Checks
+that all accounts have passwords and adds in a "*" password if run in fix
+mode.
+<p><a href="../../arch/sol9sun4/bin/modules/powerd2.8.sh">powerd2.8.sh</a>
+Checks that the power suspend (/usr/openwin/bin/sys-suspend) can only be
+run by the root user.
+<p><a href="../../arch/sol9sun4/bin/modules/psfix.sh">psfix.sh</a>&nbsp;
+This program creates /etc/rc3.d/S79tmpfix so that upon boot the /tmp&nbsp;
+directory will always have the sticky bit set mode 1777
+<p><a href="../../arch/sol9sun4/bin/modules/queue-sendmail.sh">queue-sendmail.sh</a>
+Changes sendmail to queue mode only. Not much use if you already killed
+sendmail above.
+<p><a href="../../arch/sol9sun4/bin/modules/rhosts.sh">rhosts.sh</a> Originally
+from COPS. Scans for .rhosts in NIS and local directories but unlike COPS
+if run in fix mode it removes/renames them.
+<p><a NAME="418129"></a><a href="../../arch/sol9sun4/bin/modules/rmmount.sh">rmmount.sh</a>
+This module adds in the nosuid option into /etc/rmmount.conf forcing vold
+to always mount CD's and floppies with the nosuid option enabled. Not needed
+if vold.sh has already disabled vold completely.
+<p><a href="../../arch/sol9sun4/bin/modules/rootchk.sh">rootchk.sh</a>
+Checks roots path and makes sure that root owns the directories and binaries
+in roots path. Changes them (when run -F) if they are wrong. Also removes
+the ``.'' from the path.
+<p><a href="../../arch/sol9sun4/bin/modules/routed.sh">routed.sh</a> Starts
+in.routed in the quiet mode (-q)
+<p>- <font color="#FF0000">Big note here!</font> - REMEMBER to <b>re-run
+this</b> whenever you add any patches for in.routed.If you don't, the in.routed
+will start up advertising routes again since titans in.routed will be over
+written by the patch.
+<p><a href="../../arch/sol9sun4/bin/modules/sendmail-forward.sh">sendmail-forward.sh</a>
+Takes advantage of new sendmail features to disable forwarding of mail
+(spammers using you to bounce their mail)
+<p><a href="../../arch/sol9sun4/bin/modules/sendmail.sh">sendmail.sh</a>
+changes sendmail.cf adding in the option ``goaway'' so that telnet hostname
+25" (connecting to the sendmail port) doesn't allow cracker to look up
+user info.&nbsp; Note- you should also changes the P=/bin/sh to P=/bin/false
+if you can or look into using smrsh for servers and desktops. Note-&nbsp;
+firewalls should&nbsp; TURN OFF/wrapper&nbsp; sendmail on the firewall
+system.&nbsp; Now would be a good time to look into Postfix.
+<p><a href="../../arch/sol9sun4/bin/modules/smtpbanner-8.8.sh">smtpbanner-8.8.sh
+</a>Modified
+sendmail version 8.8 sendmail.cf to change the banner to give out less
+information.
+<p><a href="../../arch/sol9sun4/bin/modules/ssh-banner.sh">ssh-banner.sh</a>
+Changes to /etc/ssh/sshd_config file to force ssh to display a banner when
+connecting.
+<p><a href="../../arch/sol9sun4/bin/modules/syslog-block-remote.sh">syslog-block-remote.sh</a>
+New module. Configures syslog to NOT accept remote calls to your syslogd.
+This should be run on all systems that ARE NOT defined as "loghost". Loghost
+systems SHOULD NOT run this module. Note: For critical systems you should
+have at least one system defiled as "loghost" somewhere in your /etc/hosts
+(or NIS;NIS+) such that local logs are also sent to a remote "loghost"
+server. This is so you can do a sanity check to see if your local logs
+have been erased (intrusion).
+<p><a href="../../arch/sol9sun4/bin/modules/2.6snmpdx.sh">snmpdx-2.6.sh</a>
+2.6snmpdx.sh Simply moves aside all the snmpdx daemons start up files.
+Snmpdx give out more information than you really want it to. Who needs
+a port scanner if snmpdx is running?
+<p><a href="../../arch/sol9sun4/bin/modules/sulog.sh">sulog.sh</a> This
+script checks for existence of /var/adm/sulog, and whether its permissisons/ownership
+are 600 root:sys. It will create the file if it doesn't exist and fix the
+permissions/ownership
+<p><a href="../../arch/sol9sun4/bin/modules/syslog.sh">syslog.sh</a> Modifies
+/etc/syslog.conf so that console messages are also saved to system log
+files. Note: For critical systems, you should have at least one remote
+system defined as "loghost" in your /etc/hosts (or NIS/NIS+) so you can
+do sanity checks to see if your local logs have been changed/deleted by
+an intruder.
+<p><a href="../../arch/sol9sun4/bin/modules/syslog_failed_logins.sh">syslog_failed_logins.sh</a>
+Modifies /etc/default/login taking advantage of SYSLOG_FAILED_LOGINS variable.
+If the variable is set to 0, login will log -all- failed login attempts.
+<p><a href="../../arch/sol9sun4/bin/modules/tcp_connection_logging.sh">tcp_connection_logging.sh</a>
+This program checks/sets the ENABLE_CONNECTION_LOGGING=YES variable in
+<br>&nbsp;/etc/default/inetd which allows for logging of tcp connections.
+<p><a href="../../arch/sol9sun4/bin/modules/tcp-sequence.sh">tcp-sequence.sh</a>&nbsp;
+Solaris 2.6 and newer. Changes the TCP initial sequence number generation
+parameters to use RFC 1948 sequence number generation, unique-per-connection-ID.
+<p><a href="../../arch/sol9sun4/bin/modules/tcp_wrap.sh">tcp_wrap.sh</a>
+This program checks/sets the ENABLE_TCPWRAPPERS=YES variable in
+<br>&nbsp;/etc/default/inetd which allows for tcp wrappers support for
+all solaris /etc/inetd
+<br>&nbsp;services.
+<p><a href="../../arch/sol9sun4/bin/modules/telnet-banner.sh">telnet-banner.sh</a>
+This module was contributed by Jason R. Rhoads mailto:jasonr@net.com. telnet-banner.sh&nbsp;
+sets BANNER="" in /etc/default/telnetd so that the Solaris version is not
+<p><a href="../../arch/sol9sun4/bin/modules/tmpfs-fixsize.sh">tmpfs-fixsize.sh</a>
+donated module by&nbsp; Joachim.Knoke@germany.sun.com. Checks if /tmp is
+a virtual filesystem and if so sets it up to have a size limit. This blocks
+some user level DoS type attacks.
+<p><a href="../../arch/sol9sun4/bin/modules/userumask.sh">userumask.sh</a>
+Adds in a umask of 022 for users in /etc/skel and /etc files.
+<p><a href="../../arch/sol9sun4/bin/modules/useradd.sh">useraddset.sh</a>&nbsp;
+Set up modifications to the default useradd program.
+<p><a NAME="418148"></a><a href="../../arch/sol9sun4/bin/modules/utmp2.7.sh">utmp2.7.sh
+</a>Checks
+utmpx just to be sure it isn't world writeable.
+<p><a NAME="418150"></a><a href="../../arch/sol9sun4/bin/modules/vold.sh">vold.sh</a>&nbsp;
+Turns off vold. Vold is not needed on a Firewall and Servers, but might
+be left on on desktop systems where users are allowed to mount CD's and
+Floppy disks via windowing tools.
+<p><a href="../../arch/sol9sun4/bin/modules/x-nolisten.sh">x-nolisten.sh</a>&nbsp;
+New for Solaris 9! Changes the X startup configuration to not listen for
+remote X connections, by adding "-nolisten tcp" to the X startup file in
+the /usr/dt/config/Xservers file. This does not prevent the X server (cde/gnome)
+from running, only prevents remote persons from connecting. FROM: :0 Local
+local_uid@console root /usr/openwin/bin/Xsun :0 -nobanner TO: :0 Local
+local_uid@console root /usr/openwin/bin/Xsun :0 -nobanner -nolisten tcp
+<p><a href="../../arch/sol9sun4/bin/modules/ziplock.sh">ziplock.sh</a>&nbsp;
+The final step in tightening - <font color="#FF0000">READ CAREFULLY</font>
+-This program absolutely tightens perms for much of the OS. Caution after
+this is run ONLY root and group STAFF will be able&nbsp; run many system
+functions!!! <b>Not intended to be run on normal systems only those with
+strict access rules.</b>
+<center>
+<p><b>Optional Modules</b>
+<br>&nbsp;
+<br>&nbsp;
+<p>This directory contains some specific case modules, where you don't
+want or need to run them except in specific configurations. They are put
+into the optional directory just so they don't get run by accident.</center>
+
+<p><a href="../../arch/sol9sun4/bin/optional/anon-ftp.setup.sh">anon-ftp.setup.sh&nbsp;</a>
+Straight from the Man page for in.ftpd. Sets up Anonymous ftp area in a
+reasonable way. This <b>should NOT</b> be used very often, only on systems
+that are supposed to allow anonymous ftp.&nbsp; Titan does not run this
+by default.
+<p><a href="../../arch/sol9sun4/bin/optional/suid.sh">suid.sh</a> This
+is a "check only" module. Run it once, and it will report the number of
+setuid binaries on the local file systems. EDIT the script once this number
+is known and change "known_suid" variable. On subsequent checks, suid.sh
+will check and report any new suid binaries that appear (on local file
+systems only). This is meant for audit purposes and possibly for use in
+cron. Tripwire is a much better solution, and if suid.sh makes you think
+about getting and installing Tripwire then its achieved its purpose.
+<br>&nbsp;
+<br>&nbsp;
+<br>
+<br>
+<br>
+<center>
+<p><a NAME="418156"></a><a href="TITAN_documentation.html">Back to Titan
+Main Doc Page</a></center>
+
+<center>
+<h5>
+<a NAME="418157"></a></h5></center>
+</ul>
+
+<hr>
+<h5>
+Last Modified Mon Sept 3 08:28:21 PST 2002</h5>
+
+</body>
+</html>

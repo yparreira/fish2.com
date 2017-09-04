@@ -1,0 +1,258 @@
+<html>
+<body bgcolor="#FFFFFF">
+
+<hr>
+<table>
+<tr>
+<td><img src="pipe-150x100.gif"></td>
+<td><h2>Frequently Asked Questions about The Coroner's Toolkit</h2></td>
+</tr>
+</table>
+<hr>
+<h3>Basic - Q:</h3>
+
+<a href="FAQ.html#what">What the hell is it?</a>
+<p>
+<a href="FAQ.html#where">Where do I get it?</a>
+<p>
+<a href="FAQ.html#systems">What systems does it run under?</a>
+<p>
+<a href="FAQ.html#license">Why isn't it GPL'd?  What license is it under?
+Is it free?</a>
+<p>
+<a href="FAQ.html#dist">Can I put it on a CD in a book, Unix distro, etc.?</a>
+<p>
+<a href="FAQ.html#email">How can I get in touch with Wietse or dan?</a>
+<p>
+<a href="FAQ.html#class">I heard that they did a class on this stuff - 
+when will they do it again?</a>
+
+<p>
+<h3>General - Q:</h3>
+<p>
+
+<a href="FAQ.html#broken">I've just been broken into.  Help!</a>
+
+<p>
+<a href="FAQ.html#delete">I've just deleted a file.  Help!</a>
+
+<p>
+<a href="FAQ.html#list">Is there a mailing list that discusses the TCT?</a>
+
+<p>
+<a href="FAQ.html#biblio">I'm interested in learning more about
+forensic computing, etc.  Can you suggest any good reading material?</a>
+
+<p>
+<a href="FAQ.html#pipe">What's the deal with that little pipe?</a>
+
+<p>
+<h3>Technical - Q:</h3>
+<p>
+
+<a href="FAQ.html#bigfiles">I have a large file (greater than 2 GB) 
+that lazarus says it can't open.  What can I do?</a>
+
+<p>
+
+<hr>
+<h2>Answers</h2>
+<hr>
+
+<h3>Basic - A:</h3>
+
+<a name="what"><strong>What the hell is it?</strong></a>
+
+The Coroner's Toolkit (TCT) is a collection of tools designed to assist
+in a forensic examination of a computer.  It is primarily designed for
+Unix systems, but it can some small amount of data collection & analysis from
+non-Unix disks/media.
+
+<p>
+<a name="where"><strong>Where do I get it?</strong></a>
+TCT is available in two main locations:
+
+<blockquote>
+<a href="http://www.fish.com/tct">http://www.fish.com/tct</a><p>
+and<p>
+<a href="http://www.porcupine.org/forensics">http://www.porcupine.org/forensics</a><p>
+</blockquote>
+
+<p>
+<a name="systems"><strong>What systems does it run under?</strong></a><br>
+Currently the following OS's are at least semi-supported (e.g. the more 
+recent versions of the OS should work):
+<p>
+<blockquote>
+  FreeBSD 2-4.*<br>
+  OpenBSD 2.*<br>
+   BSD/OS 2-3.*<br>
+    SunOS 4-5.*<br>
+    Linux 2.*<br>
+</blockquote>
+<p>
+
+<p>
+<a name="license"><strong>Why isn't it GPL'd?  What license is it under?
+Is it free?</strong></a>
+
+The TCT is essentially free for most purposes.  While we applaud the
+GPL and what it has done, we're not personally interested in using it.
+Wietse, working for IBM, has to release his work under IBM's
+<a href="LICENSE">Public License Version 1.0</a>.
+dan has released pretty much all his stuff by a very 
+<a href="COPYRIGHT">slightly modified BSD</a> version.  The work is
+therefore somewhere between the two; files that are explicitly authored
+(in the code or documents) to be authored by Wietse are covered by the
+IBM's license, the rest are either by the modified BSD or some combination
+of the two.  A bit of a mess, we're not anticipating any legal challenges.
+Ask us if you have any doubts or questions.
+
+<p>
+<a name="dist"><strong>Can I put it on a CD in a book, Unix distro,
+etc.?</strong></a><br>
+
+You're welcome to redistribute it as long as (a) give us credit for
+our work, (b) keep it intact, and (c) follow what our copyrights/license 
+statements say.  We'd also appreciate being notified, but that's not
+a requirement.
+
+<p>
+<a name="email"><strong>How can I get in touch with Wietse 
+or dan?</strong></a>
+
+E-mail to both authors can be sent to
+<A HREF="mailto:tct@fish.com">tct@fish.com</A>.
+We'll try to answer it, but please be aware
+that we only work on TCT in our (very) part time.  You might also try
+posting to <I>comp.security.unix</I> for answers.
+Failing either of these, you can send mail directly to dan or Wietse:
+<blockquote>
+<ADDRESS><A HREF="mailto:zen@fish.com">zen@fish.com</A></ADDRESS><br>
+<ADDRESS><A HREF="mailto:wietse@porcupine.org">wietse@porcupine.org</A></ADDRESS>
+</blockquote>
+
+<p>
+<a name="class"><strong>I heard that they did a class on this stuff - 
+when will they do it again?</strong></a>
+While we did do a class on forensic computing (the 
+<a href="/forensics/class.html">notes are online</a>), we will probably not do it 
+again, as it was mostly a vehicle we utilized to teach ourselves more 
+about the material you see before you.
+
+<p>
+
+<h3>General - A:</h3>
+
+<p>
+<a name="broken"><strong>I've just been broken into.  Help!</strong></a>
+First of all, we do not have the time or resources to personally help you 
+with your investigative problems.  And since there's no way we can think 
+of telling you in a way that will soften the blow, let us simply say it 
+outright -  WRT the TCT, you're probably out of luck.  The tools probably 
+won't help you out unless you've already looked at it, played with it, and 
+know what the tools do as well as what to expect from them.  The 
+investigation of breakins can be a very complex subject.
+
+<p>
+
+That said, they still might help and you may get lucky.  Don't give up!
+Download them on a clean, undamaged system and read the documentation.
+There's a 
+<a href="help-when-broken-into">short tutorial</a>
+we put together that might assist you.  Good luck!
+
+<p>
+<a name="delete"><strong>I've just deleted a file.  Help!</strong></a>
+Unix is rather unforgiving when you blow away files.  However, the unrm
+and lazarus tools (in TCT) could help, and there's yet another
+<a href="help-recovering-file">short tutorial</a>
+we put together that might assist you getting your data back.  Good luck!
+
+<p>
+
+Note - if you're running Linux there are a couple of other resources 
+you might investigate -
+
+<p>
+
+<blockquote>
+<a href="http://www.praeclarus.demon.co.uk/tech/e2-undel/howto.txt">A document on how to recover deleted files</a>
+
+</blockquote>
+<p>
+<a name="list"><strong>Is there a mailing list that discusses 
+the TCT?</strong></a>
+Yes, there is a mailing list (with on-line archive) for sharing
+experiences. To subscribe, send a message to majordomo@porcupine.org
+with body (not subject): subscribe tct-users. The list will reject mail
+from non-members so it is unlikely to catch UCE. To unsubscribe, send
+mail with as body (not subject): unsubscribe tct-users.
+
+<p>
+<a name="biblio"><strong>I'm interested in learning more about
+forensic computing, etc.  Can you suggest any good reading 
+material?</strong></a>
+
+Check out the <a href="bibliography">bibliography</a> we include in the
+toolkit.
+
+<p>
+
+<a name="pipe"><strong>What's the deal with that little pipe?</strong></a>
+
+The image is taken from René Magritte's 1929 painting "La trahison
+des images", which is usually translated as "The Treachery of Images"
+or "The Betrayal of Images".  The image is of a pipe with writing
+underneath, which says "Ceci n'est pas une pipe" - or, "This is not
+a pipe."  Magritte, when asked why the image he had painted was not a
+pipe, reportedly responded "because I can't use it as a pipe".
+
+<p>
+
+At first blush this might seem to be a trivial or even foolish statement,
+but this would be a serious mistake to make.
+
+<p>
+
+We use this as our primary metaphor for our work in forensic computing
+analysis.  What we're examining is never the actual object - it is always
+a representation, usually several layers and abstractions removed - of
+the actual thing, which we can never truly ascertain.  The image could
+be an artist's rendering of a real pipe. It could also be completely made
+up by the artist.  It could be a seriously flawed copy of the real item.
+You can't tell the difference simply by looking at the image.
+
+<p>
+
+Computers are subject to the treachery of images as well.  The image on
+your computer screen is not a computer file - it's only an image on a
+computer screen. Images of files, processes and network connections are
+very distant cousins of the actual bits in memory, in network packets,
+or on disks. The images that you see are produced by layer upon layer of
+hardware and software.  When an intruder compromises a system any of those
+layers could be tampered with.  Application software can lie, operating
+system kernels can lie, boot PROMs can lie, even hard disk drives can lie.
+
+<p>
+
+We feel that all these complexities are superbly displayed by M. Magritte,
+who illustrates in this and other works how the appreciation and
+understanding of concepts and objects exist on many different levels.
+
+<p>
+<h3>Technical - A:</h3>
+<p>
+
+<a name="bigfiles"><strong>I have a large file (greater than 2 GB) 
+that lazarus says it can't open.  What can I do?</strong></a>
+Lazurus uses perl to process the file.  In order to access large files
+you need to use an operating system and perl binary that can handle such
+a large file (such as *BSD systems, Solaris with a perl compiled under
+64 bit support, and Linux systems with kernels and a version of perl
+that is compiled for large file support.)
+
+<p>
+
+</body>
+</html>

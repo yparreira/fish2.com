@@ -1,0 +1,66 @@
+# Listing of all titan modules Firewalls should run everything
+# version 3.0.6 Mon Apr 12 09:47:39 PDT 1999
+# This config file will only run in verify mode
+# Change all the -v flags to -f to fix things
+# quick way is to use vi and run;  g/\ \-v/s//\ \-f/g
+# 
+add-umask.sh -v
+adjust-arp-timers.sh -v
+adjust.syn-timeout.sh -v
+# aset should be run in HIGH on a firewall
+aset.sh -v
+automount.sh -v
+bsm.sh -v
+cde.sh -v
+create-issue.sh -v
+cronset.sh -v
+decode.sh -v
+defloginparams.sh  -v
+defpwparams.sh -v
+disable-L1-A.sh -v
+disable-NFS.bind.sh -v
+disable-accounts.sh -v
+disable-core.sh -v
+disable-ping-echo.sh -v
+disable_ip_holes.sh -v
+dmi-2.6.sh -v
+eeprom.sh -v
+file-own.sh -v
+fix-cronpath.sh -v
+fix-modes.sh -v
+fix-stack.sh -v
+fix-stack.sol2.6.sh -v
+ftp-2.6_secure.sh -v
+ftpusers.sh -v
+hosts.equiv.sh -v
+inetd.sh -v
+# inetd2.sh -v
+keyserv.sh -v
+loginlog.sh -v
+log-tcp.sh -v
+lpsched.sh -v
+nddconfig.sh -v
+nfs-portmon.sh -v
+nsswitch.sh -v
+nuke-nscd.sh -v
+nuke-sendmail.sh -v
+pam-rhosts-2.6.sh -v
+passwd.sh -v
+powerd.sh -v
+psfix.sh -v
+rhosts.sh -v
+rmmount.sh -v
+rootchk.sh -v
+routed.sh -v
+sendmail-forward.sh -v
+sendmail.sh -v
+smtp-banner.sh -v
+smtpbanner-8.8.sh -v
+snmpdx-2.6.sh -v
+syslog.sh -v
+tcp-sequence.sh -v
+telnet-banner.sh -v
+useraddset.sh -v
+userumask.sh -v
+utmp.sh -v
+vold.sh -v

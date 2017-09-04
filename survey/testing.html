@@ -1,0 +1,268 @@
+<HTML>
+<HEAD>
+<TITLE>Testing methodology (technical stuff)</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+
+<h3>
+Testing methodology
+</h3>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+<strong>Testing methodology (sub)Table of contents</strong>
+<p>
+
+<ul>
+<li><a href="#stats">Statistics 'n' stuff</a>
+<li><a href="#lucky">Choosing a pretty darn random host</a>
+<li><a href="#tools">Tools used</a>
+<li><a href="#criterium">Vulnerabilities tested for</a>
+<li><a href="#do_something">Actually running the survey & responses from 
+	the survey participants</a>
+</ul>
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+
+<p>
+<h3><a name="stats">Statistics 'n' stuff</a></h3>
+<p>
+
+The types of hosts I selected for the survey are
+perhaps not very meaningfully correlated statistically.  I simply wanted 
+a broad range of interesting, high-profile 
+systems, which I think I got.  However, I simply don't know enough statistics
+to do a statistical survey - that's not what this paper is about, although
+I'd very much like to see such a project done.
+
+<p>
+<h3><a name="lucky">Choosing a pretty darn random host</a></h3>
+<p>
+
+(Note.  Most of this subsection is an attempt to explain my thought 
+processes; other than the last paragraph, which describes how I finally
+selected a method to choose semi-random systems, it has very little 
+bearing on the overall survey results.)
+
+<p>
+I wanted a standard against which to compare
+the results of my surveyed hosts, and at first I
+thought of comparing them to relatively random hosts using
+a list of personal web pages from <a href="http://www.yahoo.com">Yahoo</a>.
+I planned to use the web sites of the people listed under some
+letter for my sample.  The letter "S" had over three thousand (!)
+names, so I simply sifted the names and selected 500 random sites. 
+(I chose to scan approximately 500 random hosts so that I could do
+some sort of statistically meaningful comparison with the 1700 other 
+sites I surveyed.)
+
+<p>
+There were several problems with this approach (people who know anything
+about statistics can kindly refrain from laughing.)  One of the most 
+significant 
+problems was that large sites (like, say, AOL) were over-represented -
+<strong>IF</strong> I wanted a truly random sampling.  Another problem
+was that I didn't know if I wanted random <strong>web</strong> sites or
+simply random sites.  After I talked to a statistics pal of mine, I 
+decided that I'd better start over.
+
+<p>
+So I then decided to try a <strong>really</strong> random set of hosts.  
+I thought: well, what better way than to generate 
+a series of random numbers that would span all possible
+IP numbers?  I started generating four numbers, basically from 1-254, strung
+them together, and then pinged that IP number to get reasonably random IP
+address (modulo the poor quality of the perl random number generator.)  I
+quickly realized that even if there were approximately 5 million active IP 
+addresses it would take me about 1,000 tries to get one active IP address.
+At a few seconds for each trial, it would take about 42 minutes to find
+one host.  Even in parallel, I wanted faster results.
+
+<p>
+
+So in the end I sacrificed
+randomness for expedience, and used the Network Wizards 
+<a href="ftp://nw.com/zone/9607.hosts/"/>host tables</a> (which are a 
+few months old) and pseudo randomly (again, using perl's rand() function) selected from the 500 megabytes of data there.  For those interested, 
+here is my <a href="random_hosts.perl">program</a> to get a random number of 
+hosts out of hostfile.  I am not a statistician, as you can tell.  But I 
+did gather approximately 500 hosts (469 out of the 500; see the source to 
+see why it didn't get all 500), and I feel confident that they
+are as random as reasonably possible; indeed, they are significantly
+more random than the other hosts in the survey (given Yahoo's method
+of listing sites).
+
+<p>
+<h3><a name="tools">Tools used</a></h3>
+<p>
+
+<a href="http://www.trouble.org/~zen/satan.html">SATAN</a> did most of what I wanted 
+for this survey.    Specifically, it:
+
+<ul>
+<li> Eliminated most of the tedium of testing the hosts.
+<li> Found how many hosts are potentially vulnerable without breaking into them.
+<li> Broke things down into categories; services offered, OS types, etc.
+</ul>
+
+And, best of all, when it didn't do what I wanted, I could simply add 
+the functionality to it.
+I used version 1.1.1 of SATAN, with some additional tests that I wrote or 
+that were sent to me for inclusion in the next version of 
+SATAN; Wietse and I are planning on releasing new version in mid
+1998.  There really are no major changes; essentially we're simply 
+attempting to keep up with the tidal wave of bugs and add some
+features that the original version lacked.
+
+<p>
+The other useful tools for this sort of work are:
+<ul>
+<li> <a href="http://www.perl.com/">perl</a>.  Invaluable for data sifting,
+	quick scripting, etc.  I love awk, but aside from the syntax, perl
+	beats awk to the ground.  *sigh*
+
+<li> Expect (the scripting language).  I <strong>detest</strong> 
+	<cite>expect</cite> -
+	its syntax, error handling, etc.  It really is awful.  Unfortunately,
+	it <strong>is</strong> supremely useful, as well.  It
+	does one thing better than anything else I've used, and that is
+	fake user input when given a specific situation.
+
+<li> <a href="ftp://info.cert.org/pub/cert_advisories/">The CERT archives</a>
+	and the
+	<a href="mailto:bugtraq-request@underground.org">bugtraq</a> mailing
+	list.  This is where I get the latest and most authorative information 
+	on vulnerabilities.
+</ul>
+
+<p>
+<h3><a name="criterium">Vulnerabilities tested for</a></h3>
+<p>
+
+Keep in mind that no hosts were actually broken into.  However, there
+are many ways to detect potential problems 
+<a href="footies.html#legal">without actually breaking into a system</a>.  
+Some of these problems are due to ignorance or host or network
+misconfigurations, but many of them are taken from CERT advisories.
+
+Here are the specific problems looked at:
+
+<ul>
+
+<a name="ftp"><li><strong>Various FTP vulnerabilities</strong>:</a>
+	<ul>
+	<li><a href="http://www.trouble.org/~zen/satan/satan-demo/demo/tutorials/vulnerability/writable_FTP_home_directory.html">improperly setup anonymous ftp</a>
+	<li><a href="http://www.trouble.org/~zen/satan/satan-demo/demo/tutorials/vulnerability/FTP_Password_vulnerabilities.html">Valid password file accessible via anonymous ftp</a>
+	<li><a href="http://www.trouble.org/~zen/satan/satan-demo/demo/tutorials/vulnerability/FTP_vulnerabilities.html">Vulnerable versions of wu-ftp</a>
+	</ul>
+
+<li><strong>Various NFS vulnerabilities:</strong>
+	<ul>
+	<li><a href="http://www.trouble.org/~zen/satan/satan-demo/demo/tutorials/vulnerability/NFS_export_to_unprivileged_programs.html">NFS export to unprivileged programs</a>
+	<li><a href="http://www.trouble.org/~zen/satan/satan-demo/demo/tutorials/vulnerability/NFS_export_via_portmapper.html">NFS export via portmapper</a>
+	<li><a href="http://www.trouble.org/~zen/satan/satan-demo/demo/tutorials/vulnerability/unrestricted_NFS_export.html">unrestricted NFS export</a>
+	</ul>
+
+<a name="sm"><li><strong>Various sendmail vulnerabilities</strong></a>
+	<ul>
+	<li><a href="http://www.trouble.org/~zen/satan/satan-demo/demo/tutorials/vulnerability/Sendmail_vulnerabilities.html">Sendmail vulnerabilities</a>
+	<li>Other sendmail vulnerabilities, from CERT advisories, not written
+		up yet.
+	</ul>
+
+<a name="yw"></a>
+<a name="rw"></a>
+<li>Various WWW server specific vulnerabilities covered in the 
+WWW Security FAQ, in the 
+<a href="http://www-genome.wi.mit.edu/WWW/faqs/wwwsf8.html">Problems with Specific Server section.</a> and in
+<a href="ftp://info.cert.org/pub/cert_advisories/CA-96.06.cgi_example_code">CERT Advisory 96.06</a>
+
+<a name="yp">
+<li><strong><a href="ftp://info.cert.org/pub/cert_advisories/CA-95:17.rpc.ypupdated.vul">rpc.ypupdated</a></strong></a>
+
+<a name="rexd">
+<li><strong><a href="http://www.trouble.org/~zen/satan/satan-demo/demo/tutorials/vulnerability/REXD_access.html">REXD access</a></strong>.</a>
+
+<a name="innd">
+<li><strong>INND vulnerabilities (CERT advisory pending)</strong>.</a>
+
+<a name="sd">
+<li><strong><a href="ftp://info.cert.org/pub/cert_advisories/CA-96.09.rpc.statd">rpc.statd (AKA statd) - CERT advisory and additional problems pending CERT release</a></strong></a>
+
+<a name="dos">
+<li><strong><a href="ftp://info.cert.org/pub/cert_advisories/CA-96.01.UDP_service_denial">UDP denial of service</a></strong></a>
+
+</ul>
+
+<p>
+<h3><a name="do_something">Actually running the survey & responses from 
+the survey participants</h3>
+<p>
+
+It took quite a long time to get all the results, partly due to a general
+lack of preparation on my part.  SATAN didn't quite do all the tests that
+I wanted to run against the survey hosts, so I had to rerun bits and
+pieces of it several times.  
+And, while no hosts were broken into while performing the survey, the techniques
+used could have easily have been mistaken for an attack.  The survey would
+leave entries in the survey host's audit records; certainly anyone running
+one of the SATAN detectors (such as 
+<a href="ftp://ciac.llnl.gov/pub/ciac/sectools/unix/courtney/">courtney</a>)
+or the very popular and effective 
+<a href="ftp://ftp.win.tue.nl/pub/security/tcp_wrappers_7.4.BLURB">TCP 
+wrappers</a> would have detected some fairly suspicious activity as well.
+
+<p>
+Despite all of this, I only received 3 pieces of e-mail because of the
+survey - two from the main survey sites (that's a .12 percent
+response rate), who also e-mailed my ISP, and one from a host in the random 
+sampling (a .2 percent rate), who CC'd CERT in the e-mail.
+They were were all initially suspicious, fearing a failed attack, but 
+they calmed down after I apologized for the infraction.  One of 
+them accepted my offer to 
+further scan his site for potential problems (there were none), and 
+the other gave me constructive comments on a rough draft of this paper.
+It's possible that other response teams were contacted and I know nothing
+about them, or that other investigations were spurred by the survey;
+I sincerely hope that this is not the case and that people were not
+unduly alarmed by the survey.
+
+<p>
+
+There were some additional signs that the survey was detected, but they
+were very sparse.  Two sites out of the 1700 main survey hosts (that's 
+about .1 percent!)
+<a href="glossary.html#finger">fingered</a> the host I was running
+the survey from (<cite>tsunami.trouble.org</cite>).  Interestingly,
+I received responses from the random sites four times out of all the 469 
+hosts (0.85 percent -
+that's zero-point-eight-five percent, not eighty-five percent!) -
+still an almost imperceptable rate, but still an order of 
+magnitude more than the normal survey sites.
+
+<p>
+The survey was presumably detected in greater number than this; 
+unfortunately there is
+<a href="footies.html#lenin">no way to determine just how frequently it
+was discovered.</a>
+
+<p>
+
+But that was it - there were no other signs that my survey was detected or
+that it caused any alarm.  And, since trouble.org is still a very new site,
+with no advertised services and having only myself as a user, it was
+easy to spot any probes directed at my site that were a result of
+the survey by comparing the probes with the SATAN scan logs.
+
+<p>
+<pre>
+ 
+</pre>
+<p>
+<a href="conclusions.html">Next page...</a>
+<p>
+
+<TABLE><TR><TD><NOBR><a href="dan.html"><IMG border=0 SRC="test3.gif"></a><a href="introduction.html"><IMG border=0 SRC="intro.gif"></a><a href="purpose.html"><IMG border=0 SRC="purpose1.gif"></a><a href="lucky_ones.html"><IMG border=0 SRC="select.gif"></a><a href="testing.html"><IMG border=0 SRC="methods.gif"></a><a href="conclusions.html"><IMG border=0 SRC="conclusions.gif"></a><a href="index2.html"><IMG border=0 SRC="apps.gif"></NOBR></TD></TR></TABLE>
+
+</BODY>
+</HTML>

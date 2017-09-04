@@ -1,0 +1,322 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+</head>
+<body>
+
+<center>
+<h1>
+<img SRC="bigmap.jpg" </CENTER ></h1></center>
+
+<center><font color="#3366FF">Titan's view of the world</font>
+<p>
+<hr></center>
+
+<ul>
+<center><!-- Published by Quadralay WebWorks HTML Lite 1.5.1 --><a NAME="10346"></a></center>
+
+<p><p>
+<center>
+<h1>
+<font color="#3333FF">TITAN 4.0 for Linux</font></h1></center>
+
+<center>
+<h1>
+Descriptions as to what each module does:</h1></center>
+<b>Titan top level directory. This directory exists because of so many
+subtle changes done to different Linux distros. It just got too messy to
+keep all Linux modules in one place.</b>
+<center>
+<p><a NAME="418052"></a></center>
+<a href="Titan-Config">Titan-Config</a> This script&nbsp; figures
+out which OS you are using and makes the appropriate links to the shell
+scripts accordingly. Titan-Config also asks if you want to&nbsp; make a
+backup directory of all files modified by Titan. <blink><font color="#CC0000">NOTE:
+</font></blink>backup
+(backtit.sh) now backs up /etc/shadow and other important system files.
+It is important that these files be kept safe (we chmod them to 600; but
+that is not enough if titan lives on an NFS mount or other insecure location)
+<p><a href="arch/RedHat/bin/Titan">Titan</a>&nbsp; Titan is the
+program which runs all the other shell scripts (*.sh) and accepts either
+the -I (intro) -F (fix) -C (configuration) [ + filename] )or -V (verify)
+flag.
+<p>MinimizeOS is a new module that takes a configuration file and does
+a pkgrm of all modules that are not found in the configuration file. This
+minimizes the OS and removes unused (and potentially insecure) packages
+from the system.Use with caution.
+<p><a href="arch/RedHat/bin/Titan.top">Titan.top </a>This module
+is the same as Titan except the path has been modified so that When "Titan-Config"
+is run, Titan can be run from the top most directory.
+<p><a href="arch/RedHat/bin/TitanReport">TitanReport</a>. This
+file runs all Titan modules in the $TITANDIR/bin/modules directory using
+the "-v" flag. TitanReport then sends email with&nbsp; the results. Titanreport
+is intended to run out of cron, or as an auditing tool. See the<a href="FAQ.html">
+FAQ</a> for more.
+<p><a href="arch/RedHat/bin/sample.Desktop">Sample.Desktop</a>,
+<a href="arch/RedHat/bin/sample.Firewall">sample.Firewall</a>,
+<a href="arch/RedHat/bin/sample.Server">sample.Server</a>,
+<a href="arch/RedHat/bin/sample.config">sample.config.</a>
+These files are used as sample templates when titan is run as "Titan -c
+config-file". See the <a href="FAQ.html">FAQ</a> for more.
+<p><a href="arch/RedHat/lib/backtit.sh">backtit.sh </a>This modules
+is called by "Titan-Config" when run "Titan-Config -i" (install). Backtit.sh
+makes a backup copy of all the files Titan modifies (backtit.sh currently
+does not backup file permission changes) SEE Note above!
+<p><a href="arch/RedHat/lib/untit.sh">untit.sh</a> Untit.sh is
+called by "Titan-Config" when run 'Titan-Config -d" (de-install) Untit.sh
+replaces the files modified by Titan with the original unsecured versions,
+and is provided as a recovery mechanism if we were too aggressive about
+securing the system.
+<p><b>src1 directory</b>
+<p><a href="../../src1/noshell.c">noshell.c</a> This is the preferred way
+of doing a noshell. This should be statically compiled (see <a href="../../src1/makefile">Titan.v4.0/src1/Makefile.linux</a>)
+and should replace the shell script that disable-accounts.sh placed in
+/usr/sbin/noshell.
+<p><a href="../../src1/noshell-simple.c">noshell-simple.c</a> This is a
+simplified version of noshell.c . I don't expect this to get much use,
+but&nbsp; should be statically compiled (see <a href="../../src1/Makefile">Titan,v4.0/src1/Makefile</a>)
+and replace the /usr/sbin/noshell script that disable-accounts.sh creates.
+the script that disable-accounts.sh creates is better than nothing,&nbsp;
+(better than /bin/true which is also a shell script) but a statically linked
+C program is the best way to go.
+<p><a href="../../src1/Makefile.linux">Titan,v4.0/src1/Makefile.linux</a>
+It turned out that with a few simple changes to the makefile, that noshell
+and runas worked fine with Linux distributions (probably other Unix variants
+too).
+<p><a href="../../src1/runas.c">runas.c</a> This is a simple generic program
+that allows administrators to start daemons as non privileged users, and
+optionally to run in a chrooted environment. A really good example is the
+license manager daemon. Sun sets the license manager daemon (in /etc/rc2.d/S85lmgrd)
+to start up with the command (line 84 on my system) :
+<p>su nobody -c $lic_srvr_start
+<p>This isn't bad, but it requires that the user shell for user "nobody"
+be a valid shell. Well being paranoid, Titan sets the shell to "noshell"
+so when some intruder tries to login as user "nobody" we get a warning
+message. So to get the license manager daemon to start, while keeping our
+security intact, we change the /etc/rc2.d/S86lmgrd to use runas with the
+following syntax:
+<p>&nbsp;&nbsp; /sbin/runas 60001 60001&nbsp;&nbsp;&nbsp;&nbsp; 022 $lic_srvr_start
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+^^^^^&nbsp; ^^^^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^^^
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nobodyUID&nbsp;
+nobodyGID&nbsp;&nbsp; umask to use
+<p>viola! Secure as well as functional. With the latest runas.c you can
+also run things in a chrooted environment. This isn't required for the
+license manager daemon, but will come in handy for http daemons.
+<p>&nbsp;
+<p><b>Titan modules (arch/RedHat/bin/modules)</b>
+<p><a href="arch/RedHat/bin/modules/add-umask.sh">add-umask.sh&nbsp;</a>
+Adds system wide umasks for rc?.d files causing system daemon to create
+more secure files; (From Casper Dik's code.)
+<p><a href="arch/RedHat/bin/modules/adjust-arp-timers.sh">adjust-arp-timers.sh</a>&nbsp;
+This changes the system configuration to shorten the ARP expiration timer&nbsp;
+to one minute instead of the default 20 minutes.
+<p><a href="arch/RedHat/bin/modules/atset.sh">atset.sh</a> This script
+checks/puts CRONLOG=YES in /etc/default/cron,
+<p>changes the permissions of /var/cron so that the users cannot
+<p>peek in the cron log file (it seems the file is created with 600
+<p>perms anyhow, but one never knows), and modifies /etc/cron.daily/logchecker
+<p>to rotate the log files at 2MB file size.
+<p>For linux this creates /etc/cron.allow and adds only root by default.
+<p>All other local password accounts are added to /etc/cron.deny.
+<p><a href="arch/RedHat/bin/modules/create-issue.sh">create.issue.sh</a>
+Creates the /etc/issue banner that gets displayed at login time.
+<p><a href="arch/RedHat/bin/modules/cronset.sh">cronset.sh.</a>
+This script check/fixes CRONLOG-YES in /etc/default/cron, rotates the cron
+log files at 2Mb, and changes cron permissions.
+<p><a href="arch/RedHat/bin/modules/decode.sh">decode.sh </a>Looks
+for any&nbsp; ``|'' in /etc/aliases and fixes if found.
+<p><a href="arch/RedHat/bin/modules/disable-accounts.sh">disable-accounts.sh</a>
+Disables ``system'' accounts like ``bin'' and ``daemon'' and creates a
+/usr/sbin/noshell script. The noshell script should only be a place holder
+until you compile and install the noshell&nbsp; statically linked C program.
+NOTE: if you don't have a root password set, titan WILL disable root as
+well.
+<p><a href="arch/RedHat/bin/modules/duplicate-root.sh">duplicate-root.sh</a>&nbsp;
+Check for extra root accounts.
+<p><a href="arch/RedHat/bin/modules/file-own.sh">file-own.sh</a>
+Changes system files (mainly in /usr ) to be owned by "root"." I personally
+don't like anything that the root user is going to run not being owned
+by root. When /usr/bin is owned by user ``bin'' user ``bin can trojan anything
+root runs; thus bin=root. Thus I change everything back to root to begin
+with. We need not mention NFS where root=nobody but bin=bin; I think you
+get the point.
+<p><a href="arch/RedHat/bin/modules/fix-cronpath.sh">fix-cronpath.sh</a>
+Changes permission and ownership of things run out of roots cron.&nbsp;
+Otherwise every time cron is run a new trojan/setuid-root-file could be
+created.
+<p><a NAME="418095"></a>
+<p><a href="arch/RedHat/bin/modules/ftpaccess_secure.sh">ftpaccess_secure.sh</a>
+Changes or creates /etc/ftpaccess file to add in a umask,&nbsp; ftp banner
+<p>and restrictions on file transfers. If you are unlucky enough to lose
+<p>your root password this change will restrict downloads of any files
+named
+<p>passwd or shadow, period...
+<p>Changes or created /etc/banner for the ftpaccess parser to display an
+approriate
+<p>warnign message on connection.. Similar to /etc/issue...
+<p>&nbsp;&nbsp;&nbsp; "This system is for authorized users only. Monitoring
+may occur"
+<p>&nbsp;
+<p><a href="arch/RedHat/bin/modules/ftpusers.sh">ftpusers.sh</a>
+Creates a sane /etc/ftpusers which stops users such as root or "bin" from
+using ftp. This prevents "root" from ftping over a new /etc/shadow file,
+and forces the administrators to ftp as themselves and then "su" to root
+thus keeping the audit trail&nbsp; (more) intact.
+<p><a href="arch/RedHat/bin/modules/hosts.equiv.sh">hosts.equiv.sh</a>
+Checks for /etc/hosts.equiv. it should also check /etc/nsswitch.conf "password
+and group" entries but currently doesn't.
+<p><a href="arch/RedHat/bin/modules/inetd.sh">inetd.sh</a> Changes
+/etc/inetd.conf&nbsp; and turns off most of the services.&nbsp; You will
+want to&nbsp; localize this.&nbsp; For desktops for instance you might
+want to leave on the services for calendar manager and tooltalk (assuming
+windows) My suggestion is to get tcp_wrappers and wrap all services. Then
+get ssh and turn off rsh/rlogin and ftp and only use ssh/scp for remote
+access needs.
+<p><a href="arch/RedHat/bin/modules/inetd2.sh">inetd2.sh</a> A
+more restrictive version of the inetd.sh module. This one turns off everything,
+and runs a little cleaner for servers.
+<p>l<a href="../../arc/RedHat/bin/modules/limit-core-redhat.sh">imit-core-redhat.sh</a>
+This changed the /etc/rc.d/init.d/functions file making the core dump
+<p>size limited to zero length. This prevents bad-guys forcing a core
+dump to examine
+<p>any information that might be stored in the core.
+<p><a href="arch/RedHat/bin/modules/log-tcp.sh">log-tcp.sh </a>Changes
+the inet startup configuration to use the "-d" flag
+<p>in /etc/rc.d/init.d/inet.
+<p>&nbsp;
+<p>&nbsp;From the inetd man page:
+<p>&nbsp;
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -d&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Instructs inetd to trace the incoming&nbsp; connections
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+for all of its TCP services.&nbsp; It does this by log-
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ging the client's IP address and TCP port&nbsp; number,
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+along with the name of the service, using the sys-
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+log(3) facility.
+<p><a href="arch/RedHat/bin/modules/loginlog.sh">loginlog.sh</a>
+Fixes the syntax so that log entries are made for failed login attempts.
+<p><a href="arch/RedHat/bin/modules/lpsched.sh">lpsched.sh</a>
+Disables lp. For firewalls, and non-print servers. Probably want to leave
+this service on for desktops.
+<p><a href="arch/RedHat/bin/modules/nsswitch.sh">nsswitch.sh</a>&nbsp;
+Modifies /etc/nsswitch.conf removing all the nis/nis+/dns entries. This
+is useful on a firewall, but you may want to tune it down a little on networked
+servers and desktops.&nbsp; It also sets password and group to only look
+at local password/group files; again network servers or desktops might
+not want this behavior.
+<p><a href="arch/RedHat/bin/modules/nuke-sendmail.sh">nuke-sendmail.sh</a>
+This module does as it implies. Disables sendmail. This modules should
+be used on Firewalls that are not sendmail servers, Servers that are not
+sendmail servers, and all desktops that have their mail delivered to a
+server.
+<p><a href="arch/RedHat/bin/modules/pam-rhosts.sh">pam-rhosts.sh</a>
+This saves and modifies the /etc/pam.conf file removing the line: " rlogin&nbsp;
+auth sufficient /usr/lib/security/pam_rhosts_auth.so.1" such that rhosts
+are not allowed by the PAM system.
+<p><a href="arch/RedHat/bin/modules/passwd.sh">passwd.sh</a> Checks
+that all accounts have passwords and adds in a "*" password if run in fix
+mode.
+<p><a href="arch/RedHat/bin/modules/psfix.sh">psfix.sh</a>&nbsp;
+This program creates /etc/rc3.d/S79tmpfix so that upon boot the /tmp&nbsp;
+directory will always have the sticky bit set mode 1777
+<p><a href="arch/RedHat/bin/modules/rhosts.sh">rhosts.sh</a> Originally
+from COPS. Scans for .rhosts in NIS and local directories but unlike COPS
+if run in fix mode it removes/renames them.
+<p><a href="arch/RedHat/bin/modules/rootchk.sh">rootchk.sh</a>
+Checks roots path and makes sure that root owns the directories and binaries
+in roots path. Changes them (when run -F) if they are wrong. Also removes
+the ``.'' from the path.
+<p><a href="../../arc/RedHat/bin/modules/rootpath.sh">rootpath.sh</a>&nbsp;&nbsp;
+Check root's path for .
+<p><a href="arch/RedHat/bin/modules/routed.sh">routed-quiet.sh</a>
+Starts in.routed in the quiet mode (-q)
+<p>- <font color="#FF0000">Big note here!</font> - REMEMBER to <b>re-run
+this</b> whenever you add any patches for in.routed.If you don't, the in.routed
+will start up advertising routes agai
+<p><a href="arch/RedHat/bin/modules/sendmail-forward.sh">sendmail-forward.sh</a>
+Takes advantage of new sendmail features to disable forwarding of mail
+(spammers using you to bounce their mail)
+<p><a href="arch/RedHat/bin/modules/sendmail.sh">sendmail.sh</a>
+changes sendmail.cf adding in the option ``goaway'' so that telnet hostname
+25" (connecting to the sendmail port) doesn't allow cracker to look up
+user info.&nbsp; Note- you should also changes the P=/bin/sh to P=/bin/false
+if you can or look into using smrsh for servers and desktops. Note-&nbsp;
+firewalls should&nbsp; TURN OFF/wrapper&nbsp; sendmail on the firewall
+system.&nbsp; Now would be a good time to look into Postfix.
+<p><a href="arch/RedHat/bin/modules/smtpbanner.sh">smtpbanner.sh</a>
+<p><a href="arch/RedHat/bin/modules/smtpbanner-8.8.sh">
+ </a>Modified
+sendmail version 8.8 sendmail.cf to change the banner to give out less
+information.
+<p>&nbsp;
+<p><a href="arch/RedHat/bin/modules/snmpdx.sh">snmpdx.sh</a>
+Simply moves aside all the snmpdx daemons start up files. Snmpdx give out
+more information than you really want it to. Who needs a port scanner if
+snmpdx is running?
+<p><a href="arch/RedHat/bin/modules/syslog.sh">syslog.sh</a> Modifies
+/etc/syslog.conf so that console messages are also saved to system log
+files. Note: For critical systems, you should have at least one remote
+system defined as "loghost" in your /etc/hosts (or NIS) so you can do sanity
+checks to see if your local logs have been changed/deleted by an intruder.
+<p><a href="arch/RedHat/bin/modules/telnet-banner.sh">telnet-banner.sh</a>
+This module was contributed by Jason R. Rhoads mailto:jasonr@net.com. telnet-banner.sh&nbsp;
+sets BANNER="" in /etc/default/telnetd so that the Solaris version is not
+<p><a href="arch/RedHat/bin/modules/tftp-disable.sh">tftp-disable.sh</a>
+Disables tftp.
+<p><a href="arch/RedHat/bin/modules/tftpServer.sh">tftpServer.sh</a>
+configures tftp to allow specific directories to be tftp'd (for things
+like cisco
+<p>router or boot servers)
+<p><a href="arch/RedHat/bin/modules/ttytab.sh">ttytab.sh</a> This
+program checks&nbsp;&nbsp; /etc/securetty to disable b -s problems.
+<p><a href="arch/RedHat/bin/modules/tune-perm.sh">tune-perm.sh</a>
+Runs a modified file permission fixes&nbsp; origionally from Sun'
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; patch 100103-12
+<p>&nbsp;
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tune attributes on file
+system objects
+<p>&nbsp;
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This portion will set file
+system object permissions
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to a more secure setting.
+<p><a href="arch/RedHat/bin/modules/userumask.sh">userumask.sh</a>
+Adds in a umask of 022 for users in /etc/skel and /etc files.
+<p><a href="arch/RedHat/bin/modules/useradd.sh">useraddset.sh</a>&nbsp;
+Set up modifications to the default useradd program.
+<p><a NAME="418148"></a><a href="arch/RedHat/bin/modules/utmp.sh">utmp.sh
+</a>Checks
+utmpx just to be sure it isn't world writeable.
+<p><a href="arch/RedHat/bin/modules/uucp-disable.sh">uucp-disable.sh</a>&nbsp;
+Check login shell for uucp is disabled
+<p><a href="arch/RedHat/bin/modules/ypserv-client.sh">ypserver-client.sh</a>&nbsp;&nbsp;&nbsp;
+Check that /etc/passwd on ypserver does not have client line
+<p><a href="arch/RedHat/bin/modules/ziplock.sh">ziplock.sh</a>&nbsp;
+The final step in tightening - <font color="#FF0000">READ CAREFULLY</font>
+-This program absolutely tightens perms for much of the OS. Caution after
+this is run ONLY root and group STAFF will be able&nbsp; run many system
+functions!!! <b>Not intended to be run on normal systems only those with
+strict access rules.</b>
+<p>&nbsp;
+<p>&nbsp;
+<p>
+<center>
+<p><a NAME="418156"></a><a href="TITAN_documentation.html">Back to Titan
+Main Doc Page</a></center>
+
+<center>
+<h5>
+<a NAME="418157"></a></h5></center>
+</ul>
+
+<hr>
+<h5>
+Last Modified Wed Jan 24 14:28:21 PST 2001</h5>
+
+</body>
+</html>

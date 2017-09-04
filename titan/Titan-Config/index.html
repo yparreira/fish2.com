@@ -1,0 +1,227 @@
+#!/bin/sh 
+
+# version 3.0 Sep 25 11:21:02 PDT 1998
+# rev 3.01 Tue Nov  3 17:38:58 PST 1998
+#	zen - changed /usr/ucb/echo -n to nawk stuff.
+
+# This tool suite was written by and is copyrighted by Brad Powell, Matt
+# Archibald, and Dan Farmer 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999 with input
+# from Casper Dik, and Alec Muffett.
+#
+# The copyright holder disclaims all responsibility or liability with
+# respect to its usage or its effect upon hardware or computer
+# systems, and maintains copyright as set out in the "LICENSE"
+# document which accompanies distribution.
+
+#-----------------------------------------------------------------
+# Titan Revision FCS 3.0
+#-----------------------------------------------------------------
+
+
+CheckMeOut() {
+echo "finding out where we are..."
+
+cwd=`pwd`
+echo "we are in '$cwd'"
+echo ""
+
+#-----------------------------------------------------------------
+
+echo "checking out your system..."
+
+os=`uname -s`
+rev=`uname -r`
+arch=`uname -m`
+cookie="$os-$rev-$arch"
+
+case "$cookie" in
+        Linux-*)		arch="linux" 
+				;;
+        SunOS-4*-sun3*)		arch="sol1sun3" 
+				;;
+        SunOS-4*-sun4*)		arch="sol1sun4" 
+				;;
+        SunOS-5*-sun4*)		arch="sol2sun4" 
+				;;
+        SunOS-5*-i86pc)		arch="sol2x86" 
+				;;
+        *)			echo "$0: error: unknown architecture"
+				exit 1 
+				;;
+esac
+
+echo "this system runs: $cookie"
+echo "we will be using: $arch"
+echo ""
+
+}
+
+Install() {
+#-----------------------------------------------------------------
+
+echo "checking for dependencies..."
+
+CheckMeOut
+
+#-----------------------------------------------------------------
+
+echo "setting up links..."
+
+if [ ! -d "arch/$arch" ]
+then
+	echo "$0: error: no directory 'arch/$arch'"
+	exit 1
+fi
+
+cd $cwd || exit 1
+
+echo "removing old links..."
+for i in `ls arch/$arch`
+ do
+rm -f $i > /dev/null 2>&1 
+done
+
+cd $cwd || exit 1
+
+for i in `ls $cwd/arch/$arch` 
+ do
+	echo "linking $i into path..."
+	ln -s $cwd/arch/$arch/$i $i
+done
+
+cd $cwd || exit 1
+
+echo "linking done."
+echo "cleaning up is_root, sanity_check, Titan..."
+rm -f is_root sanity_check Titan configured sample.Server sample.Firewall sample.Desktop
+
+echo "pulling in local Titan script..."
+if [ -x $cwd/arch/$arch/bin/Titan.top ]; then
+ /bin/cp $cwd/arch/$arch/bin/Titan.top $cwd/Titan
+ /bin/cp $cwd/arch/$arch/bin/TitanReport $cwd/TitanReport
+ /bin/cp $cwd/arch/$arch/bin/sample.config $cwd/sample.Firewall
+ /bin/cp $cwd/arch/$arch/bin/sample.config $cwd/sample.Server
+ /bin/cp $cwd/arch/$arch/bin/sample.config $cwd/sample.Desktop
+
+else
+ echo "Titan does not seem to be fully installed - Exiting"
+ exit 1
+fi
+
+echo " "
+echo "Run Titan utilites with 'Titan -[v,f,i]' after reading the Docs..."
+echo "			OR"
+echo "Run Titan using a config file. (Titan -c sample.Server) after reading the Docs  "
+echo " "
+
+}
+
+UnInstall() {
+
+echo "checking for dependencies..."
+CheckMeOut
+
+cd $cwd || exit 1
+#cd $cwd/arch || exit 1
+
+echo "removing old links..."
+for i in `ls arch/$arch`
+ do
+rm -f $i > /dev/null 2>&1
+done
+
+cd $cwd || exit 1
+ 
+echo "Unlinking done...."
+echo "cleaning up is_root, sanity_check, Titan..."
+rm -f is_root sanity_check TitanReport Titan sample.Server sample.Firewall sample.Desktop $cwd/arch/configured $cwd/arch/cgi-bin
+
+echo "done."
+
+}
+
+BackupFiles() {
+
+echo "Titan can backup all of the files it modifies; This is recommended"
+nawk 'BEGIN {printf("proceed? y/n: ")}' /dev/null
+read YN
+case $YN in
+ [yY])
+  echo "Okay... Checking for backup program..."
+  if [ -r ./lib/backtit.sh -a -r ./lib/untit.sh ]; then 
+  echo "Found backtit.sh - Backing up system files now... This might take a while.."
+  sleep 3
+  cd ./bin
+  ./lib/backtit.sh
+  else
+  echo "Could not find the expected file ./lib/backtit.sh..."
+  echo "Passing- No backups done prior to initial Titan run..."
+  fi
+  ;;
+ [nN])
+  echo "Okay - Installation complete - What to do now..."
+  echo "Take a look at sample.config file for suggested runs of Titan"
+  echo "Typically run Titan -v to look at what you have, Titan -f to"
+  echo "get the default fixes, Titan -v to see what changed.."
+  ;;
+ *)
+  echo "Sorry - Don't know ${YN} - Install Complete - Exiting"
+  echo "You can backup the assumed files by running ./lib/backtit.sh"
+ ;;
+esac
+
+}
+
+RecoverFiles() {
+
+echo "Titan can recover all of the files it modified; this is only recommended if "
+echo "Titan broke something"
+nawk 'BEGIN {printf("proceed? y/n: ")}' /dev/null
+read YN
+case $YN in
+ [yY])
+  echo "Okay... Checking for recover program..."
+  if [ -r ./lib/backtit.sh -a -r ./lib/untit.sh ]; then 
+  echo "Found untit.sh - Recovering files now... This might take a while.."
+  sleep 3
+  cd ./bin
+  ./lib/untit.sh -r
+  else
+  echo "Could not find the expected file ./lib/untit.sh..."
+  echo "Passing- No recover done prior to uinstall of Titan..."
+  fi
+  ;;
+ [nN])
+  echo "Okay - De-Installation complete - What to do now..."
+  echo "Typically run Configure -i to re-install Titan"
+  ;;
+ *)
+  echo "Sorry - Don't know ${YN} - De-Installation Complete - Exiting"
+  echo "You can backup the assumed files by running ./lib/backtit.sh"
+  echo "You can recover the assumed files by running ./lib/untit.sh"
+ ;;
+esac
+
+}
+
+
+date > arch/configured
+
+action=$1
+case ${action} in
+   -[Dd]*)
+  RecoverFiles
+  UnInstall
+  ;;
+   -[Ii]*)
+  Install
+  BackupFiles
+  ;;
+ *)
+  echo "Usage: $0 -[Ii] = Install Configs"
+  echo "Usage: $0 -[Dd] = DeInstall Configs"
+  exit 1
+ ;;
+esac
+
+exit 0

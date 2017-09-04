@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Dickinson Meadow: Houses</title>
+<style type="text/css">
+<!--
+body {
+	background: #FFFFFF;
+	margin: 0;
+	padding: 0;
+	color: #000;
+	background-color: #FFF;
+	font-family: Calibri;
+	font-size: 12pt;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	font-style: normal;
+}
+
+/* ~~ Element/tag selectors ~~ */
+ul, ol, dl { /* Due to variations between browsers, it's best practices to zero padding and margin on lists. For consistency, you can either specify the amounts you want here, or on the list items (LI, DT, DD) they contain. Remember that what you do here will cascade to the .nav list unless you write a more specific selector. */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* removing the top margin gets around an issue where margins can escape from their containing div. The remaining bottom margin will hold it away from any elements that follow. */
+	padding-right: 15px;
+	padding-left: 15px; /* adding the padding to the sides of the elements within the divs, instead of the divs themselves, gets rid of any box model math. A nested div with side padding can also be used as an alternate method. */
+}
+a img { /* this selector removes the default blue border displayed in some browsers around an image when it is surrounded by a link */
+	border: none;
+}
+
+/* ~~ Styling for your site's links must remain in this order - including the group of selectors that create the hover effect. ~~ */
+a:link {
+	color:#414958;
+	text-decoration: underline; /* unless you style your links to look extremely unique, it's best to provide underlines for quick visual identification */
+}
+a:visited {
+	color: #4E5869;
+	text-decoration: underline;
+}
+a:hover, a:active, a:focus { /* this group of selectors will give a keyboard navigator the same hover experience as the person using a mouse. */
+	text-decoration: none;
+}
+
+/* ~~ this container surrounds all other divs giving them their percentage-based width ~~ */
+.container {
+	width: 80%;
+	max-width: 1260px;/* a max-width may be desirable to keep this layout from getting too wide on a large monitor. This keeps line length more readable. IE6 does not respect this declaration. */
+	min-width: 780px;/* a min-width may be desirable to keep this layout from getting too narrow. This keeps line length more readable in the side columns. IE6 does not respect this declaration. */
+	background: #FFF;
+	margin: 0 auto; /* the auto value on the sides, coupled with the width, centers the layout. It is not needed if you set the .container's width to 100%. */
+}
+
+/* ~~ the header is not given a width. It will extend the full width of your layout. It contains an image placeholder that should be replaced with your own linked logo ~~ */
+.header {
+	background: #FFFFFF;
+}
+
+/* ~~ These are the columns for the layout. ~~ 
+
+1) Padding is only placed on the top and/or bottom of the divs. The elements within these divs have padding on their sides. This saves you from any "box model math". Keep in mind, if you add any side padding or border to the div itself, it will be added to the width you define to create the *total* width. You may also choose to remove the padding on the element in the div and place a second div within it with no width and the padding necessary for your design.
+
+2) No margin has been given to the columns since they are all floated. If you must add margin, avoid placing it on the side you're floating toward (for example: a right margin on a div set to float right). Many times, padding can be used instead. For divs where this rule must be broken, you should add a "display:inline" declaration to the div's rule to tame a bug where some versions of Internet Explorer double the margin.
+
+3) Since classes can be used multiple times in a document (and an element can also have multiple classes applied), the columns have been assigned class names instead of IDs. For example, two sidebar divs could be stacked if necessary. These can very easily be changed to IDs if that's your preference, as long as you'll only be using them once per document.
+
+4) If you prefer your nav on the right instead of the left, simply float these columns the opposite direction (all right instead of all left) and they'll render in reverse order. There's no need to move the divs around in the HTML source.
+
+*/
+.sidebar1 {
+	float: left;
+	width: 20%;
+	background: #FFFFFF;
+	padding-bottom: 10px;
+}
+.content {
+	padding: 10px 0;
+	width: 80%;
+	float: left;
+}
+
+/* ~~ This grouped selector gives the lists in the .content area space ~~ */
+.content ul, .content ol { 
+	padding: 0 15px 15px 40px; /* this padding mirrors the right padding in the headings and paragraph rule above. Padding was placed on the bottom for space between other elements on the lists and on the left to create the indention. These may be adjusted as you wish. */
+}
+
+/* ~~ The navigation list styles (can be removed if you choose to use a premade flyout menu like Spry) ~~ */
+ul.nav {
+	list-style: none; /* this removes the list marker */
+	border-top: 1px solid #666; /* this creates the top border for the links - all others are placed using a bottom border on the LI */
+	margin-bottom: 15px; /* this creates the space between the navigation on the content below */
+}
+ul.nav li {
+	border-bottom: 1px solid #666; /* this creates the button separation */
+}
+ul.nav a, ul.nav a:visited { /* grouping these selectors makes sure that your links retain their button look even after being visited */
+	padding: 5px 5px 5px 15px;
+	display: block; /* this gives the link block properties causing it to fill the whole LI containing it. This causes the entire area to react to a mouse click. */
+	text-decoration: none;
+	background: #FFFFFF;
+	color: #000;
+}
+ul.nav a:hover, ul.nav a:active, ul.nav a:focus { /* this changes the background and text color for both mouse and keyboard navigators */
+	background: #6F7D94;
+	color: #FFF;
+}
+
+/* ~~ The footer ~~ */
+.footer {
+	padding: 10px 0;
+	background: #FFFFFF;
+	position: relative;/* this gives IE6 hasLayout to properly clear */
+	clear: both; /* this clear property forces the .container to understand where the columns end and contain them */
+}
+
+/* ~~ miscellaneous float/clear classes ~~ */
+.fltrt {  /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class can be placed on a <br /> or empty div as the final element following the last floated div (within the #container) if the #footer is removed or taken out of the #container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}
+.container .content table tr th div {
+	font-family: Calibri;
+	font-size: 12pt;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+}
+.container .content table tr th a {
+	font-family: Calibri;
+}
+.container .content table tr td {
+	font-family: Calibri;
+	font-size: 12pt;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+}
+.container .content table tr td div img {
+	font-family: Calibri;
+}
+-->
+</style><!--[if lte IE 7]>
+<style>
+.content { margin-right: -1px; } /* this 1px negative margin can be placed on any of the columns in this layout with the same corrective effect. */
+ul.nav a { zoom: 1; }  /* the zoom property gives IE the hasLayout trigger it needs to correct extra whiltespace between the links */
+</style>
+<![endif]--></head>
+
+<body bgcolor="#FFFFFF">
+
+<div class="container">
+  <div class="header"><a href="#"><img src="../Images/logo-spacer.jpg" name="Insert_logo" width="800" height="100" id="Insert_logo" style="background: #FFFFFF; display:block;" /></a>
+    <div class="header"><a href="#"><img src="../Images/front-page-logo.jpg" alt="Insert Logo Here" name="Insert_logo" width="600" height="100" id="Insert_logo2" style="background: #FFFFFF; display:block;" /></a>
+      <!-- end .header -->
+    </div> 
+    
+  <!-- end .header --></div>
+  <div class="sidebar1">
+    <ul class="nav">
+      <li><a href="concept.html">Concept</a></li>
+      <li><a href="houses.html">Houses</a></li>
+      <li><a href="owning.html">Owning</a></li>
+      <li><a href="designer.html">Designer</a></li>
+      <li><a href="floorplans.html">Floorplans</a></li>
+      <li><a href="../index.html">Home</a></li>
+      <li></li>
+    </ul>
+    <p class="nav"></p>
+    <!-- end .sidebar1 -->
+  </div>
+  <div class="content">
+    <h2>&nbsp;</h2>
+    <table width="777" border="0" cellspacing="10" cellpadding="0">
+      <tr>
+        <th colspan="3" valign="middle" scope="col"><h3>KITCHEN THOUGHTS</h3></th>
+      </tr>
+      <tr>
+        <th width="230" valign="middle" scope="col"><p><a href="../Images/kitchen-render3.jpg"><img src="../Images/kitchen-render3-small.jpg" width="200" height="164" align="left" /></a></p></th>
+        <th colspan="2" valign="top" scope="col"><div align="left">          Food preparation is  becoming increasingly important in ecological homes. Wherever your food comes  from, being able to process and store it efficiently and well is key, not only to our health but to our sense of connection with the natural world. From this point of view, a house and its garden should be considered as a whole. The kitchen is just  one aspect of the flow and interaction of food, people and equipment in the  home. In the solar courtyard house, a terraced garden, a cold storage room, a greenhouse &quot;wet  room&quot;, a masonry bread hearth and a grilling station are as much of the food system as the kitchen. (Click on the images to enlarge.)</div></th>
+      </tr>
+      <tr>
+        <th colspan="2" valign="middle" scope="col"><div align="left">
+          <p> In  this context, a kitchen ideally wants to be small enough for people to move about  efficiently, and to minimize material and equipment costs, but also  accommodating and flexible enough to serve a variety of functions, including  being a social center for the home. Building on my own analysis and  experience as a designer and a parent, as well as taking cues from some leading  kitchen innovators of the day, the kitchen features a single, 12’-long stainless  steel work counter with an extra-wide, commercial-style sink and a cooktop consisting of a single  row of four burners. A narrow but useful work surface  runs along the entire  length. </p>
+        </div></th>
+        <th width="212" scope="col"><a href="../Images/kitchen-plan-labeled.jpg"><img src="../Images/kitchen-plan-unlabeled-small.jpg" width="200" height="155" align="left" /></a></th>
+      </tr>
+      <tr valign="middle">
+        <th valign="middle" scope="col"><div align="left"> 
+          <p><a href="../Images/Kitchen-counter-sideview-0412.jpg"><img src="../Images/Kitchen-counter-sideview-0412-small.jpg" alt="Kitchen with innovative sink, single-row cooktop" width="200" height="272" align="left" /></a></p>
+</div></th>
+        <th colspan="2" valign="top" scope="col"><div align="left">          What makes this  counter special? A wide sink (44&rdquo;) means that multiple wet functions can take  place at the same time, even if that involves handling things like a 3-foot  long celery stick, a peck of just-picked apples or a large, dirty pan. A single-row cooktop means that  all four burners become useful, and safer for not having to always be reached  over. Even more important, it enables two people—or more—to work  comfortably side-by-side with simultaneous access to everything they need, even  in a relatively small space. Both the counter and the sliding trays and shelves above and  below are supported by a Rakks storage system that can be flexibly configured  both for personal and Universal Design considerations, and stainless-steel  shelf rods from Ikea are incorporated to make wet-proof storage shelves where  washed items can be directly placed to dry.        </div></th>
+      </tr>
+      <tr>
+        <th colspan="2" valign="top"><div align="left">
+          <p>Having one  equipment-intensive counter means that the other, island counter remains  unencumbered, ready to use for activities such as preparing pastries, packaging  food for freezing, casual eating and hanging out. With adjustable-height wheeled legs and wired with a corded  outlet, the table can be moved about, even bridging the 1-foot level change  between the kitchen and living area to serve meals like <em>teppanyaki</em> (table cooking on a griddle).</p>
+          <p>Other useful features  of the kitchen include a floor-to ceiling pantry and a Miele speed oven that  combines microwave and oven technology to significantly reduce cooking times and energy use.  Finally, with the space opening out to the courtyard through slide-away  glass doors, the courtyard itself becomes a work and hang-out space that serves  the kitchen.</p>
+        </div></th>
+        <td valign="top"><a href="../Images/kitchen-apps.jpg"><img src="../Images/kitchen-apps-small.jpg" alt="oven-pantry" width="200" height="189" align="top" /></a></td>
+      </tr>
+      <tr valign="middle">
+        <td><a href="../Images/produce.jpg"></a>
+        <p><img src="../Images/speedoven.jpg" width="200" height="163" align="left" /></p></td>
+        <td colspan="2" valign="top">Choosing a speed oven as our only kitchen oven was a big decision—would giving up the cavernous  traditional oven be too hard? In the end, we decided that having a masonry-hearth bread oven as well as a gas grill that can be directly accessed from the  courtyard sunspace gave us enough options to forgo the need for two wall  ovens. It is challenging to think through each food habit carefully to decide  what works best for one’s own family. </td>
+      </tr>
+      <tr valign="middle">
+        <td colspan="2" valign="top"><p>Just a few steps away  from the kitchen is the greenhouse &quot;wet room&quot;, which is basically a small room  with large south-facing windows and a slatted-wood draining floor. In addition to  being a space for bathing and laundry, the room has a rack system in  the window for seed starts, kitchen herbs and other food plants. Located next to the garden,  the room also becomes a convenient place to transition produce: things hosed down, laid out on racks, hung up, etc. With adequate space and  no worry about getting things wet or a little dirty, this common task is transformed from a nuisance to a pleasant add-on to gardening.</p></td>
+        <td><a href="../Images/greenhouse-wetroom.jpg"><img src="../Images/greenhouse-wetroom-small.jpg" width="200" height="175" /></a></td>
+      </tr>
+      <tr valign="middle">
+        <td><p><a href="../Images/tomatoes1-med.jpg"><img src="../Images/tomatoes1-small.jpg" alt="Tomatoes" width="200" height="162" align="left" /></a></p></td>
+        <td colspan="2" valign="top">The panel system out of which the house is constructed allows one to build earth up around the house at will. We chose to make a ramped walkway up to our  courtyard entrance on the raised main floor as part of a series of stone garden terraces on the south and east sides of the house, close to the greenhouse wet room. Buried below the terrace is a 2,000 gallon rainwater tank for garden irrigation.  Together, these features take at least some of the work out of growing things so that one can keep an eye on its pleasures.</td>
+      </tr>
+    </table>
+    <h2>&nbsp;</h2>
+    <!-- end .content --></div>
+  <!-- end .container --></div>
+</body>
+</html>

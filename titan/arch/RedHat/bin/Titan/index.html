@@ -1,0 +1,111 @@
+:
+#
+umask 022
+
+# version 3.0 Sep 25 11:21:02 PDT 1998
+# revision 3.0.1 addition of -c option
+# revision 3.0.2 brad powell Mon Sep 28 16:37:18 PDT 1998
+
+# This tool suite was written by and is copyrighted by Brad Powell, Matt 
+# Archibald, and Dan Farmer 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000
+#
+# The copyright holder disclaims all responsibility or liability with 
+# respect to its usage or its effect upon hardware or computer 
+# systems, and maintains copyright as set out in the "LICENSE" 
+# document which accompanies distribution. 
+
+# setup
+TITANHOME=`pwd`
+PATH=/bin:/usr/bin:/sbin:$TITANHOME/lib
+MYNAME=`basename $0`
+
+OS=`uname -r`
+DATE=`date +%H%M%S`
+
+# did things work out or not?
+action=`sanity_check $MYNAME $1`
+if test $? -ne 0 ; then
+        exit 1
+        fi
+# suck in library functions (t_echo) 
+. misc_functions.sh
+
+# action=$1
+
+FILES=`echo modules/*`
+if test "X$FILES" = "X" ; then
+	t_echo 1 "        ERROR: No titan modules to run!"
+	exit 1
+	fi
+
+# arg stuff:
+case "$1" in
+	-[Ii]*)
+	cd bin
+	for titan in ${FILES} ; do
+		t_echo 1 ""
+                t_echo 2 "_____________________________________________________"
+                t_echo 1 "    *=*=*=*=* Information about ${titan} "
+                t_echo 2 "-----------------------------------------------------"
+
+	if [ -f ${titan} -a -x ${titan} ] ; then
+		./${titan} -i
+	fi
+		done
+	;;
+	-[Ff]*)
+	cd bin
+	for titan in ${FILES} ; do
+	if [ -f ${titan} -a -x ${titan} ] ; then
+		t_echo 1 ""
+		t_echo 2 "    _____________________________________________________"
+		t_echo 1 "    *=*=*=*=* Running ${titan} now..... "
+		t_echo 3 "    Output to ../logs/$titan.F.${DATE}"
+		t_echo 2 "    -----------------------------------------------------"
+
+		./${titan} -f | tee  ../logs/$titan.F.${DATE}
+	fi
+		done
+	;;
+	-[Vv]*)
+	cd bin
+	for titan in ${FILES} ; do
+	if [ -f ${titan} -a -x ${titan} ] ; then
+		t_echo 1 ""
+		t_echo 2 "    _____________________________________________________"
+		t_echo 1 "    *=*=*=*=* Running ${titan} now..... "
+		t_echo 3 "    Output to ../logs/$titan.V.${DATE}"
+		t_echo 2 "    -----------------------------------------------------"
+
+		./${titan} -v | tee  ../logs/$titan.V.${DATE}
+	fi
+		done
+	;;
+	-[Cc]*)
+	if test "X$2" = "X" ; then
+		t_echo 1 "        ERROR:Usage $0  [-c file] "
+		t_echo 1 "        where \"file\" is a file containing a list of"
+		t_echo 1 "        titan modules to run with the flag preset  "
+		t_echo 1 "        one item per line. See sample.config  "
+		exit 1
+		fi
+	awk '{if ($0 ~ /^ *#/ || $0 ~ /^ *$/) next }
+		{ print $0 }' $2 | while read titan ; do
+		t_echo 1 ""
+		t_echo 2 "    _____________________________________________________"
+		t_echo 1 "    *=*=*=*=* Running ${titan} now..... "
+		t_echo 3 "    Output to ../logs/$0.C.log${DATE}"
+		t_echo 2 "    -----------------------------------------------------"
+
+		touch logs/$0.C.log${DATE}
+		./bin/modules/${titan} >> ./logs/$0.C.log${DATE}
+		done
+	;;
+        *)
+	t_echo 1 "        ERROR:Invalid arg $action"
+	t_echo 1 "        ERROR:Usage $0  -[ivfc] (I)ntro/(V)erify/(F)ix/(C)onfig"
+	t_echo 1 " "
+	;;
+        esac
+
+

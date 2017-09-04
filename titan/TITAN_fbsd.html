@@ -1,0 +1,186 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+</head>
+<body>
+
+<center>
+<h1>
+<img SRC="bigmap.jpg" </CENTER ></h1></center>
+
+<center><font color="#3366FF">Titan's view of the world</font>
+<p>
+<hr></center>
+
+<ul>
+<center><!-- Published by Quadralay WebWorks HTML Lite 1.5.1 --><a NAME="10346"></a></center>
+
+<p><p>
+<center>
+<h1>
+<font color="#3333FF">TITAN 4.0 for Free BSD</font></h1></center>
+
+<center>
+<h1>
+Descriptions as to what each module does:</h1></center>
+<b>Titan top level directory. This directory exists because of so many
+subtle changes done to different Linux distros. It just got too messy to
+keep all Linux modules in one place.</b>
+<center>
+<p><a NAME="418052"></a></center>
+<a href="Titan-Config">Titan-Config</a> This script&nbsp; figures
+out which OS you are using and makes the appropriate links to the shell
+scripts accordingly. Titan-Config also asks if you want to&nbsp; make a
+backup directory of all files modified by Titan. <blink><font color="#CC0000">NOTE:
+</font></blink>backup
+(backtit.sh) now backs up /etc/shadow and other important system files.
+It is important that these files be kept safe (we chmod them to 600; but
+that is not enough if titan lives on an NFS mount or other insecure location)
+<p><a href="arch/sol8sun4/bin/Titan">Titan</a>&nbsp; Titan is the
+program which runs all the other shell scripts (*.sh) and accepts either
+the -I (intro) -F (fix) -C (configuration) [ + filename] )or -V (verify)
+flag.
+<p>MinimizeOS is a new module that takes a configuration file and does
+a pkgrm of all modules that are not found in the configuration file. This
+minimizes the OS and removes unused (and potentially insecure) packages
+from the system.Use with caution.
+<p><a href="arch/sol8sun4/bin/Titan.top">Titan.top </a>This module
+is the same as Titan except the path has been modified so that When "Titan-Config"
+is run, Titan can be run from the top most directory.
+<p><a href="arch/fbsd/bin/TitanReport">TitanReport</a>. This
+file runs all Titan modules in the $TITANDIR/bin/modules directory using
+the "-v" flag. TitanReport then sends email with&nbsp; the results. Titanreport
+is intended to run out of cron, or as an auditing tool. See the<a href="FAQ.html">
+FAQ</a> for more.
+<p><a href="arch/fbsd/lib/backtit.sh">backtit.sh </a>This modules
+is called by "Titan-Config" when run "Titan-Config -i" (install). Backtit.sh
+makes a backup copy of all the files Titan modifies (backtit.sh currently
+does not backup file permission changes) SEE Note above!
+<p><a href="arch/fbsd/lib/untit.sh">untit.sh</a> Untit.sh is
+called by "Titan-Config" when run 'Titan-Config -d" (de-install) Untit.sh
+replaces the files modified by Titan with the original unsecured versions,
+and is provided as a recovery mechanism if we were too aggressive about
+securing the system.
+<p><b>src1 directory</b>
+<p><a href="../../src1/noshell.c">noshell.c</a> This is the preferred way
+of doing a noshell. This should be statically compiled (see <a href="../../src1/makefile">Titan.v4.0/src1/Makefile.linux</a>)
+and should replace the shell script that disable-accounts.sh placed in
+/usr/sbin/noshell.
+<p><a href="../../src1/noshell-simple.c">noshell-simple.c</a> This is a
+simplified version of noshell.c . I don't expect this to get much use,
+but&nbsp; should be statically compiled (see <a href="../../src1/Makefile">Titan,v4.0/src1/Makefile</a>)
+and replace the /usr/sbin/noshell script that disable-accounts.sh creates.
+the script that disable-accounts.sh creates is better than nothing,&nbsp;
+(better than /bin/true which is also a shell script) but a statically linked
+C program is the best way to go.
+<p><a href="../../src1/Makefile.fbsd">Titan,v4.0/src1/Makefile.fbsd</a>It
+turned out that with a few simple changes to the makefile, that noshell
+and runas worked fine with Linux distributions (probably other Unix variants
+too).
+<p><a href="../../src1/runas.c">runas.c</a> This is a simple generic program
+that allows administrators to start daemons as non privileged users, and
+optionally to run in a chrooted environment. A really good example is the
+license manager daemon. Sun sets the license manager daemon (in /etc/rc2.d/S85lmgrd)
+to start up with the command (line 84 on my system) :
+<p>su nobody -c $lic_srvr_start
+<p>This isn't bad, but it requires that the user shell for user "nobody"
+be a valid shell. Well being paranoid, Titan sets the shell to "noshell"
+so when some intruder tries to login as user "nobody" we get a warning
+message. So to get the license manager daemon to start, while keeping our
+security intact, we change the /etc/rc2.d/S86lmgrd to use runas with the
+following syntax:
+<p>&nbsp;&nbsp; /sbin/runas 60001 60001&nbsp;&nbsp;&nbsp;&nbsp; 022 $lic_srvr_start
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+^^^^^&nbsp; ^^^^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^^^
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nobodyUID&nbsp;
+nobodyGID&nbsp;&nbsp; umask to use
+<p>viola! Secure as well as functional. With the latest runas.c you can
+also run things in a chrooted environment. This isn't required for the
+license manager daemon, but will come in handy for http daemons.
+<p>&nbsp;
+<p><b>Titan modules (arch/RedHat/bin/modules)</b>
+<p><a href="arch/fbsd/bin/modules/create-issue.sh">create.issue.sh</a>
+Creates the /etc/issue banner that gets displayed at login time.
+<p><a href="arch/fbsd/bin/modules/ftpusers.sh">ftpusers.sh</a>
+Creates a sane /etc/ftpusers which stops users such as root or "bin" from
+using ftp. This prevents "root" from ftping over a new /etc/shadow file,
+and forces the administrators to ftp as themselves and then "su" to root
+thus keeping the audit trail&nbsp; (more) intact.
+<p><a href="arch/fbsd/bin/modules/inetd.sh">inetd.sh</a> Changes
+/etc/inetd.conf&nbsp; and turns off most of the services.&nbsp; You will
+want to&nbsp; localize this.&nbsp; For desktops for instance you might
+want to leave on the services for calendar manager and tooltalk (assuming
+windows) My suggestion is to get tcp_wrappers and wrap all services. Then
+get ssh and turn off rsh/rlogin and ftp and only use ssh/scp for remote
+access needs.
+<p><a href="arch/fbsd/bin/modules/inetd_flags.sh">inetd_flags.sh</a>
+<p>&nbsp;This program copies /etc/inetd.conf to /etc/inetd.conf.ORIG-DATE.
+<p>&nbsp;Then makes an addition to /etc/rc.conf to increase the number
+of times a
+<p>&nbsp;service can be invoked in one minute.(the default is 256- 1024
+sounds more
+<p>&nbsp;reasonable adjust as needed)
+<p>&nbsp;change RATE=1024 to adjust number of times service can be invoked.
+<p>&nbsp;NOTE: This changes inetd_flags, if you have existing flags that
+you
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; want to keep, make changes
+to script as needed.
+<p>l<a href="arch/fbsd/bin/modules/log_in_vain.sh">og_in_vain.sh</a>&nbsp;
+This program copies /etc/inetd.conf to /etc/inetd.conf.ORIG-DATE.
+<p>&nbsp; Then makes an addition to /etc/rc.conf to log all connection
+attempts to
+<p>&nbsp; TCP/UDP ports with out services running on them.
+<p><a href="arch/fbsd/bin/modules/nuke-inetd.sh">nuke-inetd.sh</a>
+<p>&nbsp;Use this module with caution, all inetd network services will
+be
+<p>&nbsp;disabled.
+<p>&nbsp;This program copies /etc/inetd.conf to /etc/inetd.conf.ORIG-DATE.&nbsp;
+Then makes an
+<p>&nbsp;addition to /etc/rc.conf to turn off inetd&nbsp; from starting
+at startup.
+<p><a href="arch/fbsd/bin/modules/nuke-portmap.sh">nuke-portmap.sh</a>
+<p>Use this module with caution.
+<p>&nbsp;This program copies /etc/inetd.conf to /etc/inetd.conf.ORIG-DATE.&nbsp;
+Then makes an
+<p>&nbsp;addition to /etc/rc.conf to turn off portmapper from starting
+at startup.
+<p><a href="arch/fbsd/bin/modules/nuke-sendmail.sh">nuke-sendmail.sh</a>
+This module does as it implies. Disables sendmail. This modules should
+be used on Firewalls that are not sendmail servers, Servers that are not
+sendmail servers, and all desktops that have their mail delivered to a
+server.
+<p><a href="arch/fbsd/bin/modules/telnet-banner.sh">telnet-banner.sh</a>
+<p>This program copies /etc/hosts.allow to /etc/hosts.allow.ORIG
+<p>&nbsp;and modifies the runtime /etc/hosts.allow so that the following
+<p>&nbsp;tcp services will present a pre-login banner.
+<p>&nbsp;
+<p>&nbsp;tcp banner&nbsp; services include:
+<p>&nbsp;
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; telnetd ftpd rlogind
+<p>&nbsp;
+<p>&nbsp;NOTE: Important -> this overrides existing host.allow filters!
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To place your access filters
+in this script change filter entry.
+<p>&nbsp;Should you need to change this vi this script and modify the
+<p>&nbsp;\$ServiceList variable to include/exclude as you wish....
+<p>&nbsp;
+<p>&nbsp;
+<p>&nbsp;
+<p>
+<center>
+<p><a NAME="418156"></a><a href="TITAN_documentation.html">Back to Titan
+Main Doc Page</a></center>
+
+<center>
+<h5>
+<a NAME="418157"></a></h5></center>
+</ul>
+
+<hr>
+<h5>
+Last Modified Wed Jan 24 14:28:21 PST 2001</h5>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.78 [en] (X11; U; SunOS 5.9 sun4u) [Netscape]">
+   <title>      TITAN 4.0 FAQ</title>
+</head>
+<body>
+
+<div CLASS="Body">
+<center><img SRC="titan.jpg" height=458 width=381></center>
+</div>
+
+<div CLASS="Body"><a NAME="pgfId=424068"></a></div>
+
+<h1 CLASS="Heading1">
+<a NAME="pgfId=424069"></a>What's New in TITAN 4.1 - Solaris/Linux/others..</h1>
+
+<h3 CLASS="Heading1">
+Many of you have asked for a "changes document" to see if its worth loading
+newer versions of Titan . Also so your local diffs can be incorporated
+better.&nbsp; Well here it is!</h3>
+
+<div CLASS="Heading1">Authors note: If you make local changes to Titan,
+think about sending them to us for incorporating into the next release!</div>
+
+<div CLASS="Heading1">Titan isn't a commercial product, and we are happy
+to incorporate changes, as long as you don't want to get paid for the contributions,
+except maybe in beer.&nbsp; -bpowell
+<br>&nbsp;
+<br>&nbsp;
+
+
+<p><b>4.1</b>
+<div CLASS="Heading1">End Beta - mostly bug fixes for runas and disable-NFS-2.6.sh&nbsp; </div>
+
+<div CLASS="Heading1">Changes to deal with gcc versions less than 3.3 for stubs.c&nbsp; </div>
+<div CLASS="Heading1">Launched production support through <A HREF="http://titanuser.com"><IMG SRC="new2.gif" WIDTH="40" HEIGHT="28" ALIGN="BOTTOM" BORDER="0"><B><FONT COLOR="#009900">titanuser.com</FONT></B></A><FONT COLOR="red"></FONT>&nbsp; </div>
+<div CLASS="Heading1"></div>
+
+
+<p><b>4.0</b>
+<div CLASS="Heading1">BETA6- mostly bug fixes as well as some new modules&nbsp;
+for the OEM&nbsp;distribution from Solaris 8 and solaria 9.</div>
+<div CLASS="Heading1"></div>
+
+
+<p CLASS="Heading1">This should be the last BETA release.
+<div CLASS="Heading1"></div>
+
+
+<p CLASS="Heading1">Full Solaris 9 support.
+<br>&nbsp;</div>
+
+<div CLASS="Heading1">Update to the lib/nddsvc&nbsp; with IPv6 settings
+and a few enhancements for DDoS prevention.
+<p>init4.sh-generic ; A new module which will make life easier for DMZ
+systems, as well as single service systems.
+<p>Added in a bunch of modules (basically 6 new disable-*.sh) for daemons
+which have crept into Solaris via the OEM bundled install.
+<p>Added a module to enable tcp_wrappers support natively to Solaris 9.
+<p>Added a module to enable&nbsp; hosts.allow for Solaris 9 sshd.
+<p>Added a module to disable remote X server listening&nbsp; (tcp) for
+Linux as well as for Solaris 9. Nmap will now no longer be able to detect
+<br>port 600 and port 200 listening, while the local X server is still
+running.
+<p>Optional SP1 (I hate the name service pack)&nbsp; which can be used
+for those who prefer a backup and undo for each module.
+<p><b>Bug Fixes</b>
+<p><b>Fix1:</b>&nbsp; Fixed a major bug in the Backup module. This one
+crept in because of the new service pack, and I missed catching its changes
+to the standard
+<br>distribution (sorry all!) Answering "Y" to Titan-Config.sh for the
+backup all changes now works properly.
+<p><b>Fix2:&nbsp; </b>Fixed inetsvc.sh in sol8 and sol9 so that it created
+a proper&nbsp; minimum /etc/rc2.d/S72inetsvc
+<p><b>Enhancements</b>
+<p>Added an enhancement to ftpusers.sh so that no matter which ftpd is
+used&nbsp; a /etc/ftpusers file is created (actually I just create /etc/ftpusers
+and link
+<br>it to /etc/ftpdusers).
+<p><b>New modules</b>:</div>
+
+<p><br>See the specific modules for a complete description.
+<p>nddconfig2.9.sh*
+<br>&nbsp;disable-ncalogd.sh*
+<br>&nbsp;disable-flasprom.sh*
+<br>&nbsp;disable-afbinit.sh*
+<br>&nbsp;disable-ifbinit.sh*
+<br>&nbsp;disable-llc2.sh*
+<br>&nbsp;disable-pppd.sh*
+<br>&nbsp;disable-cachefs.sh*
+<p>&nbsp;tcp_connection_logging.sh*
+<br>&nbsp;tcp_wrap.sh*
+<br>&nbsp;telnet-banner.sh*
+<br>&nbsp;ssh-banner.sh*
+<br>&nbsp;add-cmask.sh*
+<br>&nbsp;hostallow.sh*
+<br>&nbsp;x-nolisten.sh*
+<p>
+<hr>
+<h5>
+Last Modified Thu Sept 3 08:08:21 PST 2002</h5>
+
+</body>
+</html>

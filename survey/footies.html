@@ -1,0 +1,353 @@
+<HTML>
+<HEAD>
+<TITLE>Footnotes</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+
+<h3>Footnotes</h3>
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+
+<blockquote>
+<a name="survey_hosts">"<strong>After doing a security survey
+of approximately 1700 of these interesting Web sites
+on the Internet (and another 500 as a control study)..."</strong></a>
+</blockquote>
+I will not release the names of the hosts or the raw data that I
+collected.  As a matter of fact, I have sent it off-site and
+deleted all traces of it
+from my machine; I couldn't access it myself even if wished to.  I 
+will arrange to release the data to CERT 
+(or perhaps another well-known response team) if they wish to get 
+the data under a non-disclosure agreement for research purposes or 
+perhaps to warn the sites that are potentially vulnerable.
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+<blockquote>
+<a name="legal">"<strong>Using relatively crude,
+non-intrusive (i.e., no sites were actually broken into, no port-
+scanning was done, etc.), and, as far as I am aware of,
+perfectly legal techniques to analyze their security, I found
+that:"</strong>
+
+</blockquote>
+<blockquote>
+	and
+</blockquote>
+<blockquote>"<strong>However, there are many ways to detect potential problems 
+without actually breaking into a system."</strong>
+</blockquote>
+
+
+<p>
+
+All of the tests run in this survey could fall into one of two categories:
+
+<ul>
+<li> day to day operational results that everyone does on a daily basis.
+	This includes such things as sending mail to a remote site
+	(this can show the version of sendmail that your recipient
+	uses), connecting to a WWW or an anonymous ftp server, etc.
+<p>
+<li> generally accepted examinitions of an Internet host.  For instance,
+	using a remote host's "echo" or "chargen" port for testing
+	your own host.
+</ul>
+
+I believe that all of the tests I ran are perfectly legal.  In addition,
+I would sincerely hope that my good intent and willingness to disclose the 
+information to the appropriate agencies/organizations will be of some 
+use to me in this matter, should it arise, god forbid.
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+
+<blockquote>
+<a name="single_bug"><strong>"...an additional 9-24% of these same hosts could 
+	be broken into if a single new bug were found (or known 
+	about by potential intruders) in either of two important and
+	widely-used programs, <cite>wu-ftp</cite> and <cite>sendmail</cite>.
+	</strong>
+</blockquote>
+
+I ran a "what if" simulation using SATAN against the 1700 surveyed
+hosts.  A new bug that would effect all versions of sendmail would 
+increase the percentage of vulnerable hosts by 8.65%.  A new bug
+in wu-ftp version 2.4 would increase the percentage by 23.93%.
+
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+
+<blockquote>
+<a name="waterlogged"><strong>"And much of the security information that gets
+wide-spread popular coverage is so watered down or simply incorrect
+as to be almost useless."</strong>
+</blockquote>
+How many <a href="glossary.html#cdv">Columbus Day Virii</a>
+do we need to be alarmed about before we
+catch on?  Some of the problem is that most people don't have the technical
+ability to discriminate between a real potential problem and a fake one;
+the differences are sometimes subtle.  And sometimes false alarms are
+essentially indistinguishable from the real thing.  Even if the problem is 
+real, it is often marred by translations from writers who don't understand the
+technology or issues involved.  For instance,
+<a href="http://www.takedown.com">Kevin Mitnick</a> 
+was thought to be a super-cracker, someone
+who wrote amazing security programs and could break into almost any computer
+in the world.  Not!  Java and the WWW are rife with scare tactics and
+false alarms.
+
+To put it simply; modern multitasking, multiuser operating systems (like
+Unix, NT, and even to a certain degree MacOS and Win95) are incredibly
+complex things.  They can do almost anything, and if you connect to
+networks there's a potential to get fucked over in a variety of ways;
+there is <strong>no</strong> easy path to security.
+<a href="appendix_c.html">Here are some very simple strategies to 
+follow</a> that might help, but above all, be educated, clever, and 
+careful.
+
+<p>  I'm really not trying to scare anyone here; simply because you know
+that you can get hit by a bus when crossing the street doesn't mean that
+it will happen or that you should live in fear of motorized vehicles
+(as if anyone will read this footnote anyway!)  Anyway, here's a 
+<a href="v_parody.html">parody of a real virus scare</a> that I found 
+amusing.  To quote it: "if this weren't a SERIOUS situation, WE WOULDN'T 
+BE DISCUSSING IT IN 'ALL CAPS'."
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+
+<blockquote>
+<a name="i_b_i"><strong>"...is that with individual instances of computer crime
+on the Internet (e.g. breaking into the CIA)"</strong></a>
+</blockquote>
+I say "on the Internet" because other computer crimes are often significantly
+different.  The old story about someone getting rich by having the bank
+accounting program steal a fraction of a penny from each transaction is
+very different, because banks employ very heavy 
+<a href="glossary.html#audit_trail">audit trails</a> for accountability 
+reasons.  The Internet has almost no digital trail, no electronic path that 
+can be followed by pursuers, and what little there is is easily erased
+by would-be intruders (directly analogous to sweeping the trail behind
+you to obliterate your footsteps.)  By the time you get to where you
+suspect the interloper was, all trace is probably gone.
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+<blockquote>
+<a name="jls"><strong>"...is perhaps analogous to Jonathan Livingston Seagull
+buzz-bombing the elder gulls at speeds exceeding 100 MPH."</strong></a>
+</blockquote>
+<cite>Jonathan Livingston Seagull</cite> is a wonderful book by Richard Bach.  
+In this book seagulls are only interested in eating and their slightly 
+bizarre social order (sounds about right.)  The protagonist (Jonathan) 
+is a seagull who wants to <cite>fly</cite>.  When he finally
+does learn some flying tricks and screams by the feeding grounds at high
+speed, the elder gulls banish him from the flock.  A wonderful,
+heartwarming and spiritual work.  Highly recommended, along with his
+other masterpiece, <cite>Illusions</cite>.
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+<blockquote>
+<a name="netcraft"><strong>"The security ramifications of this are
+fairly staggering."</strong></a>
+</blockquote>
+
+It is amazing how much information you can gather from a remote host
+simply by connecting to a service and chatting with it (electronically,
+that is!)  You can often tell what sort of system it is and what 
+vulnerabilities exist - for instance, if you determine that a system is
+running the Apache web server, you can deduce that it is a Unix system,
+since the Apache server only runs (currently) on Unix hosts.  Furthermore,
+if a CERT advisory warns you about security problems about a version
+of sendmail and tells you to run a new version of it, you can
+tell if a system is vulnerable or not by connecting to the SMTP
+and looking at the version number listed.  Most network
+services are very friendly and will give you all sorts of information
+if you ask nicely.  This is one of the main methods that SATAN uses
+to determine weaknesses in remote systems.
+
+<p>
+Netcraft's survey gives intruders a vast database of break-in 
+information; you can simply query its database and determine potential 
+targets.  Note that it is easy to get this information on any <i>individual</i>
+host yourself - most
+WWW servers give out the version numbers whenever you talk to them (although
+you typically don't see this as a user, the browser guts do.)
+And while many people find the Netcraft information useful, interesting, and
+provocative, I would still strongly suggest that Netcraft 
+remove such information from the publically accessible database.
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+
+<blockquote>
+<a name="lenin"><strong>"
+The survey was presumably detected in greater number than this; 
+unfortunately there is no way to determine just how frequently it 
+was discovered."</strong>
+</blockquote>
+
+<p>
+
+After releasing this document, I got the following note from an administrator
+who ran the "Lenin Project" machines:
+
+<blockquote>
+<i>
+Howdy.  I wanted to write and congratulate you on your security survey; it's 
+very useful information, though I doubt a lot of the people who should read 
+through it are going to.  Interestingly enough, I used to administer one of the 
+machines you scanned; one of the few that probed you back during the scan.  
+Since I've always had terrible luck complaining to sysadmins about probes, 
+I did the next best thing: within 10 minutes of your initial scan, 
+
+<blockquote>
+ALL : .trouble.org : DENY
+</blockquote>
+
+was in our <i>hosts.deny</i> file and the people in the systems group had mail 
+messages telling them to watch for connections from the domain.  I 
+have since removed your domain from the file. :)  I am fairly embarassed 
+to admit, however, that the machine you scanned probably came up vulnerable 
+due to an ancient version of sendmail that should have been upgraded long 
+ago.  However, since we decommissioned the machine early this morning, 
+I guess it's no longer an issue.
+</i>
+</blockquote>
+
+(The <i>hosts.deny</i> file refers to the 
+<i>TCP wrappers</i>, which can be found on
+<a href="ftp://ftp.win.tue.nl/pub/security/index.html">Wietse Venema's
+ftp site.</a>; putting this entry in the configuration file means that
+connections from my machine were to be refused in the future.)
+
+<p>
+This was possibly a common response from sites that detected the 
+survey but weren't willing to go to the effort of contacting me, my ISP, or
+a CERT directly (the TCP wrappers are very popular and easy to use), but
+I'll never know just how frequent it was.  The lack of success that this
+system administrator had (with her/his reporting security problems to
+remote sites) might be the same reason that others didn't contact me
+in greater numbers.
+
+<p>
+I'll leave it to you to judge how wise it was to remove my domain name 
+from the <i>hosts.deny</i> file ;-)
+
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+
+<blockquote>
+<a name="design"><strong>"
+There are many technical strategies to
+keep in mind while attempting to keep a site secure, and, combined
+with the incredible fluidity and dynamism of computer security today,
+it is increasingly difficult to use techniques and architectures
+that are ill-designed for our current situation."</strong></a>
+</blockquote>
+
+<p>
+
+Most of the protocols, programs, and computer in use today were
+designed a long time ago (in computer or dog years, that is), and
+while many perform admirably, quite a few suffer from the rapidly changing
+social and technical environment that we live in.  They are very
+much ingrained in our culture and our existing technology base, however, 
+and it is very difficult to change them.
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+
+<blockquote>
+<a name="farmers_law"><strong>"Farmer's law says that the security
+on a computer system degrades the more you use the system."</strong></a>
+</blockquote>
+Rarely do security incidents happen simply because an intruder is being
+brilliant.  Most potential problems are there due to carelessness or
+lack of foresight, either in the architecture, design, and implementation 
+side or in the maintenance of the system by the system administrator.
+As time goes on the chances that someone will discover problems of
+the former type go up (e.g. the more people use an operating
+system, the more problems will be found.)  And people make mistakes -
+the more system administrators or users there are on a system, the greater
+the likelihood is that a mistake will be made, and that intruders can
+find their way past the defenses of the system.
+<p>
+Someone else probably has said this better, but I've been saying this
+for years and I haven't read it anywhere else, so I'm claiming it 
+for now ;-)
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+
+<blockquote>
+<a name="orgs_o_note"><strong>"Unfortunately, unlike the financial market, 
+	there are no organizations of note that rate or give any assurance 
+	that sites are secure."</strong>
+</blockquote>
+
+Some might point to the <a href="http://www.ncsa.com">NCSA</a> as an
+organization that does just this.  If someone said this to me I would
+repeat my previous quote.  While I have yet to meet an organization 
+that is entirely without merit, I have so many issues with the NCSA and
+their firewall and web server certification it is difficult to
+know where to begin to criticize them.  Here are some of the more
+damaging problems:
+
+<ul>
+<li> Their criteria for what makes a host "secure" are ambiguous and
+	technically unsound.
+<li> Their specifications are incomplete and filled with undefined
+	buzz words.
+<li> They have a page that is supposed to have a list
+	of certified sites, so that you can verify that a site was truly secured
+	by them.  It was last updated as of August 1, 1996,
+	and says that "There are a number of sites currently being tested 
+	for certification.  As soon as sites are certified, the name of 
+	the site and the URL will be listed on this page."  I can only
+	surmise that they could not get anyone to pay their fees,
+	that no one has passed their test, or that they aren't updating
+	the page.  Any of those makes their process worthless.
+</ul>
+
+In general, standards made by the same organization that wishes to 
+make a buck off of validition of the same are odious.  I cannot think 
+of any that were <strong>ever</strong> worth the paper (in this case, 
+e-paper) they were printed on.
+
+<p>
+
+They do have a great, very true slogan, however:
+
+<blockquote>
+<strong>"Security is not a one-time event. It is a continual process."</strong>
+</blockquote>
+
+<p>
+How true, how true.
+
+<p>
+<pre>
+
+</pre>
+
+<TABLE><TR><TD><NOBR><a href="dan.html"><IMG border=0 SRC="test3.gif"></a><a href="introduction.html"><IMG border=0 SRC="intro.gif"></a><a href="purpose.html"><IMG border=0 SRC="purpose1.gif"></a><a href="lucky_ones.html"><IMG border=0 SRC="select.gif"></a><a href="testing.html"><IMG border=0 SRC="methods.gif"></a><a href="conclusions.html"><IMG border=0 SRC="conclusions.gif"></a><a href="index2.html"><IMG border=0 SRC="apps.gif"></NOBR></TD></TR></TABLE>
+
+</BODY>
+</HTML>

@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<title>SATAN Requirements </title>
+<LINK REV="made" HREF="mailto:wietse@wzv.win.tue.nl">
+</HEAD>
+<BODY>
+<H1>
+<a href="demo/images/satan-full.gif">
+<IMG SRC="demo/images/satan.gif"></a>
+SATAN Requirements 
+</H1>
+
+<HR>
+
+<H2>
+What you need to run your own SATAN copy.
+</H2>
+
+[This information was taken from the SATAN README document]
+<P>
+In order get SATAN up and running,
+<UL>
+<LI>You need a UNIX system to run SATAN. In order to unpack the SATAN
+  archive,
+<P>
+<CODE>
+	compress -d &ltsatan-X.X.tar.Z | tar xvf -
+</CODE>
+<P>
+<LI>You will need PERL 5.000 or better (perl5 alpha is NOT good enough),
+  and a WWW browser (Netscape, Mosaic, or Lynx). SATAN looks a lot
+  better on a color display. The FAQ gives hints for MONO screens.
+  perl can be found on ftp.netlabs.com.
+<P>
+<LI>When you collect or view data about hundreds of hosts you will need a
+  machine with enough CPU power (sparc5, indy, or better) and memory
+  (32 MB or better).
+<P>
+<LI>Run the "reconfig" script. It will patch some scripts with the
+  pathnames of your PERL 5 executable, and of your WWW browser.  If
+  SATAN does not find the WWW browser that you want to use, edit the
+  config/paths.pl file and change the line 
+<P>
+<CODE>
+	$MOSAIC="program_name";
+</CODE>
+<P>
+  to whatever browser you prefer (make sure to preserve the quotation
+  marks and punctuation of the line.)
+<P>
+<LI>Run the "make" command. It will ask you to specify a system type.
+  Most mainstream system types are provided. 
+<P>
+<LI>When your network lies behind a firewall, you should unset your proxy
+  environment variables (such as <I>$http_proxy, $file_proxy, $socks_ns,</I>
+  etc.) and/or change your browser configuration to not use your SOCKS
+  host or HTTP Proxy (see your HTML browser's option section.)
+<P>
+<LI>Run the "satan" script. When run without arguments, it will start up
+  a WWW browser. The command-line interface is described in the satan.8
+  manual page ("nroff -man" format). You must run SATAN as superuser if
+  you want to collect data.
+<P>
+<LI>You can run multiple SATAN processes in parallel to speed up data
+  collection, but each process should be given its own database (via
+  the "-d" command-line option). We use one SATAN database per block of
+  256 addresses (satan -d x.x.x x.x.x). After data collection you can
+  merge SATAN databases in core with the HTML browser (see the
+  documentation on scanning and databases for more on this.) Parallel
+  code and sharing of databases will come at a later date.
+<P>
+<LI>Use your browser's PRINT button to print reports.
+</UL>
+<P>
+Most documentation is accessible via your WWW browser. 
+<P>
+Last but not least, SATAN was written to improve Internet security.
+Don't put our work to shame.
+<P>
+	Wietse Venema / Dan Farmer 
+	    (satan@fish.com)
+<P>

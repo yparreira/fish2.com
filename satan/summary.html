@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<title>What SATAN Is </title>
+<LINK REV="made" HREF="mailto:wietse@wzv.win.tue.nl">
+</HEAD>
+<BODY>
+<H1>
+<a href="demo/images/satan-full.gif">
+<IMG SRC="demo/images/satan.gif"></a> 
+What SATAN Is
+</H1>
+<P>
+<HR>
+<P>
+[Extract from a USENET posting dated March 8, 1995]
+<P>
+SATAN was written because we realized that computer systems are
+becoming more and more dependent on the network, and at the same
+becoming more and more vulnerable to attack via that same network.
+<P>
+The rationale for SATAN is given in a paper that we posted in december 1993
+(<a href="admin-guide-to-cracking.html">
+Improving the Security of Your Site by Breaking Into it</a>).
+<P>
+SATAN is a tool to help systems administrators. It recognizes several
+common networking-related security problems, and reports the problems
+without actually exploiting them.
+<P>
+For each type or problem found, SATAN offers a tutorial that explains
+the problem and what its impact could be. The tutorial also explains
+what can be done about the problem: correct an error in a configuration
+file, install a bugfix from the vendor, use other means to restrict
+access, or simply disable service.
+<P>
+SATAN collects information that is available to everyone on with access
+to the network. With a properly-configured firewall in place, that
+should be near-zero information for outsiders.
+<P>
+We have done some limited research with SATAN. Our finding is that on
+networks with more than a few dozen systems, SATAN will inevitably find
+problems.  Here's the current problem list:
+<P>
+<UL>
+<LI>NFS file systems exported to arbitrary hosts
+<LI>NFS file systems exported to unprivileged programs
+<LI>NFS file systems exported via the portmapper
+<LI>NIS password file access from arbitrary hosts
+<LI>Old (i.e. before 8.6.10) sendmail versions
+<LI>REXD access from arbitrary hosts
+<LI>X server access control disabled
+<LI>arbitrary files accessible via TFTP
+<LI>remote shell access from arbitrary hosts
+<LI>writable anonymous FTP home directory
+</UL>
+<P>
+These are well-known problems. They have been subject of CERT, CIAC, or
+other advisories, or are described extensively in practical security
+handbooks. The problems have been exploited by the intruder community
+for a long time.
+<P>
+We realize that SATAN is a two-edged sword - like many tools, it can be
+used for good and for evil purposes. We also realize that intruders
+(including wannabees) have much more capable (read intrusive) tools
+than offered with SATAN.  We have those tools, too, but giving them
+away to the world at large is not the goal of the SATAN project.
+<P>

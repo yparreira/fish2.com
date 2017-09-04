@@ -1,0 +1,210 @@
+#!/sbin/sh
+#
+# Copyright (c) 1999 by Sun Microsystems, Inc.
+# All rights reserved.
+#
+# $Id: nddconfig,v 1.2 1999/09/29 22:25:04 kaw Exp $
+#
+# Copy this script to /etc/init.d and name it 'nddconfig'. Create a
+# hardlink to /etc/init.d/nddconfig in /etc/rc2.d named 'S70nddconfig'.
+#
+# Keith A. Watson <kaw@Eng.Sun.COM>
+#
+PATH=/usr/bin:/usr/sbin
+
+#
+# This file contain network related options settings. The settings
+# included here are considered safe in terms of security. Some settings
+# may not work in your environment. The comments provided for each
+# explain what effect the setting has.
+#
+# A '0' indicates false/off.
+# A '1' indicates true/on.
+#
+
+#
+# arp_cleanup_interval
+#
+#  This option determines the period of time the Address Resolution
+#  Protocol (ARP) cache maintains entries. ARP attacks may be effective
+#  with the default interval. Shortening the timeout interval should
+#  reduce the effectiveness of such an attack.
+#  The default value is 300000 milliseconds (5 minutes).
+#
+ARP_CLEANUP_INTERVAL=60000
+
+#
+# ip_forward_directed_broadcasts
+#
+#  This option determines whether to forward broadcast packets directed
+#  to a specific net or subnet, if that net or subnet is directly
+#  connected to the machine. If the system is acting as a router, this
+#  option can be exploited to generate a great deal of broadcast network
+#  traffic. Turning this option off will help prevent broadcast traffic
+#  attacks.
+#  The default value is 1 (True).
+#
+IP_FORWARD_DIRECTED_BROADCASTS=0
+
+#
+# ip_forward_src_routed
+#
+#  This option determines whether to forward packets that are source
+#  routed. These packets define the path the packet should take instead
+#  of allowing network routers to define the path.
+#  The default value is 1 (True).
+#
+IP_FORWARD_SRC_ROUTED=0
+
+#
+# ip_ignore_redirect
+#
+#  This option determines whether to ignore Internet Control Message
+#  Protocol (ICMP) packets that define new routes. If the system is
+#  acting as a router, an attacker may send redirect messages to alter
+#  routing tables as part of sophisticated attack (man in the middle
+#  attack) or a simple denial of service.
+#  The default value is 0 (False).
+#
+IP_IGNORE_REDIRECT=1
+
+#
+# ip_ire_flush_interval
+#
+#  This option determines the period of time at which a specific route
+#  will be kept, even if currently in use. ARP attacks may be effective
+#  with the default interval. Shortening the time interval may reduce
+#  the effectiveness of attacks.
+#  The default interval is 1200000 milliseconds (20 minutes).
+#
+IP_IRE_FLUSH_INTERVAL=60000
+
+#
+# ip_respond_to_address_mask_broadcast
+#
+#  This options determines whether to respond to ICMP netmask requests
+#  which are typically sent by diskless clients when booting. An
+#  attacker may use the netmask information for determining network
+#  topology or the broadcast address for the subnet.
+#  The default value is 0 (False).
+#
+IP_RESPOND_TO_ADDRESS_MASK_BROADCAST=0
+
+#
+# ip_respond_to_echo_broadcast
+#
+#  This option determines whether to respond to ICMP broadcast echo
+#  requests (ping). An attacker may try to create a denial of service
+#  attack on subnets by sending many broadcast echo requests to which all
+#  systems will respond. This also provides information on systems that
+#  are available on the network.
+#  The default value is 1 (True).
+#
+IP_RESPOND_TO_ECHO_BROADCAST=0
+
+#
+# ip_respond_to_timestamp
+#
+#  This option determines whether to respond to ICMP timestamp requests
+#  which some systems use to discover the time on a remote system. An
+#  attacker may use the time information to schedule an attack at a
+#  period of time when the system may run a cron job (or other time-
+#  based event) or otherwise be busy. It may also be possible predict
+#  ID or sequence numbers that are based on the time of day for spoofing
+#  services.
+#  The default value is 1 (True).
+#
+IP_RESPOND_TO_TIMESTAMP=0
+
+#
+# ip_respond_to_timestamp_broadcast
+#
+#  This option determines whether to respond to ICMP broadcast timestamp
+#  requests which are used to discover the time on all systems in the
+#  broadcast range. This option is dangerous for the same reasons as 
+#  responding to a single timestamp request. Additionally, an attacker
+#  may try to create a denial of service attack by generating many
+#  broadcast timestamp requests.
+#  The default value is 1 (True).
+#
+IP_RESPOND_TO_TIMESTAMP_BROADCAST=0
+
+#
+# ip_send_redirects
+#
+#  This option determines whether to send ICMP redirect messages which
+#  can introduce changes into remote system's routing table. It should
+#  only be used on systems that act as routers.
+#  The default value is 1 (True).
+#
+IP_SEND_REDIRECTS=0
+
+#
+# ip_strict_dst_multihoming
+#
+#  This option determines whether to enable strict destination
+#  multihoming. If this is set to 1 and ip_forwarding is set to 0, then
+#  a packet sent to an interface from which it did not arrive will be
+#  dropped. This setting prevents an attacker from passing packets across
+#  a machine with multiple interfaces that is not acting a router.
+#  The default value is 0 (False).
+#
+IP_STRICT_DST_MULTIHOMING=1
+
+#
+# tcp_conn_req_max_q0
+# 
+#  This option determines the size of the queue containing half-open
+#  connections. This setting provides protection from SYN flood attacks.
+#  Solaris 2.6 and 7 (and 2.5.1 with patch 103582-12 and higher) include
+#  protection from these attacks. The queue size default is adequate for
+#  most systems but should be increased for busy Web servers.
+#  The default value is 1024.
+#
+TCP_CONN_REQ_MAX_Q0=4096
+
+# Process the argument. 'stop' ignored.
+case "$1" in
+'start')
+	
+	# set the appropriate network options
+	ndd -set /dev/arp arp_cleanup_interval \
+			    $ARP_CLEANUP_INTERVAL
+	ndd -set /dev/ip  ip_forward_directed_broadcasts \
+			    $IP_FORWARD_DIRECTED_BROADCASTS
+	ndd -set /dev/ip  ip_forward_src_routed \
+			    $IP_FORWARD_SRC_ROUTED
+	ndd -set /dev/ip  ip_ignore_redirect \
+			    $IP_IGNORE_REDIRECT
+	ndd -set /dev/ip  ip_ire_flush_interval \
+			    $IP_IRE_FLUSH_INTERVAL
+	ndd -set /dev/ip  ip_respond_to_address_mask_broadcast \
+			    $IP_RESPOND_TO_ADDRESS_MASK_BROADCAST
+	ndd -set /dev/ip  ip_respond_to_echo_broadcast \
+			    $IP_RESPOND_TO_ECHO_BROADCAST
+	ndd -set /dev/ip  ip_respond_to_timestamp \
+			    $IP_RESPOND_TO_TIMESTAMP
+	ndd -set /dev/ip  ip_respond_to_timestamp_broadcast \
+			    $IP_RESPOND_TO_TIMESTAMP_BROADCAST
+	ndd -set /dev/ip  ip_send_redirects \
+			    $IP_SEND_REDIRECTS
+	ndd -set /dev/ip  ip_strict_dst_multihoming \
+			    $IP_STRICT_DST_MULTIHOMING
+	ndd -set /dev/tcp tcp_conn_req_max_q0 \
+			    $TCP_CONN_REQ_MAX_Q0
+	;;
+
+'stop')
+	;;
+
+'show')
+	echo "Currently unimplemented."
+	;;
+
+*)
+	echo "Usage: $0 { start | stop | show }"
+	exit 1
+	;;
+esac
+
+exit 0

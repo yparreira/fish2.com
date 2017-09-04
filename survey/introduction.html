@@ -1,0 +1,184 @@
+<HTML>
+<HEAD>
+<TITLE>Introduction - Security Survey and Reflections, late 1996</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+
+<h3>
+"Shall we dust Moscow?"
+</h3>
+
+<h4>
+(A Semi-Statistical) Security Survey of Key Internet Hosts & Various 
+Semi-Relevant Reflections
+</h4>
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+
+Recently there have been some security incidents on the Internet (most 
+notably some break-ins and alterations of the contents of some high-profile 
+Web sites, such as the 
+<a href="http://www.2600.com/cia/">CIA</a> and the 
+<a href="http://www.2600.com/doj_2600rush/">US Department of Justice</a>)
+that caused a bit of commotion in the 
+popular press.  Perhaps simply another day on the Internet,
+where machines are routinely broken into, but, coupled with a 
+<a href="http://www.bankamerica.com/p-finance/homebanking/homebanking.html">
+recent advertisement</a> I received that offered on-line balances and seemed 
+to indicate that I could schedule payments via the Internet, it caused me to
+think more about the current situation on the Internet with 
+respect to the hosts that are socially vital or otherwise 
+high-profile (e.g. banks, federal sites, newspapers, commercial 
+sites that make all of their money on the Web, etc.), especially with 
+the current popular emphasis on Internet commerce and the mad rush of 
+individuals and organizations willing to put massive amounts of information 
+on the Web.  Are the virtual versions of these organizations as trustworthy 
+and as safe as their real-life counterparts?
+
+<p>
+
+I decided to investigate what were to me the most interesting of the 
+online sites - banks and 
+<a href="glossary.html#credit_union">credit unions</a>, some US federal
+computers, newspapers, and some pure online Internet commerce systems.
+It is important to note that there is a significant difference between a 
+bank or credit union WWW site and a real bank - currently a Web site 
+is primarily an advertisement on the Internet.  Although some banks 
+allow you to do simple balance queries via the Internet, even if you 
+could break into one of the bank Web sites you couldn't actually steal 
+any money!
+
+<p>
+After doing a non-intrusive survey of approximately 
+<a href="footies.html#survey_hosts">1700 of these interesting Web sites</a>
+on the Internet (and another 500 as a control
+study) I discovered that the hosts that I studied are not only more 
+vulnerable than
+their real-life counterparts, but shockingly so.  Using relatively crude,
+non-intrusive (i.e., no sites were actually broken into, no port-
+scanning was done, etc.), and, as far as I am aware, 
+<a href="footies.html#legal">perfectly legal</a>
+techniques to analyze their security, I found 
+that:
+
+<p>
+
+<ul>
+
+<li> over <strong>sixty percent</strong> could be broken into
+or destroyed (i.e. all network functionality deleted or removed).
+The number is approximate by necessity (since I didn't verify my
+suspicions by actually compromising the hosts) and is an upper bound
+for the tests actually run, but should be a very good estimate.
+
+<p>
+<li> an additional 9-24% of these same hosts could be broken 
+into if 
+<a href="footies.html#single_bug">a single new bug were found</a>
+(or known about by potential intruders) in either of two important and 
+widely-used programs, <cite>wu-ftp</cite> and <cite>sendmail</cite>.
+(Interestingly enough, within a month of completing this survey both of
+these programs had such bugs reported.)
+
+<p>
+<li> when compared to the approximately 500 hosts that I selected at
+random (sic) as a baseline group, the surveyed hosts were 
+<strong>twice</strong> as potentially vulnerable!
+
+This means that, even though these critical sites use numerous firewalls
+and other protective measures routinely to protect themselves (most of
+the hosts surveyed would typically be deemed critical or very
+important), these measures were ineffective as a whole (although
+individual sites are very effective at defending themselves with these
+same defensive measures).  In addition, due to the extra services
+typically run by these machines (such as WWW and NNTP), they exposed
+themselves even more.
+
+<p>
+<li> no attempt was made to hide the survey, but only three
+sites out more than two thousand contacted me to inquire what was going on 
+when I performed the 
+unauthorized survey (that's a bit over one in one thousand questioning 
+my activity).  Two were from the normal survey list, and one was from 
+my random group.
+
+</ul>
+
+<p>
+I want to reiterate - the methods used by this survey were 
+<strong>NOT</strong> rocket science!  I barely electronically
+breathed on these hosts.  I used a widely-known and
+freely available security scanning tool (SATAN) at a very modest 
+scan level and some relatively simple additional tests that 
+were all based on widespread knowledge (such as 
+<a href="ftp://info.cert.org/pub/cert_advisories/">CERT advisories</a> and the 
+<a href="http://www-genome.wi.mit.edu/WWW/faqs/www-security-faq.html">
+	WWW security FAQ</a>).  All of the tests used will be released
+in the next version of SATAN.
+
+<p>
+
+I would estimate that an additional 10-20% of the hosts 
+that I examined could be compromised (broken into or rendered unusable
+by other than denial of service attacks) relatively easily by using more
+advanced and intrusive break-in techniques (such as NIS attacks,
+IP spoofing, packet snarfing, attacking hosts that the targets trust, 
+name service attacks, or by utilizing tests 
+that I could not run on these survey hosts without their explicit and 
+express permission.)  If I am correct, this would mean that somewhere around 
+70 and 80 percent of the surveyed hosts have serious
+flaws in their security; this does not count resorting to more effective 
+methods (like 
+<a href="glossary.html#se">social engineering</a>
+and insider attacks), nor does it count various
+simple and more effective denial of service methods (such as routing attacks,
+SYN attacks (<a href="http://www.panix.com/statement.html">Panix</a>, a
+network provider, was attacked heavily by these), and the recent
+<a href="http://www.sophist.demon.co.uk/ping/">"ping of death"</a> problem)
+that would bring many of these machines down in seconds.
+
+I would say that to claim that we have a serious problem is an understatement.
+It seems obvious from these findings that security and system administration
+are very difficult to perform effectively and that the latent problems of 
+securing a host or site are ill-understood.
+
+<p>
+I think that the greatest injustice is being done to the 
+<strong>USERS</strong> of such sites and services.  They simply are not 
+informed of the incredible number of potential security problems on 
+these systems.  And much of the security information that gets
+widespread popular coverage is 
+<a href="footies.html#waterlogged">so watered down or simply incorrect</a>
+as to be almost useless.
+But who would use an on-line bank or trust their credit card
+on the Web if they knew in advance that their site could be so
+easily compromised by casual intruders, and even more easily by 
+determined ones?
+
+<p>
+
+The rest of this paper will discuss the technical 
+methods used to perform the survey, how the survey participants
+were selected, current web methods of gathering info and how they work
+and apply to security, and my more detailed and technical conclusions
+and recommendations.
+
+<p>
+<blockquote>
+	<strong>dan farmer</strong><br>
+	Independent security researcher and consultant<br>
+	December 18th, 1996
+</blockquote>
+
+<pre>
+
+</pre>
+<p>
+<a href="purpose.html">Next page...</a>
+<p>
+
+<TABLE><TR><TD><NOBR><a href="dan.html"><IMG border=0 SRC="test3.gif"></a><a href="introduction.html"><IMG border=0 SRC="intro.gif"></a><a href="purpose.html"><IMG border=0 SRC="purpose1.gif"></a><a href="lucky_ones.html"><IMG border=0 SRC="select.gif"></a><a href="testing.html"><IMG border=0 SRC="methods.gif"></a><a href="conclusions.html"><IMG border=0 SRC="conclusions.gif"></a><a href="index2.html"><IMG border=0 SRC="apps.gif"></NOBR></TD></TR></TABLE>
+
+</BODY>
+</HTML>

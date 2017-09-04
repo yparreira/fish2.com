@@ -1,0 +1,230 @@
+<html>
+<head>
+<title>Preparing for the survey</title>
+</head>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<h3>Preparing for the survey</h3>
+
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+
+As far as I know, no one has done a survey like this on a public
+network.  Governments, large corporations and accounting firms, 
+and other organizations do routinely hire 
+<a href="glossary.html#tiger">tiger teams</a>
+to perform surprise attacks on their defenses either internally or 
+when they audit their clients, but this survey used
+a significantly different approach.
+
+<p>
+
+The GAO put out the very fine
+<a href="http://www.access.gpo.gov/cgi-bin/useftp.cgi?IPaddress=wais.access.gpo.gov&filename=ai96084.txt&directory=/diskb/wais/data/gao"><cite>Computer Attacks at Department of Defense Pose Increasing Risks</cite></a>,
+
+done by Congressional request where a US government assigned 
+tiger team broke into vast numbers of military sites to test the security 
+awareness and adherence to the security policy of the military systems.
+
+<p>
+My survey was only in the vaguest sense like a tiger team
+approach (which I'm not very enamoured of, in any case; I feel that 
+there are far better ways to examine security.)
+Since I never even attempted to break into any systems, and the
+methods I used looked primarily at potential security problems
+from network services that were frequently used and the vulnerabilities
+very well known, I expected very little interesting data from the 
+survey.  The results were thus all the more surprising.
+
+<p>
+<h3>Forging ahead...</h3>
+<p>
+
+Traditionally it has been deemed to be "bad form" to perform certain
+activities on the net.  <a href="glossary.html#spam">Spamming</a>, sending
+or reforwarding chain e-letters, disclosing explicit details of 
+security problems, and posting private e-mail are all examples of
+this.  And while some of these are more acceptable today, performing an 
+unauthorized technical survey that solicits details about remote hosts 
+or sites, while not illegal, has never been explicitly socially condoned.  
+But, even though performing a security survey on certain high profile sites is
+not illegal, to many this is perhaps analogous to 
+<a href="footies.html#jls">Jonathan Livingston Seagull</a>
+buzz-bombing the elder gulls at speeds exceeding 100 MPH.
+
+<p>
+So why did I do it?  Or, rather, since I am
+a rather well-known security researcher who probably could have gotten
+a reasonably positive response if I had sent out a request for
+survey participants, why didn't I attempt to get prior permission?
+
+<p>
+To start with, I was very interested in a rather small section of the 
+Internet.  I felt that if even if I had asked all of the
+potential participants for their explicit 
+permission, the number of responses I received would have been 
+very small, and perhaps statistically insignificant.
+I also thought that merely asking might scare
+them, and that the majority of the responses that I received would be 
+those who put lots of time into their security 
+setup, were very confident and knowledgeable about security, or
+would run back to their system and quickly fix any security problems
+before I could examine their system.  I decided that I needed 
+a more random sample.
+
+<p>
+<h3>Searching for Godot</h3>
+<p>
+The Internet - the WWW in particular - for better or worse,
+is getting more and more intrusive in its approach to this sort of
+subject, and this helped fuel my decision.
+
+For instance, the Network Information Center (NIC) not only controls the
+domain namespace of the Internet, but also has a database that
+contains architecture and operating system information; while the
+information is taken from written applications rather than any sort
+of technical or automated survey, it can be quite illuminating.
+The oft-quoted survey results from
+<a href="http://www.nw.com/zone/WWW/top.html">Network Wizards</a> is
+one such example - over 100,000 hosts from all corners the world 
+are remotely surveyed.  Dan Bernstein, a long-time net denizen, did a 
+<a href="danb.html">vast SMTP scan</a> covering over 130,000 hosts, listing
+what people were using as SMTP agent.  And, finally, a British company
+called Netcraft did a web server survey of over <strong>600,000</strong>
+web sites and placed the results in 
+<a href="http://www.netcraft.co.uk/Survey/">a database</a>
+that can be queried.  Want to know which educational sites are running
+the Apache web server?  It will quickly dump out over 2000 of them, and
+you can even query for the version number - it does all the work for you
+(the Wall Street Journals' server, for instance, is the
+Netscape-Commerce/1.1 with a certificate serial number of 0x027a000b.)
+<a href="footies.html#netcraft">The security ramifications of this are 
+fairly staggering.</a>  And all of these are done without anyone's
+explicit permission; they are seen as doing the rest of the Internet
+a service rather than causing problems.
+
+<p>
+
+WWW search engines are even more amazing in the amount of information
+they routinely suck in and index.  As John M. Fisher of CIAC (the
+Department of Energy emergency security response team) said, they
+are so efficient at gathering information of all sorts that:
+
+<blockquote>
+... perhaps these search engines have become a little too
+powerful. Some Web sites have provided a few too many links, including
+information related to system configuration. For example, doing a
+search for keywords such as "root", "daemon:", "passwd", etc, will
+return back a few stray /etc/passwd or /etc/group files, located on
+systems that have very poor Web configurations. This is a way to
+quickly find those Web sites that are not maintained very well and are
+most vulnerable to attack.
+<p>
+<a href="ciac.html">CIAC bulletin Mar 1996</a> <p>
+</blockquote>
+
+<p>
+<h3>Bottom line</h3>
+<p>
+Unfortunately, time and resources were a significant issue as well.
+I was doing this 
+on my own time - I had no assistants, no paycheck, no nothing while
+performing the survey.  The logistics of setting up a more formal survey,
+such as gathering the potential participants, establishing secure 
+communication channels, setting up times and dates for the experiments, 
+etc., etc. were simply out of the question.  I had a very large amount of
+curiosity but a very limited amount of time, and, since I viewed 
+the project as a 
+cultural and philosophical effort and not a legal one, I 
+decided to risk censure, loss of trust, and the general ire of the net
+by simply doing it.
+
+<p>
+
+I chose five categories of systems, primarily using 
+<a href="http://www.yahoo.com/">Yahoo</a> to find my 
+survey participants.  Yahoo is
+really wonderful if you'd like to select from a known set of potential 
+survey participants - or targets, if you're a system cracker.  With 
+categories such as "News and Media: Newspapers: Indices" it does all the 
+work for you.  According to their 
+<a href="http://www.yahoo.com/docs/info/faq.html">FAQ</a>,
+Yahoo makes its lists based both on user submissions and by identifying as
+many sites as they can find and verify, which was a reasonable
+approximation of what I wanted in the survey.  I would be surprised
+if I got much less than 10% of the total numbers of hosts of that type
+on the entire Internet in the most of the categories; these organizations
+<strong>want</strong> people to find them, or they wouldn't be on the 
+WWW, and Yahoo is one of the most popular ways that people search for
+Web services.  The odd numbers of 
+hosts in the survey are simply because that's how many hosts Yahoo had 
+in that category that answered to a ping:
+
+<ul>
+<li> <strong>US federal government interest computers.</strong>  Taken
+	from some random person's page on the web (which helped start
+	me on this whole survey thing), it covered Congress, miscellaneous
+	government links, the executive and judicial branches, as well
+	as miscellaneous intelligence communities.  I added the small
+	Yahoo category of Federal Reserve WWW sites, but it was still
+	the smallest group, with less than 50 sites.
+
+<p>
+<li> <strong>Bank WWW sites.</strong>  The single largest category, consisting
+	of 660 banks from around the world.  This was an easy choice;
+	I wanted something with a lot of credibility and assumed security.
+
+<p>
+<li> <strong><a href="glossary.html#credit_union">Credit Union</a> WWW 
+	sites.</strong>  274 credit unions were 
+	scanned.  I selected these for the same reasons as banks and to
+	get more data points.
+
+<p>
+<li> <strong>Newspaper WWW sites.</strong>  312 North American based, 
+	electronically published newspaper sites.  I thought the potential
+	fascinating - what if intruders were to break into many different
+	newspaper Web sites and change or add a headline or complete
+	story?  The potential for misinformation is tremendous; a simple
+	story of, say, a 747 crashing over La Gaurdia airport could 
+	be utterly believable 
+	and potentially devastating.  And if, say, the AP or Reuters
+	news feeds were compromised...
+<p>
+	Bloom county was way ahead of its time, as per usual, with this
+	brilliant cartoon published in the early 80's:
+<p>
+<img src="nyt3.gif">
+<p>
+
+
+<p>
+<li> <strong>Sex club WWW sites.</strong>  I wanted to have some group that
+	was a pure Internet or Electronic commerce set of hosts.  These
+	sites seemed to be a pretty good sample; they make their living selling
+	pictures, stories, mpeg movies, and live on-line women and men
+	via the WWW to subscribers.  Any Internet security problem would be
+	devastating to their business.  451 hosts were scanned.
+
+<p>
+<li> <strong>Random group.</strong>  I wanted a random group; something
+	I could use to compare to other hosts in the survey. I couldn't
+	figure out whether to take random WWW sites or purely random hosts (at
+	least, as random as I could reasonably make them.)  I
+	decided on the latter.  469 hosts.
+</ul>
+
+ 
+<pre>
+ 
+</pre>
+<p>
+<a href="testing.html">Next page...</a>
+<p>
+
+<TABLE><TR><TD><NOBR><a href="dan.html"><IMG border=0 SRC="test3.gif"></a><a href="introduction.html"><IMG border=0 SRC="intro.gif"></a><a href="purpose.html"><IMG border=0 SRC="purpose1.gif"></a><a href="lucky_ones.html"><IMG border=0 SRC="select.gif"></a><a href="testing.html"><IMG border=0 SRC="methods.gif"></a><a href="conclusions.html"><IMG border=0 SRC="conclusions.gif"></a><a href="index2.html"><IMG border=0 SRC="apps.gif"></NOBR></TD></TR></TABLE>
+
+</body>
+</html>

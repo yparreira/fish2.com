@@ -1,0 +1,981 @@
+
+
+<html>
+
+<link href="wine.css" rel="stylesheet">
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+
+
+<body>
+
+<center>
+<div>
+A simple (trivial?) comparison of wines and what descriptive words
+from a set of wine reviews.</br>
+
+The darker the color means wines are more similar; I used 9 color
+scales (adding black for perfect matches) from http://colorbrewer2.org/.</br>
+
+Similarity is calculated by simply counting up the most frequent words 
+used to describe the wines and seeing how many match in the top 10 for each.
+
+</div>
+
+<table><tr>
+<td bgcolor='#ffffe5'>0.0</td>
+<td bgcolor='#fff7bc'>0.1</td>
+<td bgcolor='#fee391'>0.2</td>
+<td bgcolor='#fec44f'>0.3</td>
+<td bgcolor='#fe9929'>0.4</td>
+<td bgcolor='#ec7014'>0.5</td>
+<td bgcolor='#cc4c02'>0.6</td>
+<td bgcolor='#993404'>0.7</td>
+<td bgcolor='#662506'>0.8</td>
+<td bgcolor='#000000'>0.9</td>
+</tr></table>
+
+</center>
+
+<p>
+
+<font size=-1>
+<table class='wine'>
+
+<tr>
+<td> </td>
+<td><div title="albarino"> albarino </div>
+<td><div title="chardonnay"> chardonnay </div>
+<td><div title="chenin blanc"> chenin&nbspblanc </div>
+<td><div title="gewurztraminer"> gewurztramin </div>
+<td><div title="greek white"> greek&nbspwhite </div>
+<td><div title="gruner veltliner"> gruner&nbspveltl </div>
+<td><div title="italian white"> italian&nbspwhit </div>
+<td><div title="marsanne"> marsanne </div>
+<td><div title="muscat"> muscat </div>
+<td><div title="other white"> other&nbspwhite </div>
+<td><div title="pinot blanc"> pinot&nbspblanc </div>
+<td><div title="pinot grigio gris"> pinot&nbspgrigio </div>
+<td><div title="portuguese white"> portuguese&nbspw </div>
+<td><div title="rhone style white blend"> rhone&nbspstyle&nbsp </div>
+<td><div title="riesling"> riesling </div>
+<td><div title="rose"> rose </div>
+<td><div title="roussanne"> roussanne </div>
+<td><div title="sauvignon blanc"> sauvignon&nbspbl </div>
+<td><div title="semillon"> semillon </div>
+<td><div title="sherry"> sherry </div>
+<td><div title="spanish white"> spanish&nbspwhit </div>
+<td><div title="sparkling"> sparkling </div>
+<td><div title="torrontes"> torrontes </div>
+<td><div title="viognier"> viognier </div>
+<td><div title="white blend"> white&nbspblend </div>
+<tr>
+<td><div title="albarino"> albarino </div>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#fec44f" title="<nobr>albarino vs. chardonnay</nobr><br /><b>(3)</b> acidity, finish, apple"> </td>
+<td bgcolor="#fec44f" title="<nobr>albarino vs. chenin blanc</nobr><br /><b>(3)</b> acidity, finish, apple"> </td>
+<td bgcolor="#fec44f" title="<nobr>albarino vs. gewurztraminer</nobr><br /><b>(3)</b> acidity, finish, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>albarino vs. greek white</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="#fee391" title="<nobr>albarino vs. gruner veltliner</nobr><br /><b>(2)</b> green, acidity"> </td>
+<td bgcolor="#fee391" title="<nobr>albarino vs. italian white</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>albarino vs. marsanne</nobr><br /><b>(3)</b> aromas, acidity, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>albarino vs. muscat</nobr><br /><b>(3)</b> aromas, acidity, finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>albarino vs. other white</nobr><br /><b>(4)</b> acidity, finish, palate, nose"> </td>
+<td bgcolor="#fee391" title="<nobr>albarino vs. pinot blanc</nobr><br /><b>(2)</b> acidity, finish"> </td>
+<td bgcolor="#fee391" title="<nobr>albarino vs. pinot grigio gris</nobr><br /><b>(2)</b> acidity, finish"> </td>
+<td bgcolor="#fee391" title="<nobr>albarino vs. portuguese white</nobr><br /><b>(2)</b> green, acidity"> </td>
+<td bgcolor="#fff7bc" title="<nobr>albarino vs. rhone style white blend</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#ec7014" title="<nobr>albarino vs. riesling</nobr><br /><b>(5)</b> aromas, acidity, finish, palate, apple"> </td>
+<td bgcolor="#fee391" title="<nobr>albarino vs. rose</nobr><br /><b>(2)</b> acidity, finish"> </td>
+<td bgcolor="#fee391" title="<nobr>albarino vs. roussanne</nobr><br /><b>(2)</b> acidity, finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>albarino vs. sauvignon blanc</nobr><br /><b>(4)</b> green, acidity, finish, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>albarino vs. semillon</nobr><br /><b>(4)</b> aromas, acidity, finish, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>albarino vs. sherry</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="#993404" title="<nobr>albarino vs. spanish white</nobr><br /><b>(7)</b> apple, finish, melon, aromas, palate, nose, green"> </td>
+<td bgcolor="#ec7014" title="<nobr>albarino vs. sparkling</nobr><br /><b>(5)</b> aromas, acidity, finish, palate, apple"> </td>
+<td bgcolor="#993404" title="<nobr>albarino vs. torrontes</nobr><br /><b>(7)</b> apple, finish, melon, aromas, palate, nose, green"> </td>
+<td bgcolor="#fee391" title="<nobr>albarino vs. viognier</nobr><br /><b>(2)</b> acidity, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>albarino vs. white blend</nobr><br /><b>(3)</b> aromas, acidity, finish"> </td>
+</tr>
+<tr>
+<td><div title="chardonnay"> chardonnay </div>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. albarino</nobr><br /><b>(3)</b> acidity, finish, apple"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fe9929" title="<nobr>chardonnay vs. chenin blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, apple"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. gewurztraminer</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>chardonnay vs. greek white</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. gruner veltliner</nobr><br /><b>(3)</b> ripe, acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>chardonnay vs. italian white</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>chardonnay vs. marsanne</nobr><br /><b>(4)</b> ripe, acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. muscat</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. other white</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. pinot blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. pinot grigio gris</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. portuguese white</nobr><br /><b>(3)</b> ripe, acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>chardonnay vs. rhone style white blend</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>chardonnay vs. riesling</nobr><br /><b>(4)</b> acidity, finish, fruit, apple"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. rose</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>chardonnay vs. roussanne</nobr><br /><b>(4)</b> vanilla, acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. sauvignon blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. semillon</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>chardonnay vs. sherry</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. spanish white</nobr><br /><b>(3)</b> finish, fruit, apple"> </td>
+<td bgcolor="#fe9929" title="<nobr>chardonnay vs. sparkling</nobr><br /><b>(4)</b> acidity, finish, fruit, apple"> </td>
+<td bgcolor="#fee391" title="<nobr>chardonnay vs. torrontes</nobr><br /><b>(2)</b> finish, apple"> </td>
+<td bgcolor="#fe9929" title="<nobr>chardonnay vs. viognier</nobr><br /><b>(4)</b> vanilla, acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>chardonnay vs. white blend</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+</tr>
+<tr>
+<td><div title="chenin blanc"> chenin&nbspblanc </div>
+<td bgcolor="#fec44f" title="<nobr>chenin blanc vs. albarino</nobr><br /><b>(3)</b> acidity, finish, apple"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. chardonnay</nobr><br /><b>(4)</b> acidity, finish, fruit, apple"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. gewurztraminer</nobr><br /><b>(4)</b> acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. greek white</nobr><br /><b>(4)</b> finish, fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>chenin blanc vs. gruner veltliner</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. italian white</nobr><br /><b>(4)</b> finish, fresh, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. marsanne</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. muscat</nobr><br /><b>(4)</b> acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#cc4c02" title="<nobr>chenin blanc vs. other white</nobr><br /><b>(6)</b> acidity, fruit, white, finish, sweet, fresh"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. pinot blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>chenin blanc vs. pinot grigio gris</nobr><br /><b>(5)</b> acidity, finish, fruit, white, fresh"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. portuguese white</nobr><br /><b>(4)</b> acidity, fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>chenin blanc vs. rhone style white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>chenin blanc vs. riesling</nobr><br /><b>(5)</b> acidity, finish, fruit, apple, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. rose</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. roussanne</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>chenin blanc vs. sauvignon blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. semillon</nobr><br /><b>(4)</b> acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#fee391" title="<nobr>chenin blanc vs. sherry</nobr><br /><b>(2)</b> finish, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. spanish white</nobr><br /><b>(4)</b> finish, fruit, apple, white"> </td>
+<td bgcolor="#cc4c02" title="<nobr>chenin blanc vs. sparkling</nobr><br /><b>(6)</b> acidity, fruit, apple, finish, sweet, fresh"> </td>
+<td bgcolor="#fee391" title="<nobr>chenin blanc vs. torrontes</nobr><br /><b>(2)</b> finish, apple"> </td>
+<td bgcolor="#fe9929" title="<nobr>chenin blanc vs. viognier</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>chenin blanc vs. white blend</nobr><br /><b>(5)</b> acidity, finish, fruit, white, fresh"> </td>
+</tr>
+<tr>
+<td><div title="gewurztraminer"> gewurztramin </div>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. albarino</nobr><br /><b>(3)</b> acidity, finish, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. chardonnay</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>gewurztraminer vs. chenin blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, sweet"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fe9929" title="<nobr>gewurztraminer vs. greek white</nobr><br /><b>(4)</b> spice, finish, fruit, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. gruner veltliner</nobr><br /><b>(3)</b> spice, acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>gewurztraminer vs. italian white</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. marsanne</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>gewurztraminer vs. muscat</nobr><br /><b>(4)</b> acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#ec7014" title="<nobr>gewurztraminer vs. other white</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. pinot blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. pinot grigio gris</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>gewurztraminer vs. portuguese white</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>gewurztraminer vs. rhone style white blend</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>gewurztraminer vs. riesling</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. rose</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. roussanne</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>gewurztraminer vs. sauvignon blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, palate"> </td>
+<td bgcolor="#ec7014" title="<nobr>gewurztraminer vs. semillon</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. sherry</nobr><br /><b>(3)</b> finish, palate, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. spanish white</nobr><br /><b>(3)</b> finish, fruit, palate"> </td>
+<td bgcolor="#ec7014" title="<nobr>gewurztraminer vs. sparkling</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#fee391" title="<nobr>gewurztraminer vs. torrontes</nobr><br /><b>(2)</b> finish, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. viognier</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gewurztraminer vs. white blend</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+</tr>
+<tr>
+<td><div title="greek white"> greek&nbspwhite </div>
+<td bgcolor="#fe9929" title="<nobr>greek white vs. albarino</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="#fee391" title="<nobr>greek white vs. chardonnay</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>greek white vs. chenin blanc</nobr><br /><b>(4)</b> finish, fresh, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>greek white vs. gewurztraminer</nobr><br /><b>(4)</b> spice, finish, fruit, palate"> </td>
+<td bgcolor="black">
+9
+</td>
+<td bgcolor="#fec44f" title="<nobr>greek white vs. gruner veltliner</nobr><br /><b>(3)</b> spice, fresh, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>greek white vs. italian white</nobr><br /><b>(5)</b> aromas, finish, fresh, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>greek white vs. marsanne</nobr><br /><b>(4)</b> aromas, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>greek white vs. muscat</nobr><br /><b>(3)</b> aromas, finish, fruit"> </td>
+<td bgcolor="#cc4c02" title="<nobr>greek white vs. other white</nobr><br /><b>(6)</b> fruit, white, finish, palate, nose, fresh"> </td>
+<td bgcolor="#fec44f" title="<nobr>greek white vs. pinot blanc</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>greek white vs. pinot grigio gris</nobr><br /><b>(4)</b> finish, fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>greek white vs. portuguese white</nobr><br /><b>(3)</b> fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>greek white vs. rhone style white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>greek white vs. riesling</nobr><br /><b>(4)</b> aromas, finish, fruit, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>greek white vs. rose</nobr><br /><b>(3)</b> finish, fresh, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>greek white vs. roussanne</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>greek white vs. sauvignon blanc</nobr><br /><b>(3)</b> finish, fruit, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>greek white vs. semillon</nobr><br /><b>(4)</b> aromas, finish, fruit, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>greek white vs. sherry</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="#cc4c02" title="<nobr>greek white vs. spanish white</nobr><br /><b>(6)</b> fruit, white, finish, aromas, palate, nose"> </td>
+<td bgcolor="#ec7014" title="<nobr>greek white vs. sparkling</nobr><br /><b>(5)</b> aromas, finish, fresh, fruit, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>greek white vs. torrontes</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="#fec44f" title="<nobr>greek white vs. viognier</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>greek white vs. white blend</nobr><br /><b>(5)</b> aromas, finish, fresh, fruit, white"> </td>
+</tr>
+<tr>
+<td><div title="gruner veltliner"> gruner&nbspveltl </div>
+<td bgcolor="#fee391" title="<nobr>gruner veltliner vs. albarino</nobr><br /><b>(2)</b> green, acidity"> </td>
+<td bgcolor="#fec44f" title="<nobr>gruner veltliner vs. chardonnay</nobr><br /><b>(3)</b> ripe, acidity, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gruner veltliner vs. chenin blanc</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gruner veltliner vs. gewurztraminer</nobr><br /><b>(3)</b> spice, acidity, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gruner veltliner vs. greek white</nobr><br /><b>(3)</b> spice, fresh, fruit"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#fee391" title="<nobr>gruner veltliner vs. italian white</nobr><br /><b>(2)</b> fresh, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gruner veltliner vs. marsanne</nobr><br /><b>(3)</b> ripe, acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>gruner veltliner vs. muscat</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gruner veltliner vs. other white</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>gruner veltliner vs. pinot blanc</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gruner veltliner vs. pinot grigio gris</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>gruner veltliner vs. portuguese white</nobr><br /><b>(5)</b> ripe, green, acidity, fresh, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>gruner veltliner vs. rhone style white blend</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>gruner veltliner vs. riesling</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gruner veltliner vs. rose</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>gruner veltliner vs. roussanne</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gruner veltliner vs. sauvignon blanc</nobr><br /><b>(3)</b> green, acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>gruner veltliner vs. semillon</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#ffffe5" title="<nobr>gruner veltliner vs. sherry</nobr><br />(no similarities)"> </td>
+<td bgcolor="#fee391" title="<nobr>gruner veltliner vs. spanish white</nobr><br /><b>(2)</b> green, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gruner veltliner vs. sparkling</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>gruner veltliner vs. torrontes</nobr><br /><b>(1)</b> green"> </td>
+<td bgcolor="#fee391" title="<nobr>gruner veltliner vs. viognier</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>gruner veltliner vs. white blend</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+</tr>
+<tr>
+<td><div title="italian white"> italian&nbspwhit </div>
+<td bgcolor="#fee391" title="<nobr>italian white vs. albarino</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fee391" title="<nobr>italian white vs. chardonnay</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>italian white vs. chenin blanc</nobr><br /><b>(4)</b> finish, fresh, fruit, white"> </td>
+<td bgcolor="#fee391" title="<nobr>italian white vs. gewurztraminer</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>italian white vs. greek white</nobr><br /><b>(5)</b> aromas, finish, fresh, fruit, white"> </td>
+<td bgcolor="#fee391" title="<nobr>italian white vs. gruner veltliner</nobr><br /><b>(2)</b> fresh, fruit"> </td>
+<td bgcolor="black">
+9
+</td>
+<td bgcolor="#fe9929" title="<nobr>italian white vs. marsanne</nobr><br /><b>(4)</b> aromas, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>italian white vs. muscat</nobr><br /><b>(4)</b> aromas, finish, fruit, honey"> </td>
+<td bgcolor="#fe9929" title="<nobr>italian white vs. other white</nobr><br /><b>(4)</b> finish, fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>italian white vs. pinot blanc</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>italian white vs. pinot grigio gris</nobr><br /><b>(4)</b> finish, fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>italian white vs. portuguese white</nobr><br /><b>(3)</b> fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>italian white vs. rhone style white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>italian white vs. riesling</nobr><br /><b>(3)</b> aromas, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>italian white vs. rose</nobr><br /><b>(3)</b> finish, fresh, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>italian white vs. roussanne</nobr><br /><b>(4)</b> finish, peach, fruit, white"> </td>
+<td bgcolor="#fee391" title="<nobr>italian white vs. sauvignon blanc</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>italian white vs. semillon</nobr><br /><b>(4)</b> aromas, finish, fruit, honey"> </td>
+<td bgcolor="#fee391" title="<nobr>italian white vs. sherry</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>italian white vs. spanish white</nobr><br /><b>(4)</b> aromas, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>italian white vs. sparkling</nobr><br /><b>(4)</b> aromas, finish, fresh, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>italian white vs. torrontes</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>italian white vs. viognier</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>italian white vs. white blend</nobr><br /><b>(5)</b> aromas, finish, fresh, fruit, white"> </td>
+</tr>
+<tr>
+<td><div title="marsanne"> marsanne </div>
+<td bgcolor="#fec44f" title="<nobr>marsanne vs. albarino</nobr><br /><b>(3)</b> aromas, acidity, finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. chardonnay</nobr><br /><b>(4)</b> ripe, acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. chenin blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>marsanne vs. gewurztraminer</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. greek white</nobr><br /><b>(4)</b> aromas, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>marsanne vs. gruner veltliner</nobr><br /><b>(3)</b> ripe, acidity, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. italian white</nobr><br /><b>(4)</b> aromas, finish, fruit, white"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. muscat</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. other white</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. pinot blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. pinot grigio gris</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. portuguese white</nobr><br /><b>(4)</b> ripe, acidity, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>marsanne vs. rhone style white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. riesling</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>marsanne vs. rose</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>marsanne vs. roussanne</nobr><br /><b>(5)</b> rich, acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>marsanne vs. sauvignon blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. semillon</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>marsanne vs. sherry</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. spanish white</nobr><br /><b>(4)</b> aromas, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. sparkling</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>marsanne vs. torrontes</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>marsanne vs. viognier</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>marsanne vs. white blend</nobr><br /><b>(5)</b> aromas, acidity, finish, fruit, white"> </td>
+</tr>
+<tr>
+<td><div title="muscat"> muscat </div>
+<td bgcolor="#fec44f" title="<nobr>muscat vs. albarino</nobr><br /><b>(3)</b> aromas, acidity, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>muscat vs. chardonnay</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>muscat vs. chenin blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>muscat vs. gewurztraminer</nobr><br /><b>(4)</b> acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>muscat vs. greek white</nobr><br /><b>(3)</b> aromas, finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>muscat vs. gruner veltliner</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>muscat vs. italian white</nobr><br /><b>(4)</b> aromas, finish, fruit, honey"> </td>
+<td bgcolor="#fe9929" title="<nobr>muscat vs. marsanne</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#fe9929" title="<nobr>muscat vs. other white</nobr><br /><b>(4)</b> acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>muscat vs. pinot blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>muscat vs. pinot grigio gris</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>muscat vs. portuguese white</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>muscat vs. rhone style white blend</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>muscat vs. riesling</nobr><br /><b>(5)</b> aromas, acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>muscat vs. rose</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>muscat vs. roussanne</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>muscat vs. sauvignon blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#cc4c02" title="<nobr>muscat vs. semillon</nobr><br /><b>(6)</b> acidity, fruit, finish, aromas, sweet, honey"> </td>
+<td bgcolor="#fec44f" title="<nobr>muscat vs. sherry</nobr><br /><b>(3)</b> aromas, finish, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>muscat vs. spanish white</nobr><br /><b>(3)</b> aromas, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>muscat vs. sparkling</nobr><br /><b>(5)</b> aromas, acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#fee391" title="<nobr>muscat vs. torrontes</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>muscat vs. viognier</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>muscat vs. white blend</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+</tr>
+<tr>
+<td><div title="other white"> other&nbspwhite </div>
+<td bgcolor="#fe9929" title="<nobr>other white vs. albarino</nobr><br /><b>(4)</b> acidity, finish, palate, nose"> </td>
+<td bgcolor="#fec44f" title="<nobr>other white vs. chardonnay</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#cc4c02" title="<nobr>other white vs. chenin blanc</nobr><br /><b>(6)</b> acidity, fruit, white, finish, sweet, fresh"> </td>
+<td bgcolor="#ec7014" title="<nobr>other white vs. gewurztraminer</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#cc4c02" title="<nobr>other white vs. greek white</nobr><br /><b>(6)</b> fruit, white, finish, palate, nose, fresh"> </td>
+<td bgcolor="#fec44f" title="<nobr>other white vs. gruner veltliner</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>other white vs. italian white</nobr><br /><b>(4)</b> finish, fresh, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>other white vs. marsanne</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>other white vs. muscat</nobr><br /><b>(4)</b> acidity, finish, fruit, sweet"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#fe9929" title="<nobr>other white vs. pinot blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>other white vs. pinot grigio gris</nobr><br /><b>(5)</b> acidity, finish, fruit, white, fresh"> </td>
+<td bgcolor="#fe9929" title="<nobr>other white vs. portuguese white</nobr><br /><b>(4)</b> acidity, fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>other white vs. rhone style white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>other white vs. riesling</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>other white vs. rose</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fe9929" title="<nobr>other white vs. roussanne</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>other white vs. sauvignon blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, palate"> </td>
+<td bgcolor="#ec7014" title="<nobr>other white vs. semillon</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>other white vs. sherry</nobr><br /><b>(4)</b> sweet, finish, palate, nose"> </td>
+<td bgcolor="#ec7014" title="<nobr>other white vs. spanish white</nobr><br /><b>(5)</b> nose, finish, fruit, white, palate"> </td>
+<td bgcolor="#cc4c02" title="<nobr>other white vs. sparkling</nobr><br /><b>(6)</b> acidity, fruit, finish, palate, sweet, fresh"> </td>
+<td bgcolor="#fec44f" title="<nobr>other white vs. torrontes</nobr><br /><b>(3)</b> finish, palate, nose"> </td>
+<td bgcolor="#fe9929" title="<nobr>other white vs. viognier</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>other white vs. white blend</nobr><br /><b>(5)</b> acidity, finish, fruit, white, fresh"> </td>
+</tr>
+<tr>
+<td><div title="pinot blanc"> pinot&nbspblanc </div>
+<td bgcolor="#fee391" title="<nobr>pinot blanc vs. albarino</nobr><br /><b>(2)</b> acidity, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. chardonnay</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot blanc vs. chenin blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. gewurztraminer</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. greek white</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fee391" title="<nobr>pinot blanc vs. gruner veltliner</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. italian white</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot blanc vs. marsanne</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. muscat</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot blanc vs. other white</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="black">
+6
+</td>
+<td bgcolor="#ec7014" title="<nobr>pinot blanc vs. pinot grigio gris</nobr><br /><b>(5)</b> pear, acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. portuguese white</nobr><br /><b>(3)</b> acidity, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. rhone style white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. riesling</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. rose</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot blanc vs. roussanne</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. sauvignon blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. semillon</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>pinot blanc vs. sherry</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. spanish white</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot blanc vs. sparkling</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>pinot blanc vs. torrontes</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot blanc vs. viognier</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot blanc vs. white blend</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+</tr>
+<tr>
+<td><div title="pinot grigio gris"> pinot&nbspgrigio </div>
+<td bgcolor="#fee391" title="<nobr>pinot grigio gris vs. albarino</nobr><br /><b>(2)</b> acidity, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot grigio gris vs. chardonnay</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>pinot grigio gris vs. chenin blanc</nobr><br /><b>(5)</b> acidity, finish, fruit, white, fresh"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot grigio gris vs. gewurztraminer</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot grigio gris vs. greek white</nobr><br /><b>(4)</b> finish, fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot grigio gris vs. gruner veltliner</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot grigio gris vs. italian white</nobr><br /><b>(4)</b> finish, fresh, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot grigio gris vs. marsanne</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot grigio gris vs. muscat</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>pinot grigio gris vs. other white</nobr><br /><b>(5)</b> acidity, finish, fruit, white, fresh"> </td>
+<td bgcolor="#ec7014" title="<nobr>pinot grigio gris vs. pinot blanc</nobr><br /><b>(5)</b> pear, acidity, finish, fruit, white"> </td>
+<td bgcolor="black">
+6
+</td>
+<td bgcolor="#fe9929" title="<nobr>pinot grigio gris vs. portuguese white</nobr><br /><b>(4)</b> acidity, fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot grigio gris vs. rhone style white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot grigio gris vs. riesling</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot grigio gris vs. rose</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot grigio gris vs. roussanne</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot grigio gris vs. sauvignon blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot grigio gris vs. semillon</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>pinot grigio gris vs. sherry</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>pinot grigio gris vs. spanish white</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot grigio gris vs. sparkling</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fff7bc" title="<nobr>pinot grigio gris vs. torrontes</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>pinot grigio gris vs. viognier</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>pinot grigio gris vs. white blend</nobr><br /><b>(5)</b> acidity, finish, fruit, white, fresh"> </td>
+</tr>
+<tr>
+<td><div title="portuguese white"> portuguese&nbspw </div>
+<td bgcolor="#fee391" title="<nobr>portuguese white vs. albarino</nobr><br /><b>(2)</b> green, acidity"> </td>
+<td bgcolor="#fec44f" title="<nobr>portuguese white vs. chardonnay</nobr><br /><b>(3)</b> ripe, acidity, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>portuguese white vs. chenin blanc</nobr><br /><b>(4)</b> acidity, fresh, fruit, white"> </td>
+<td bgcolor="#fee391" title="<nobr>portuguese white vs. gewurztraminer</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>portuguese white vs. greek white</nobr><br /><b>(3)</b> fresh, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>portuguese white vs. gruner veltliner</nobr><br /><b>(5)</b> ripe, green, acidity, fresh, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>portuguese white vs. italian white</nobr><br /><b>(3)</b> fresh, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>portuguese white vs. marsanne</nobr><br /><b>(4)</b> ripe, acidity, fruit, white"> </td>
+<td bgcolor="#fee391" title="<nobr>portuguese white vs. muscat</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>portuguese white vs. other white</nobr><br /><b>(4)</b> acidity, fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>portuguese white vs. pinot blanc</nobr><br /><b>(3)</b> acidity, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>portuguese white vs. pinot grigio gris</nobr><br /><b>(4)</b> acidity, fresh, fruit, white"> </td>
+<td bgcolor="black">
+10
+</td>
+<td bgcolor="#fee391" title="<nobr>portuguese white vs. rhone style white blend</nobr><br /><b>(2)</b> white, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>portuguese white vs. riesling</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>portuguese white vs. rose</nobr><br /><b>(4)</b> acidity, crisp, fruit, fresh"> </td>
+<td bgcolor="#fec44f" title="<nobr>portuguese white vs. roussanne</nobr><br /><b>(3)</b> acidity, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>portuguese white vs. sauvignon blanc</nobr><br /><b>(3)</b> green, acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>portuguese white vs. semillon</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#ffffe5" title="<nobr>portuguese white vs. sherry</nobr><br />(no similarities)"> </td>
+<td bgcolor="#fec44f" title="<nobr>portuguese white vs. spanish white</nobr><br /><b>(3)</b> green, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>portuguese white vs. sparkling</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>portuguese white vs. torrontes</nobr><br /><b>(1)</b> green"> </td>
+<td bgcolor="#fec44f" title="<nobr>portuguese white vs. viognier</nobr><br /><b>(3)</b> acidity, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>portuguese white vs. white blend</nobr><br /><b>(4)</b> acidity, fresh, fruit, white"> </td>
+</tr>
+<tr>
+<td><div title="rhone style white blend"> rhone&nbspstyle&nbsp </div>
+<td bgcolor="#fff7bc" title="<nobr>rhone style white blend vs. albarino</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fee391" title="<nobr>rhone style white blend vs. chardonnay</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rhone style white blend vs. chenin blanc</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>rhone style white blend vs. gewurztraminer</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rhone style white blend vs. greek white</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>rhone style white blend vs. gruner veltliner</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rhone style white blend vs. italian white</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rhone style white blend vs. marsanne</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>rhone style white blend vs. muscat</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rhone style white blend vs. other white</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rhone style white blend vs. pinot blanc</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rhone style white blend vs. pinot grigio gris</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>rhone style white blend vs. portuguese white</nobr><br /><b>(2)</b> white, fruit"> </td>
+<td bgcolor="black">
+3
+</td>
+<td bgcolor="#fee391" title="<nobr>rhone style white blend vs. riesling</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>rhone style white blend vs. rose</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rhone style white blend vs. roussanne</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>rhone style white blend vs. sauvignon blanc</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>rhone style white blend vs. semillon</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>rhone style white blend vs. sherry</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>rhone style white blend vs. spanish white</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>rhone style white blend vs. sparkling</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>rhone style white blend vs. torrontes</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>rhone style white blend vs. viognier</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rhone style white blend vs. white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+</tr>
+<tr>
+<td><div title="riesling"> riesling </div>
+<td bgcolor="#ec7014" title="<nobr>riesling vs. albarino</nobr><br /><b>(5)</b> aromas, acidity, finish, palate, apple"> </td>
+<td bgcolor="#fe9929" title="<nobr>riesling vs. chardonnay</nobr><br /><b>(4)</b> acidity, finish, fruit, apple"> </td>
+<td bgcolor="#ec7014" title="<nobr>riesling vs. chenin blanc</nobr><br /><b>(5)</b> acidity, finish, fruit, apple, sweet"> </td>
+<td bgcolor="#ec7014" title="<nobr>riesling vs. gewurztraminer</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>riesling vs. greek white</nobr><br /><b>(4)</b> aromas, finish, fruit, palate"> </td>
+<td bgcolor="#fee391" title="<nobr>riesling vs. gruner veltliner</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>riesling vs. italian white</nobr><br /><b>(3)</b> aromas, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>riesling vs. marsanne</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>riesling vs. muscat</nobr><br /><b>(5)</b> aromas, acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#ec7014" title="<nobr>riesling vs. other white</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>riesling vs. pinot blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>riesling vs. pinot grigio gris</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>riesling vs. portuguese white</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>riesling vs. rhone style white blend</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fec44f" title="<nobr>riesling vs. rose</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>riesling vs. roussanne</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>riesling vs. sauvignon blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, palate"> </td>
+<td bgcolor="#cc4c02" title="<nobr>riesling vs. semillon</nobr><br /><b>(6)</b> acidity, fruit, finish, aromas, palate, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>riesling vs. sherry</nobr><br /><b>(4)</b> aromas, finish, palate, sweet"> </td>
+<td bgcolor="#ec7014" title="<nobr>riesling vs. spanish white</nobr><br /><b>(5)</b> aromas, finish, fruit, apple, palate"> </td>
+<td bgcolor="#993404" title="<nobr>riesling vs. sparkling</nobr><br /><b>(7)</b> acidity, fruit, apple, finish, aromas, palate, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>riesling vs. torrontes</nobr><br /><b>(4)</b> aromas, finish, palate, apple"> </td>
+<td bgcolor="#fec44f" title="<nobr>riesling vs. viognier</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>riesling vs. white blend</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+</tr>
+<tr>
+<td><div title="rose"> rose </div>
+<td bgcolor="#fee391" title="<nobr>rose vs. albarino</nobr><br /><b>(2)</b> acidity, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. chardonnay</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>rose vs. chenin blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. gewurztraminer</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. greek white</nobr><br /><b>(3)</b> finish, fresh, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. gruner veltliner</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. italian white</nobr><br /><b>(3)</b> finish, fresh, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. marsanne</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. muscat</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>rose vs. other white</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. pinot blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>rose vs. pinot grigio gris</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fe9929" title="<nobr>rose vs. portuguese white</nobr><br /><b>(4)</b> acidity, crisp, fruit, fresh"> </td>
+<td bgcolor="#fee391" title="<nobr>rose vs. rhone style white blend</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. riesling</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. roussanne</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. sauvignon blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. semillon</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>rose vs. sherry</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fee391" title="<nobr>rose vs. spanish white</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>rose vs. sparkling</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fff7bc" title="<nobr>rose vs. torrontes</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>rose vs. viognier</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>rose vs. white blend</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+</tr>
+<tr>
+<td><div title="roussanne"> roussanne </div>
+<td bgcolor="#fee391" title="<nobr>roussanne vs. albarino</nobr><br /><b>(2)</b> acidity, finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>roussanne vs. chardonnay</nobr><br /><b>(4)</b> vanilla, acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>roussanne vs. chenin blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>roussanne vs. gewurztraminer</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>roussanne vs. greek white</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fee391" title="<nobr>roussanne vs. gruner veltliner</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>roussanne vs. italian white</nobr><br /><b>(4)</b> finish, peach, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>roussanne vs. marsanne</nobr><br /><b>(5)</b> rich, acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>roussanne vs. muscat</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>roussanne vs. other white</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>roussanne vs. pinot blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>roussanne vs. pinot grigio gris</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>roussanne vs. portuguese white</nobr><br /><b>(3)</b> acidity, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>roussanne vs. rhone style white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>roussanne vs. riesling</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>roussanne vs. rose</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fec44f" title="<nobr>roussanne vs. sauvignon blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>roussanne vs. semillon</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>roussanne vs. sherry</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>roussanne vs. spanish white</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>roussanne vs. sparkling</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>roussanne vs. torrontes</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#ec7014" title="<nobr>roussanne vs. viognier</nobr><br /><b>(5)</b> vanilla, acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>roussanne vs. white blend</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+</tr>
+<tr>
+<td><div title="sauvignon blanc"> sauvignon&nbspbl </div>
+<td bgcolor="#fe9929" title="<nobr>sauvignon blanc vs. albarino</nobr><br /><b>(4)</b> green, acidity, finish, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. chardonnay</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. chenin blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>sauvignon blanc vs. gewurztraminer</nobr><br /><b>(4)</b> acidity, finish, fruit, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. greek white</nobr><br /><b>(3)</b> finish, fruit, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. gruner veltliner</nobr><br /><b>(3)</b> green, acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>sauvignon blanc vs. italian white</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. marsanne</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. muscat</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>sauvignon blanc vs. other white</nobr><br /><b>(4)</b> acidity, finish, fruit, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. pinot blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. pinot grigio gris</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. portuguese white</nobr><br /><b>(3)</b> green, acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>sauvignon blanc vs. rhone style white blend</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>sauvignon blanc vs. riesling</nobr><br /><b>(4)</b> acidity, finish, fruit, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. rose</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. roussanne</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="black">
+6
+</td>
+<td bgcolor="#fe9929" title="<nobr>sauvignon blanc vs. semillon</nobr><br /><b>(4)</b> acidity, finish, fruit, palate"> </td>
+<td bgcolor="#fee391" title="<nobr>sauvignon blanc vs. sherry</nobr><br /><b>(2)</b> finish, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>sauvignon blanc vs. spanish white</nobr><br /><b>(4)</b> green, finish, fruit, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>sauvignon blanc vs. sparkling</nobr><br /><b>(4)</b> acidity, finish, fruit, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. torrontes</nobr><br /><b>(3)</b> green, finish, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. viognier</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>sauvignon blanc vs. white blend</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+</tr>
+<tr>
+<td><div title="semillon"> semillon </div>
+<td bgcolor="#fe9929" title="<nobr>semillon vs. albarino</nobr><br /><b>(4)</b> aromas, acidity, finish, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>semillon vs. chardonnay</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>semillon vs. chenin blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#ec7014" title="<nobr>semillon vs. gewurztraminer</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>semillon vs. greek white</nobr><br /><b>(4)</b> aromas, finish, fruit, palate"> </td>
+<td bgcolor="#fee391" title="<nobr>semillon vs. gruner veltliner</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>semillon vs. italian white</nobr><br /><b>(4)</b> aromas, finish, fruit, honey"> </td>
+<td bgcolor="#fe9929" title="<nobr>semillon vs. marsanne</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+<td bgcolor="#cc4c02" title="<nobr>semillon vs. muscat</nobr><br /><b>(6)</b> acidity, fruit, finish, aromas, sweet, honey"> </td>
+<td bgcolor="#ec7014" title="<nobr>semillon vs. other white</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>semillon vs. pinot blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>semillon vs. pinot grigio gris</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>semillon vs. portuguese white</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>semillon vs. rhone style white blend</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#cc4c02" title="<nobr>semillon vs. riesling</nobr><br /><b>(6)</b> acidity, fruit, finish, aromas, palate, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>semillon vs. rose</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>semillon vs. roussanne</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>semillon vs. sauvignon blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, palate"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fe9929" title="<nobr>semillon vs. sherry</nobr><br /><b>(4)</b> aromas, finish, palate, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>semillon vs. spanish white</nobr><br /><b>(4)</b> aromas, finish, fruit, palate"> </td>
+<td bgcolor="#cc4c02" title="<nobr>semillon vs. sparkling</nobr><br /><b>(6)</b> acidity, fruit, finish, aromas, palate, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>semillon vs. torrontes</nobr><br /><b>(3)</b> aromas, finish, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>semillon vs. viognier</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>semillon vs. white blend</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+</tr>
+<tr>
+<td><div title="sherry"> sherry </div>
+<td bgcolor="#fe9929" title="<nobr>sherry vs. albarino</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="#fff7bc" title="<nobr>sherry vs. chardonnay</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fee391" title="<nobr>sherry vs. chenin blanc</nobr><br /><b>(2)</b> finish, sweet"> </td>
+<td bgcolor="#fec44f" title="<nobr>sherry vs. gewurztraminer</nobr><br /><b>(3)</b> finish, palate, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>sherry vs. greek white</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="#ffffe5" title="<nobr>sherry vs. gruner_veltliner</nobr><br />(no similarities)"> </td>
+<td bgcolor="#fee391" title="<nobr>sherry vs. italian white</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fee391" title="<nobr>sherry vs. marsanne</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>sherry vs. muscat</nobr><br /><b>(3)</b> aromas, finish, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>sherry vs. other white</nobr><br /><b>(4)</b> sweet, finish, palate, nose"> </td>
+<td bgcolor="#fff7bc" title="<nobr>sherry vs. pinot blanc</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fff7bc" title="<nobr>sherry vs. pinot grigio gris</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#ffffe5" title="<nobr>sherry vs. portuguese_white</nobr><br />(no similarities)"> </td>
+<td bgcolor="#fff7bc" title="<nobr>sherry vs. rhone style white blend</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>sherry vs. riesling</nobr><br /><b>(4)</b> aromas, finish, palate, sweet"> </td>
+<td bgcolor="#fff7bc" title="<nobr>sherry vs. rose</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fff7bc" title="<nobr>sherry vs. roussanne</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fee391" title="<nobr>sherry vs. sauvignon blanc</nobr><br /><b>(2)</b> finish, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>sherry vs. semillon</nobr><br /><b>(4)</b> aromas, finish, palate, sweet"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#fe9929" title="<nobr>sherry vs. spanish white</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="#fe9929" title="<nobr>sherry vs. sparkling</nobr><br /><b>(4)</b> aromas, finish, palate, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>sherry vs. torrontes</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="#fff7bc" title="<nobr>sherry vs. viognier</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fee391" title="<nobr>sherry vs. white blend</nobr><br /><b>(2)</b> aromas, finish"> </td>
+</tr>
+<tr>
+<td><div title="spanish white"> spanish&nbspwhit </div>
+<td bgcolor="#993404" title="<nobr>spanish white vs. albarino</nobr><br /><b>(7)</b> apple, finish, melon, aromas, palate, nose, green"> </td>
+<td bgcolor="#fec44f" title="<nobr>spanish white vs. chardonnay</nobr><br /><b>(3)</b> finish, fruit, apple"> </td>
+<td bgcolor="#fe9929" title="<nobr>spanish white vs. chenin blanc</nobr><br /><b>(4)</b> finish, fruit, apple, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>spanish white vs. gewurztraminer</nobr><br /><b>(3)</b> finish, fruit, palate"> </td>
+<td bgcolor="#cc4c02" title="<nobr>spanish white vs. greek white</nobr><br /><b>(6)</b> fruit, white, finish, aromas, palate, nose"> </td>
+<td bgcolor="#fee391" title="<nobr>spanish white vs. gruner veltliner</nobr><br /><b>(2)</b> green, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>spanish white vs. italian white</nobr><br /><b>(4)</b> aromas, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>spanish white vs. marsanne</nobr><br /><b>(4)</b> aromas, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>spanish white vs. muscat</nobr><br /><b>(3)</b> aromas, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>spanish white vs. other white</nobr><br /><b>(5)</b> nose, finish, fruit, white, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>spanish white vs. pinot blanc</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>spanish white vs. pinot grigio gris</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>spanish white vs. portuguese white</nobr><br /><b>(3)</b> green, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>spanish white vs. rhone style white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>spanish white vs. riesling</nobr><br /><b>(5)</b> aromas, finish, fruit, apple, palate"> </td>
+<td bgcolor="#fee391" title="<nobr>spanish white vs. rose</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>spanish white vs. roussanne</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>spanish white vs. sauvignon blanc</nobr><br /><b>(4)</b> green, finish, fruit, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>spanish white vs. semillon</nobr><br /><b>(4)</b> aromas, finish, fruit, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>spanish white vs. sherry</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="black">
+9
+</td>
+<td bgcolor="#ec7014" title="<nobr>spanish white vs. sparkling</nobr><br /><b>(5)</b> aromas, finish, fruit, apple, palate"> </td>
+<td bgcolor="#993404" title="<nobr>spanish white vs. torrontes</nobr><br /><b>(7)</b> apple, finish, melon, aromas, palate, nose, green"> </td>
+<td bgcolor="#fec44f" title="<nobr>spanish white vs. viognier</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>spanish white vs. white blend</nobr><br /><b>(4)</b> aromas, finish, fruit, white"> </td>
+</tr>
+<tr>
+<td><div title="sparkling"> sparkling </div>
+<td bgcolor="#ec7014" title="<nobr>sparkling vs. albarino</nobr><br /><b>(5)</b> aromas, acidity, finish, palate, apple"> </td>
+<td bgcolor="#fe9929" title="<nobr>sparkling vs. chardonnay</nobr><br /><b>(4)</b> acidity, finish, fruit, apple"> </td>
+<td bgcolor="#cc4c02" title="<nobr>sparkling vs. chenin blanc</nobr><br /><b>(6)</b> acidity, fruit, apple, finish, sweet, fresh"> </td>
+<td bgcolor="#ec7014" title="<nobr>sparkling vs. gewurztraminer</nobr><br /><b>(5)</b> acidity, finish, fruit, palate, sweet"> </td>
+<td bgcolor="#ec7014" title="<nobr>sparkling vs. greek white</nobr><br /><b>(5)</b> aromas, finish, fresh, fruit, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>sparkling vs. gruner veltliner</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>sparkling vs. italian white</nobr><br /><b>(4)</b> aromas, finish, fresh, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>sparkling vs. marsanne</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>sparkling vs. muscat</nobr><br /><b>(5)</b> aromas, acidity, finish, fruit, sweet"> </td>
+<td bgcolor="#cc4c02" title="<nobr>sparkling vs. other white</nobr><br /><b>(6)</b> acidity, fruit, finish, palate, sweet, fresh"> </td>
+<td bgcolor="#fec44f" title="<nobr>sparkling vs. pinot blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>sparkling vs. pinot grigio gris</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fec44f" title="<nobr>sparkling vs. portuguese white</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>sparkling vs. rhone style white blend</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#993404" title="<nobr>sparkling vs. riesling</nobr><br /><b>(7)</b> acidity, fruit, apple, finish, aromas, palate, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>sparkling vs. rose</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fec44f" title="<nobr>sparkling vs. roussanne</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>sparkling vs. sauvignon blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, palate"> </td>
+<td bgcolor="#cc4c02" title="<nobr>sparkling vs. semillon</nobr><br /><b>(6)</b> acidity, fruit, finish, aromas, palate, sweet"> </td>
+<td bgcolor="#fe9929" title="<nobr>sparkling vs. sherry</nobr><br /><b>(4)</b> aromas, finish, palate, sweet"> </td>
+<td bgcolor="#ec7014" title="<nobr>sparkling vs. spanish white</nobr><br /><b>(5)</b> aromas, finish, fruit, apple, palate"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#fe9929" title="<nobr>sparkling vs. torrontes</nobr><br /><b>(4)</b> aromas, finish, palate, apple"> </td>
+<td bgcolor="#fec44f" title="<nobr>sparkling vs. viognier</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>sparkling vs. white blend</nobr><br /><b>(5)</b> aromas, acidity, finish, fruit, fresh"> </td>
+</tr>
+<tr>
+<td><div title="torrontes"> torrontes </div>
+<td bgcolor="#993404" title="<nobr>torrontes vs. albarino</nobr><br /><b>(7)</b> apple, finish, melon, aromas, palate, nose, green"> </td>
+<td bgcolor="#fee391" title="<nobr>torrontes vs. chardonnay</nobr><br /><b>(2)</b> finish, apple"> </td>
+<td bgcolor="#fee391" title="<nobr>torrontes vs. chenin blanc</nobr><br /><b>(2)</b> finish, apple"> </td>
+<td bgcolor="#fee391" title="<nobr>torrontes vs. gewurztraminer</nobr><br /><b>(2)</b> finish, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>torrontes vs. greek white</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="#fff7bc" title="<nobr>torrontes vs. gruner veltliner</nobr><br /><b>(1)</b> green"> </td>
+<td bgcolor="#fee391" title="<nobr>torrontes vs. italian white</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fee391" title="<nobr>torrontes vs. marsanne</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fee391" title="<nobr>torrontes vs. muscat</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>torrontes vs. other white</nobr><br /><b>(3)</b> finish, palate, nose"> </td>
+<td bgcolor="#fff7bc" title="<nobr>torrontes vs. pinot blanc</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fff7bc" title="<nobr>torrontes vs. pinot grigio gris</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fff7bc" title="<nobr>torrontes vs. portuguese white</nobr><br /><b>(1)</b> green"> </td>
+<td bgcolor="#fff7bc" title="<nobr>torrontes vs. rhone style white blend</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>torrontes vs. riesling</nobr><br /><b>(4)</b> aromas, finish, palate, apple"> </td>
+<td bgcolor="#fff7bc" title="<nobr>torrontes vs. rose</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fff7bc" title="<nobr>torrontes vs. roussanne</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>torrontes vs. sauvignon blanc</nobr><br /><b>(3)</b> green, finish, palate"> </td>
+<td bgcolor="#fec44f" title="<nobr>torrontes vs. semillon</nobr><br /><b>(3)</b> aromas, finish, palate"> </td>
+<td bgcolor="#fe9929" title="<nobr>torrontes vs. sherry</nobr><br /><b>(4)</b> aromas, finish, palate, nose"> </td>
+<td bgcolor="#993404" title="<nobr>torrontes vs. spanish white</nobr><br /><b>(7)</b> apple, finish, melon, aromas, palate, nose, green"> </td>
+<td bgcolor="#fe9929" title="<nobr>torrontes vs. sparkling</nobr><br /><b>(4)</b> aromas, finish, palate, apple"> </td>
+<td bgcolor="black">
+9
+</td>
+<td bgcolor="#fee391" title="<nobr>torrontes vs. viognier</nobr><br /><b>(2)</b> tropical, finish"> </td>
+<td bgcolor="#fee391" title="<nobr>torrontes vs. white blend</nobr><br /><b>(2)</b> aromas, finish"> </td>
+</tr>
+<tr>
+<td><div title="viognier"> viognier </div>
+<td bgcolor="#fee391" title="<nobr>viognier vs. albarino</nobr><br /><b>(2)</b> acidity, finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>viognier vs. chardonnay</nobr><br /><b>(4)</b> vanilla, acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>viognier vs. chenin blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. gewurztraminer</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. greek white</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fee391" title="<nobr>viognier vs. gruner veltliner</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. italian white</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>viognier vs. marsanne</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. muscat</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>viognier vs. other white</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>viognier vs. pinot blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>viognier vs. pinot grigio gris</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. portuguese white</nobr><br /><b>(3)</b> acidity, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. rhone style white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. riesling</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. rose</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>viognier vs. roussanne</nobr><br /><b>(5)</b> vanilla, acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. sauvignon blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. semillon</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fff7bc" title="<nobr>viognier vs. sherry</nobr><br /><b>(1)</b> finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. spanish white</nobr><br /><b>(3)</b> finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>viognier vs. sparkling</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>viognier vs. torrontes</nobr><br /><b>(2)</b> tropical, finish"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fe9929" title="<nobr>viognier vs. white blend</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+</tr>
+<tr>
+<td><div title="white blend"> white&nbspblend </div>
+<td bgcolor="#fec44f" title="<nobr>white blend vs. albarino</nobr><br /><b>(3)</b> aromas, acidity, finish"> </td>
+<td bgcolor="#fec44f" title="<nobr>white blend vs. chardonnay</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>white blend vs. chenin blanc</nobr><br /><b>(5)</b> acidity, finish, fruit, white, fresh"> </td>
+<td bgcolor="#fec44f" title="<nobr>white blend vs. gewurztraminer</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>white blend vs. greek white</nobr><br /><b>(5)</b> aromas, finish, fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>white blend vs. gruner veltliner</nobr><br /><b>(3)</b> acidity, fresh, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>white blend vs. italian white</nobr><br /><b>(5)</b> aromas, finish, fresh, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>white blend vs. marsanne</nobr><br /><b>(5)</b> aromas, acidity, finish, fruit, white"> </td>
+<td bgcolor="#fe9929" title="<nobr>white blend vs. muscat</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+<td bgcolor="#ec7014" title="<nobr>white blend vs. other white</nobr><br /><b>(5)</b> acidity, finish, fruit, white, fresh"> </td>
+<td bgcolor="#fe9929" title="<nobr>white blend vs. pinot blanc</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>white blend vs. pinot grigio gris</nobr><br /><b>(5)</b> acidity, finish, fruit, white, fresh"> </td>
+<td bgcolor="#fe9929" title="<nobr>white blend vs. portuguese white</nobr><br /><b>(4)</b> acidity, fresh, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>white blend vs. rhone style white blend</nobr><br /><b>(3)</b> finish, white, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>white blend vs. riesling</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>white blend vs. rose</nobr><br /><b>(4)</b> acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fe9929" title="<nobr>white blend vs. roussanne</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="#fec44f" title="<nobr>white blend vs. sauvignon blanc</nobr><br /><b>(3)</b> acidity, finish, fruit"> </td>
+<td bgcolor="#fe9929" title="<nobr>white blend vs. semillon</nobr><br /><b>(4)</b> aromas, acidity, finish, fruit"> </td>
+<td bgcolor="#fee391" title="<nobr>white blend vs. sherry</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>white blend vs. spanish white</nobr><br /><b>(4)</b> aromas, finish, fruit, white"> </td>
+<td bgcolor="#ec7014" title="<nobr>white blend vs. sparkling</nobr><br /><b>(5)</b> aromas, acidity, finish, fruit, fresh"> </td>
+<td bgcolor="#fee391" title="<nobr>white blend vs. torrontes</nobr><br /><b>(2)</b> aromas, finish"> </td>
+<td bgcolor="#fe9929" title="<nobr>white blend vs. viognier</nobr><br /><b>(4)</b> acidity, finish, fruit, white"> </td>
+<td bgcolor="black">
+6
+</td>
+</tr>
+</table>
+<div>
+Top matches for each wine, if had a score of 6/10 or higher
+</div><div>
+<p>
+<strong>albarino</strong> <p>
+<blockquote>
+torrontes : 7 
+<br>
+spanish_white : 7 
+<br>
+</blockquote>
+<p>
+<strong>chardonnay</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>chenin&nbspblanc</strong> <p>
+<blockquote>
+other_white : 6 
+<br>
+sparkling : 6 
+<br>
+</blockquote>
+<p>
+<strong>gewurztraminer</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>greek&nbspwhite</strong> <p>
+<blockquote>
+other_white : 6 
+<br>
+spanish_white : 6 
+<br>
+</blockquote>
+<p>
+<strong>gruner&nbspveltliner</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>italian&nbspwhite</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>marsanne</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>muscat</strong> <p>
+<blockquote>
+semillon : 6 
+<br>
+</blockquote>
+<p>
+<strong>other&nbspwhite</strong> <p>
+<blockquote>
+chenin_blanc : 6 
+<br>
+greek_white : 6 
+<br>
+sparkling : 6 
+<br>
+</blockquote>
+<p>
+<strong>pinot&nbspblanc</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>pinot&nbspgrigio&nbspgris</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>portuguese&nbspwhite</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>rhone&nbspstyle&nbspwhite&nbspblend</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>riesling</strong> <p>
+<blockquote>
+sparkling : 7 
+<br>
+semillon : 6 
+<br>
+</blockquote>
+<p>
+<strong>rose</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>roussanne</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>sauvignon&nbspblanc</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>semillon</strong> <p>
+<blockquote>
+muscat : 6 
+<br>
+sparkling : 6 
+<br>
+riesling : 6 
+<br>
+</blockquote>
+<p>
+<strong>sherry</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>spanish&nbspwhite</strong> <p>
+<blockquote>
+albarino : 7 
+<br>
+torrontes : 7 
+<br>
+greek_white : 6 
+<br>
+</blockquote>
+<p>
+<strong>sparkling</strong> <p>
+<blockquote>
+riesling : 7 
+<br>
+chenin_blanc : 6 
+<br>
+other_white : 6 
+<br>
+semillon : 6 
+<br>
+</blockquote>
+<p>
+<strong>torrontes</strong> <p>
+<blockquote>
+albarino : 7 
+<br>
+spanish_white : 7 
+<br>
+</blockquote>
+<p>
+<strong>viognier</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>white&nbspblend</strong> <p>
+<blockquote>
+</blockquote>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="wine.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,65 @@
+:
+#
+# version 3.0 Sep 25 11:21:02 PDT 1998
+# revision 3.0.1 brad powell Mon Sep 28 16:37:18 PDT 1998
+# revision 4.0.1 brad powell Mon Sep 28 16:37:18 PDT 2001.
+# just a modification so that TitanReport can be run from the topmost dirictory
+# much like Titan.top
+
+umask 022
+
+# This tool suite was written by and is copyrighted by Brad Powell, Matt 
+# Archibald, and Dan Farmer 1996, 1997, 1998, 1999, 2000, 2001
+#
+# The copyright holder disclaims all responsibility or liability with 
+# respect to its usage or its effect upon hardware or computer 
+# systems, and maintains copyright as set out in the "LICENSE" 
+# document which accompanies distribution. 
+ 
+
+if [ $# = 0 ] ; then
+        $ECHO "usage: $0 user@location "
+        $ECHO "example: $0 brad.powell@sun.com"
+        exit 1
+fi
+
+# setup
+TITANHOME=`pwd`
+PATH=/bin:/usr/bin:/sbin:$TITANHOME/lib
+
+MYNAME=`basename $0`
+# if you uncomment this, remove the usage check and change $1 to $USER
+# below otherwise titan is expecting an argument of user@host
+# USER="root@localhost"
+
+cd bin
+FILES=`echo modules/*`
+if test "X$FILES" = "X" ; then
+	echo "        ERROR: No titan modules to run!"
+	exit 1
+	fi
+
+for titan in ${FILES} ; do
+	if [ -f ${titan} -a -x ${titan} ] ; then
+		echo ""
+		echo "    _____________________________________________________"
+		echo "    *=*=*=*=* Running ${titan} -v  now..... "
+		echo "    -----------------------------------------------------"
+
+	 ./${titan} -v  | tee ../logs/$titan.V.rpt
+	fi
+		done
+# you may want to send this to a safer location
+# you may want to change this because of link race conditions
+rm ../logs/titan.rpt
+touch ../logs/titan.rpt
+for RPT in ../logs/modules/*.V.rpt ; do
+echo " " >> ../logs/titan.rpt
+echo "------begin $RPT-------" >> ../logs/titan.rpt
+cat  $RPT >>../logs/titan.rpt
+echo "------end $RPT--------" >> ../logs/titan.rpt
+echo " " >> ../logs/titan.rpt
+done
+cat ../logs/titan.rpt | mail $1
+#cat ../logs/titan.rpt | mailx -s "Titan Report" $1
+

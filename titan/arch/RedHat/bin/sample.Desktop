@@ -1,0 +1,92 @@
+# Sample listing of titan modules for a desktop system
+# version 3.0.6 Mon Apr 12 09:47:39 PDT 1999
+# Desktops run a cut-down version leaving on things like lp and possibly NIS
+#
+# This config file will only run in verify mode
+# Change all the -v flags to -f to fix things
+# quick way is to use vi and run;  g/\ \-v/s//\ \-f/g
+# 
+add-umask.sh -v
+# optional
+# adjust.syn-timeout.sh -v
+#
+# some sites use automount so users home directory follow them around
+# security wise automount is not recommended, but your policy may vary
+automount.sh -v
+adjust-arp-timers.sh -v
+# aset should probably only run in med or low on a desktop
+# aset.sh -v
+# BSM might be overkill on a desktop
+# bsm.sh -v
+# 
+cde.sh -v
+create-issue.sh -v
+cronset.sh -v
+decode.sh -v
+defloginparams.sh -v
+defpwparams.sh -v
+disable-L1-A.sh -v
+disable-NFS.bind.sh -v
+disable-accounts.sh -v
+disable-core.sh -v
+disable-ping-echo.sh -v
+disable_ip_holes.sh -v
+# If you use SNMP you might need DMI
+dmi-2.6.sh -v
+eeprom.sh -v
+file-own.sh -v
+fix-cronpath.sh -v
+fix-modes.sh -v
+fix-stack.sh -v
+fix-stack.sol2.6.sh -v
+ftp-2.6_secure.sh -v
+ftpusers.sh -v
+hosts.equiv.sh -v
+# inetd  and inetd2 may need some modifications 
+inetd.sh -v
+inetd2.sh -v
+keyserv.sh -v
+loginlog.sh -v
+log-tcp.sh -v
+
+# probably don't need to  log all incoming tcp connections on a desktop.
+# uncomment if you want to log all tcp incoming connections
+# log-tcp.sh -f
+# most desktops need lp services
+# lpsched.sh -v
+nfs-portmon.sh -v
+# if you use NIS, then nsswitch will need to be commented out
+nddconfig.sh -v
+nsswitch.sh -v
+nuke-nscd.sh -v
+nuke-sendmail.sh -v
+pam-rhosts-2.6.sh -v
+passwd.sh -v
+# you may wish to leave powerd enabled on a desktop (not me;)
+# but some desktops don't need to be available all night
+powerd.sh -v
+
+psfix.sh -v
+rhosts.sh -v
+rmmount.sh -v
+rootchk.sh -v
+routed.sh -v
+# some desktops run sendmail, some mount mail from a server
+# comment out if your desktop receives mail directly
+sendmail-forward.sh -v
+sendmail.sh -v
+smtp-banner.sh -v
+smtpbanner-8.8.sh -v
+# if you use SNMP comment out the module below 
+snmpdx-2.6.sh -v
+
+syslog.sh -v
+
+# suid.sh optional and is in the "optional" directory; move to the
+# modules directory if you want to use it
+# suid.sh -v
+telnet-banner.sh -v
+tcp-sequence.sh -v
+useraddset.sh -v
+userumask.sh -v
+utmp.sh -v

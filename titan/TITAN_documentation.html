@@ -1,0 +1,399 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.75 [en] (Win98; U) [Netscape]">
+</head>
+<body>
+
+<center>
+<h1>
+<img SRC="bigmap.jpg" height=275 width=424></h1></center>
+
+<center>TITAN's view of the world
+<p><a href="http://titanuser.com"><img SRC="new2.gif" BORDER=0 height=28 width=40 align=BOTTOM></a><b><font color="#009900"><a href="http://titanuser.com">Commercial
+Support For Titan - Click to access titanuser.com</a></font></b></center>
+
+<p><b><font face="Arial, Helvetica, sans-serif"><font color="#FF0000"><font size=-1>January 15, 2005</font></font></font></b>
+<p><b><font face="Arial, Helvetica, sans-serif"><font color="#FF0000"><font size=-1>New License - See Below</font></font></font></b>
+<br>
+<hr>
+<ul><!-- Published by Quadralay WebWorks HTML Lite 1.5.1 --><a NAME="10346"></a>
+<p><a NAME="417926"></a></ul>
+
+<h1>
+<font color="#3366FF">TITAN 4.1</font></h1>
+
+<ul>Check out the <a href="whats-new.html">What is New in 4.1</a> document
+for changes from 4.0BETA6
+<p><a NAME="417927"></a><b><font size=+1>Abstract</font></b>
+<p><a NAME="417929"></a>Titan is a collection of programs, each of which
+either fixes or tightens one or more potential security problems with a
+particular aspect in the setup or configuration of a Unix system. Conceived
+and created by Brad Powell, it was written in Bourne shell, and its simple
+modular design makes it trivial for anyone who can write a shell script
+or program to add to it, as well completely understand the internal workings
+of the system.
+<p>Titan does not replace other security tools, but when used in combination
+with them it can help make the transformation of a new, out of the box
+system into a firewall or security conscious system into a significantly
+easier task. In a nutshell, it attempts to help improve the security of
+the system it runs on.
+<p><b><font size=-1>NOTE - Due to time and access to hardware/software&nbsp;
+resource, Titan 4.0 will only run on Solaris, versions 1.1.4 , 2.X, Solaris
+8,and Solaris 9.</font></b>
+<p><b><font size=-1>Titan version 4.0 BETA6 works with Solaris, Linux,
+and Free BSD. These are minimalistic modules for Linux and Free BSD.</font></b>
+<p><b><font size=-1>Other than taking the time to create Titan modules
+for other systems, there is nothing Sun specific (except for some few modules
+that are Solaris feature specific )about Titan that would prevent it working
+on other Unix systems.</font></b>
+<p><b><font size=-1>Titan version 4.1 works with Solaris, Linux and FreeBSD.
+These latest additions work minimally compared to Solaris. AIX,v5.2 port
+is completed and in Alpha test now. If you would like to test this prior
+to it's availability through this web site please click here <a href="http://www.fish.com/~brad/titan/Titan,v4.2.tar.Z">Titan,v4.2
+with support for AIX</a> or by send email to either <a href="mailto:titan@fish.com">titan@fish.com</a>
+or <a href="mailto:info@titanuser.com">info@titanuser.com</a>.</font></b>
+<br>&nbsp;
+<br>&nbsp;
+<ul><a NAME="419097"></a></ul>
+<b><font size=+1>Introduction</font></b>
+<p><a NAME="419104"></a>
+<p><a NAME="417939"></a><b><font size=-1>Unix is often, and justifiably,
+criticized for being a difficult system that is cantankerous and hard to
+secure. Some of the main reasons that a Unix system is typically insecure
+include:</font></b>
+<br>&nbsp;
+<br>&nbsp;
+<ul>
+<li>
+<b><font size=-1>It is nearly infinitely configurable.</font></b></li>
+
+<li>
+<b><font size=-1>Unix can be very complex.</font></b></li>
+
+<li>
+<b><font size=-1>Vendors don't ship systems secured by default.</font></b></li>
+
+<li>
+<b><font size=-1>It can require significant amounts of time, resources,
+and expertise to secure.</font></b></li>
+
+<li>
+<b><font size=-1>Once secure (if ever) it will become less secure as time
+goes on through usage and the continual flow of new security problems being
+discovered in the world.</font></b></li>
+
+<br>&nbsp;
+<p>&nbsp;</ul>
+<b><font size=-1>Titan can help with all of these problems; its main design
+goals are:</font></b>
+<br>&nbsp;
+<br>&nbsp;
+<ul>
+<li>
+<b><font size=-1>After being run, the system should be more secure than
+when we started. Things may be broken, but it should be more secure! The
+truth is that most things you do to secure a system are probably not going
+to cause a problem. A vendor can't take that chance - but we can. In any
+case, we haven't run into anything that Titan has broken, but it certainly
+could happen.</font></b></li>
+
+<li>
+<b><font size=-1>Security comes first, right along with functionality.
+If Titan has been run at its highest level of security, there will be no
+significant configuration security problems that I know of. The system
+will not be 100% secure - none are - but it will be pretty darn secure.</font></b></li>
+
+<li>
+<b><font size=-1>Producing a consistent and understandably secure system.</font></b></li>
+
+<li>
+<b><font size=-1>It can help create a programmatically defined technical
+aspect of a system or site's security policy.&nbsp; Allow the administrator
+to have complete control over what modules in Titan are run - with full
+source code and a fair bit of flexibility, it is easy to remove unwanted
+security fixes. After all, not everyone wants or needs all the actions
+that Titan does.</font></b></li>
+
+<li>
+<b><font size=-1>Titan is easily extended. Shell scripts or other programs
+can be placed into Titan's framework, and they will be run alongside all
+the other programs. All you need do is build your scripts/code to produce
+output that an expects.</font></b></li>
+
+<li>
+<b><font size=-1>To be a useful security tool in the overall security framework.</font></b></li>
+
+<br>&nbsp;
+<p>&nbsp;</ul>
+<b><font size=-1>Titan does not try to do all the other important things,
+like fix bugs, check for poor passwords, install patches, or check for
+COPS/Tiger/SATAN-like problems. But there is much more to security than
+that! And it is not meant to be run once and forgotten, nor should all
+Titan modules be run on all systems. But any system administrators that
+are concerned about security should have considered, if not resolved or
+fixed, a significant number (if not all) of the problems</font></b>
+<p><b><font size=-1>that Titan covers on their security critical systems.
+Titan helps by being systematic about things. No longer do you need to
+wonder if you finished applying all your changes. Just run Titan -v and
+it will spit out all the things Titan thinks need hardening.</font></b>
+<br>&nbsp;
+<br>&nbsp;
+<p><a NAME="419161"></a><b><font size=+1>History</font></b>
+<p><b><font size=-1>Anyone working in security or systems administration
+who has been been around the Internet for any length of time has done it
+- making the same changes, over and over again, to secure a system. Worse
+yet, each new OS release would bring tiny, seemingly completely arbitrary
+changes that would invalidate prior work. And forget it when a new major
+release came out, or you had to work with another operating system altogether!
+And between the three of us we've ftp'd Crack, COPS, and other security
+programs from the net many thousands of times.</font></b>
+<p><b><font size=-1>Eventually it became clear. I was not only making the
+same changes to the underlying OS over and over again to secure my system
+from attack (the many security exploits and investigations that are saved
+on my system make it a target), but also when building various firewall
+configurations (which is what I do for a living.) I was making the same
+changes over and over again. I started writing Titan almost in self defense
+- initially as a simple set of tools for my personal systems, but it also
+quickly proved a valuable sanity check for confirming consistency when
+building firewalls. Its next natural task was to use it when examining
+or auditing a system. Laziness is the best motivation there is - if I had
+to type those same commands manually&nbsp; one more time...</font></b>
+<p><b><font size=-1>Analyzing the security of a system is depressing -
+the same sets of problems always come up. Worse yet, these problems almost
+always can be easily fixed - so why aren't they? Worst of all, these problems
+keep coming up; if you don't find them the first time, wait a few months
+or a year, and they'll be there then. And it's not Sun - it's NEC,&nbsp;
+it's HP, it's IBM,&nbsp; yes, Linux too! It's everyone that has even a
+mildly complex system. Yes, even Microsoft.</font></b>
+<p><b><font size=-1>So why do these same problems show up over and over
+and by different suppliers? Good question. I don't know exactly, but I
+do know that having a tool that can help ensure that your systems are consistent
+in your organization is a positive step in the right direction. Having
+a system consistently adhering to the security policy is perhaps the most
+valuable thing you can do to keeping it secure.</font></b>
+<p><b><font size=-1>I'm often asked how to tighten down the OS when a firewall
+product gets installed. There is a reasonable expectation from the customer
+that after the firewall is installed that the system will not be compromised
+by an attack that is outside the scope of the firewall product. After all,
+aren't firewalls supposed to protect you? You wouldn't say it was okay
+to run my business on the Internet unless you could protect me, would you?</font></b>
+<p><b><font size=-1>And it's true - it really is unreasonable to expect
+the user, a customer, to understand all, or even most (any? ;^}), of the
+security issues of running a system on the Internet. Why should they? Security
+isn't the goal of a business, making money is. However, this does place
+both the firewall vendor and security people in general in a rather awkward
+situation. Indeed, this probably scares firewall vendors more than anything
+else - the fact that their firewalls are failing because some user or administrator
+doesn't fix or upgrade an old version of a potentially vulnerable network
+service! I can no longer count the number of times I've heard "I didn't
+know leaving sendmail running on my firewall might make it vulnerable."</font></b>
+<p><b><font size=-1>Titan tries to along with using some common sense on
+your part, and doing a minimum OS install, to build you a consistent, reproducible
+base install.&nbsp; Making the system suitable to then install a firewall
+or other product and knowing that the underlying foundation isn't all sand.</font></b>
+<h1>
+<b><font size=-1>What Titan is not.</font></b></h1>
+<a NAME="419162"></a><b><font size=-1>Titan isn't a replacement for anything
+(period; end of discussion) Titan doesn't mean you no longer need to install
+vendors security patches (although it might save you in some cases if you
+didn't install a patch) Titan doesn't mean that you shouldn't install SKIP,
+openssh, smap, smrsh, tripwire, Tcp_wrappers, rpcbind, noshell, COPS, SATAN,
+TIGER, crack5, cracklib, or any of the other security tools you are (or
+should be) currently using but it should make the results of running COPS
+look shorter.</font></b>
+<p><b><font size=-1>Titan works at the lower OS level to fix common configuration
+errors. Things like the user ``lp'' account having a valid shell and some
+administrator exporting /var/spool read-write via NFS so users can share
+an e-mail server.</font></b>
+<p><b><font size=-1>If you can't guess, "/var/spool" is a home directory,
+and if user ``lp'' has a valid shell, a remote user can add in a rhosts
+entry to /var/spool and login as user ``lp''; oh and guess what? In some
+OS's the user ``lp'' is in a privileged group&nbsp; (/etc is mode 775 in
+solaris for instance) or owns a directory where root runs commands out
+of.</font></b>
+<p><a NAME="417940"></a>
+<h1>
+<b><font size=-1>Why the name Titan?</font></b></h1>
+<a NAME="417966"></a><b><font size=-1>I could go off and give the ``its
+an acronym'' speech about it standing for ``Toolkit for Interactively Toughening
+Advanced Networks and Systems'' but to tell the truth, I just kept getting
+requests from my fellow workers at the time (hi Pete, hi Alan) for ``those
+scripts to tighten down the OS''. The name just sort of stuck.</font></b>
+<p><a NAME="419110"></a>
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+<b><font size=-1>Some philosophy behind Titan</font></b></h1>
+<a NAME="417992"></a><b><font size=-1>Titan was designed using the KISS
+module. ``Keep&nbsp; It Simple Stupid''</font></b>
+<p><a NAME="417993"></a><b><font size=-1>At one time I built shell scripts
+that did all the fixes at one time. The trouble was that sometimes you
+wanted some things left alone so you ended up modifying the shell script
+(or C program) and commenting out some portions. Then when you went back
+to re-use the script the next time it was possible that I forgot that the
+script would leave that commented item enabled when *this* time you wanted
+it disabled. Thus no consistency.</font></b>
+<p><a NAME="418372"></a><b><font size=-1>Or you have the script ask before
+doing every change. This can be a pain and time consuming if you need to
+do multiple systems and are on a time limit like most of us usually are.
+Or want to run things from a crontab.</font></b>
+<p><a NAME="417999"></a>
+<p><a NAME="418000"></a><b><font size=-1>I abandoned these models in favor
+of short succinct set of scripts each of which did -one- and only one specific
+type of thing. Script names were picked that (mostly) made reference to
+what each module did. I have been hampered by porting to-from filesystems
+that restrict file name lengths at times (msdos for instance; ever try
+and copy files with names like disable_ip_forwarding.sh to a PC laptop
+and then back to a real system? arg!) Thus the names are kept reasonably
+short at the expence of loosing a decriptive name.</font></b>
+<p><a NAME="418006"></a>
+<h1>
+<b><font size=-1>Titan was designed so that anyone could build a titan
+module.</font></b></h1>
+<a NAME="418042"></a><b><font size=-1>See the <a href="FAQ.html">FAQ</a>&nbsp;
+Question number 4 on <a href="FAQ.html#pgfId=426764">how to build a titan
+module
+</a>and how a titan script is designed</font></b>
+<p><a NAME="418048"></a>
+<h1>
+<b><font size=-1>Descriptions as to what each script does:</font></b></h1>
+<b><font size=-1><a href="TITAN_SunOS.html">SunOS 4.1.X</a></font></b>
+<p><a NAME="418156"></a>
+<p><b><font size=-1><a href="TITAN_Solaris2.html">Solaris 2.X</a></font></b>
+<p><b><font size=-1><a href="TITAN_Solaris8.html">Solaris 8</a></font></b>
+<p><b><font size=-1><a href="TITAN_Solaris9.html">Solaris 9</a></font></b>
+<p><b><font size=-1><a href="TITAN_linux.html">Linux</a></font></b>
+<p><b><font size=-1><a href="TITAN_fbsd.html">Free BSD</a></font></b>
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+<a NAME="418157"></a><b><font size=-1><font color="#FF0000">What You Still
+need to do</font>:</font></b></h1>
+<a NAME="418158"></a>
+<ul>
+<ul>
+<li>
+<b><font size=-1><blink>Install VENDOR patches!!</blink>! It's actually
+better to install all known patches <u>before</u> running titan. See the
+fix-modes note above. BUT make sure and rerun Titan -V after installing
+any vendor patch. It's amazing what things get re-enabled after a patch
+run.</font></b></li>
+
+<br>&nbsp;
+<p>&nbsp;
+<li>
+<b><font size=-1>Use pkgrm to remove packages that can hinder security.
+This is pretty dependent on site policy. Some prime candidates might be
+any of the compiler stuff and the binary compatibility packages (assuming
+this is a firewall). This stops intruders who are lugging around old compiled
+binaries from running them on your firewall system. And since you're not
+compiling software on your firewall&nbsp; itself (right?) you don't need
+to help the opposition compile newer breakin tools.</font></b></li>
+
+<br>&nbsp;
+<p>&nbsp;
+<li>
+<b><font size=-1>Run COPS and Tiger. We purposly didn't recreate many of
+the things that COPS or Tiger checks. Thats not Titan's niche.</font></b></li>
+</ul>
+</ul>
+<a NAME="418160"></a>
+<ul>
+<ul><a NAME="418161"></a>
+<li>
+<b><font size=-1>Install any/all the SKIP, openssh, smap, smrsh, tripwire,
+tcp_wrappers, postfix, rpcbind, and noshell stuff as usual.</font></b></li>
+</ul>
+</ul>
+<a NAME="418163"></a>
+<p><a NAME="418164"></a>
+<h1>
+<b><font size=-1>Planned Titan Version 5 build:</font></b></h1>
+&nbsp;
+<ul>
+<ul>
+<li>
+<b><font size=-1>Porting to other Unicies.&nbsp; (Digital Unix (true64)
+, , HPUX,&nbsp; Others?)&nbsp;</font></b><a NAME="418172"></a></li>
+
+<li>
+<b><font size=-1>Porting to Non-Unix platforms.&nbsp; (NT?, Win1900?, ??)</font></b><a NAME="418173"></a></li>
+</ul>
+<a NAME="418187"></a>
+<br>&nbsp;
+<br>&nbsp;
+<h1>
+<b><font size=-1><a href="FAQ.html">Titan Frequently Asked Questions</a></font></b></h1>
+
+<li>
+<b><font size=-1><a href="mailto:titan@fish.com">Report a Bug via e-mail;
+If your browser supports this. If not send mail to titan@fish.com</a>.</font></b></li>
+
+<h1>
+<b><font size=-1>Download Section :</font></b></h1>
+
+<li>
+<b><font color="#FF0000"><font size=-1><a href="lisa-paper.html">Read the
+LISA abstract paper on Titan</a></font></font></b></li>
+
+<li>
+<b><font color="#FF0000"><font size=-1><a href="vanguard.pdf">Download
+the Vanguard presentation on Titan</a></font></font></b></li>
+
+<li>
+<b><font color="#FF0000"><font size=-1><a href="http://www.fish.com/~brad/titan/Titan,v4.2.tar.Z">Download
+pre-release Titan,v4.2 with support for AIX</a></font></font></b></li>
+
+<li>
+<b><font size=-1>Download Team Titan PGP key <a href="http://www.fish.com/~brad/titan/titan.pgp">titan.pubkey.pgp</a></font></b><a href="http://www.fish.com/~brad/titan/titan.pgp"><img SRC="new2.gif" ALT="New!" ></a></li>
+
+<h1>
+<b><i><font color="#3333FF"><font size=+1>USE Titan Version 4.1 for Solaris
+2-8, Free BSD, and Linux.</font></font></i></b></h1>
+
+<li>
+
+<hr></li>
+
+<h2>
+<b><font size=-1>Titan Security Toolkit™ - Version 4.1 for Solaris 2 -
+9, Linux, (RedHat and generic), and Free BSD:</font></b></h2>
+
+<li>
+<b><font size=-1>Download cleartext MD5 Checksum for the "gziped" distribution
+Now <a href="http://www.fish.com/~brad/titan/Titan,v4.1.tar.gz-checksum">Titan,v4.1.tar.gz-checksum</lii
+<li></a>
+Download cleartext MD5 Checksum for the "compressed" distribution Now <a href="http://www.fish.com/~brad/titan/Titan,v4.1.tar.Z-checksum">Titan,v4.1.tar.Z-checksum</a></font></b></lii
+<li></li>
+
+<li>
+<b><font size=-1>Download PGP signed MD5 Checksum for "gziped" Now <a href="http://www.fish.com/~brad/titan/Titan,v4.1.tar.gz-checksum.asc">Titan,v4.1.tar.gz-checksum.asc</a></font></b></li>
+
+<li>
+<b><font size=-1>Download PGP signed MD5 Checksum for "compressed" Now
+<a href="http://www.fish.com/~brad/titan/Titan,v4.1.tar.Z-checksum.asc">Titan,v4.1.tar.Z-checksum.asc</a></font></b></li>
+
+<li>
+<b><font size=-1><a href="http://www.fish.com/~brad/titan/Titan,v4.1.tar.gz">By
+clicking HERE (gzip'd)</a> (or
+<a href="http://www.fish.com/~brad/titan/Titan,v4.1.tar.Z">here</a>,
+for the compressed version), YOU agree to the licensing restrictions, YOU
+agree to use <font color="#993399">Titan Security Toolkit™ - Titan 4.1</font>(
+solaris2-9, linux and freebsd ports) at your own risk, and are ready to
+download <font color="#993399">the Titan Security Toolkit™ - Titan 4.1
+now.</font></font></b>
+<hr></li>
+
+<center>
+<p><br><a href="http://titanuser.com"><img SRC="new2.gif" BORDER=0 height=28 width=40 align=BOTTOM></a><b><font color="#009900"><font size=-1><a href="http://titanuser.com">Commercial
+Support For Titan - Click to access titanuser.com</a></font></font></b></center>
+
+<h5>
+<b><font size=-1>Last Modified: 17:00 PDT, Sept 3, 2002</font></b></h5>
+</ul>
+</ul>
+
+</body>
+</html>

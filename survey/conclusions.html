@@ -1,0 +1,595 @@
+<HTML>
+<HEAD>
+<TITLE>Conclusions and recommendations...</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF" background="crime.gif">
+
+<TABLE BORDER=0 WIDTH=100%>
+<TR>
+<TD WIDTH=40><IMG SRC="dot_clear.gif" WIDTH=40><BR></TD>
+<TD>
+
+<h3>
+Conclusions and Recommendations
+</h3>
+ 
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+ 
+<p>
+<strong>C&R (sub)Table of contents</strong>
+<p>
+ 
+<ul>
+<li><a href="#numbers">The bottom line - the numbers</a>
+<li><a href="#even_more">Even more numbers</a>
+<li><a href="#numb">Number numbness</a>
+<li><a href="#rant">Assorted (sordid?) thoughts</a>
+<li><a href="#i_commerce">The future of the WWW and Internet Commerce</a>
+</ul>
+ 
+<p>
+<IMG SRC="thin_rainbow_line.gif">
+<p>
+<a name="numbers"><h3>The bottom line - the numbers</h3></a>
+<p>
+
+I categorized the potential security problems into two groups -
+red and yellow.  Red problems are more serious than yellow ones, and,
+if a host has both a red and a yellow problem, it will only be reported
+in the red category.
+
+<p>
+Red problems mean
+that the host is essentially wide open to any potential attacker - there 
+are known security problems
+that can be exploited, usually by typing a few simple commands or running
+a widely-published program against the host.  For instance, a typical
+red problem is a host having its anonymous ftp service misconfigured.
+It would take a potential intruder about 10 or 12 seconds (assuming she or
+he weren't a very good typist) to type the two or three lines needed 
+to exploit this problem and compromise the system (more information about
+this example and others like it can be found in a paper written by
+Wietse Venema and myself, called
+<a href="http://www.trouble.org/satan/satan-demo/admin-guide-to-cracking.html"><cite>Improving the Security of Your System by Breaking into It</cite></a>.)
+
+<p>
+
+Yellow security problems are less serious, but still of great concern;
+they mean one of two things, and with either one I would put the host 
+in a high risk group for potential disaster:
+
+<ul>
+<li> the problem does not immediately compromise the host, but either
+	could cause serious damage to the host (for instance, the
+	ability to delete any file or to crash the system) or, if used 
+	in conjuction with other problems, could mean that the host 
+	could be broken into with little effort.
+
+<p>
+
+<li> there is a good possibility that a red problem exists on the host,
+	but further, more intrusive testing was required.  Due to the 
+	hands-off approach of the survey, no effort was made to verify 
+	that a red problem actually existed.
+ 
+</ul>
+
+This table gives a summary of the types of hosts, the number of
+hosts in each category, and the vulnerability percentages of each
+host type; I've highlighted the totals from the survey hosts and the 
+results for the random hosts for easy comparison.  All
+of these numbers are upper limits, but still pretty scary!
+
+<p>
+<h3 align=center>Survey Summary</h3>
+<p>
+
+<table BORDER=2 CELLSPACING=5 CELLPADDING=5>
+
+<tr>
+<td><strong>Type of site</strong></td>
+<td><strong>Total # of hosts scanned:</strong></td>
+<td><strong>Total % Vulnerable</strong></td>
+<td><strong>% Yellow</strong></td>
+<td><strong>% Red</strong></td>
+</tr>
+
+<tr>
+<td>banks</td>
+<td align=center>660</td>
+<td align=center>68.33</td>
+<td align=center>32.73</td>
+<td align=center>35.61</td>
+</tr>
+
+<tr>
+<td>credit unions</td>
+<td align=center>274</td>
+<td align=center>51.09</td>
+<td align=center>30.66</td>
+<td align=center>20.44</td>
+</tr>
+
+<tr>
+<td>US federal sites</td>
+<td align=center>47</td>
+<td align=center>61.70</td>
+<td align=center>23.40</td>
+<td align=center>38.30</td>
+</tr>
+
+<tr>
+<td>newspapers</td>
+<td align=center>312</td>
+<td align=center>69.55</td>
+<td align=center>30.77</td>
+<td align=center>38.78</td>
+</tr>
+
+<tr>
+<td>sex</td>
+<td align=center>451</td>
+<td align=center>66.08</td>
+<td align=center>40.58</td>
+<td align=center>25.50</td>
+</tr>
+
+<tr>
+
+<td><strong>Totals</strong></td>
+<td align=center><strong><FONT COLOR="#FF0000">1734</FONT></strong></td>
+<td align=center><strong><FONT COLOR="#FF0000">64.94</FONT></strong></td>
+<td align=center><strong><FONT COLOR="#FF0000">33.85</FONT></strong></td>
+<td align=center><strong><FONT COLOR="#FF0000">31.08</FONT></strong></td>
+</tr>
+
+<tr>
+
+<td><strong>Random group</td>
+<td align=center><strong><FONT COLOR="#FFCC33">469</FONT></strong></td>
+<td align=center><strong><FONT COLOR="#FFCC33">33.05</FONT></strong></td>
+<td align=center><strong><FONT COLOR="#FFCC33">15.78</FONT></strong></td>
+<td align=center><strong><FONT COLOR="#FFCC33">17.27</FONT></strong></td>
+</tr>
+
+</table>
+
+<font size=-1>The total number of hosts in the individual categories does 
+not add up to the "Total" number of hosts because of multi-homed hosts.</font>
+
+<p>
+
+<a name="even_more"><h3><a href="numbers.html">Even more numbers</a></h3></a>
+
+<strong>If you're interested in further details, you can go the to the
+<a href="numbers.html">breakdowns-by-vulnerability type</a> page,
+which lists breakdowns for all the vulnerabilities for each host class.
+I'm not going to subject the rest of you to that tedium.</strong>
+
+<p>
+
+<a name="numb"><h3>Number numbness</h3></a>
+
+To some degree, the numbers almost speak for themselves.  It doesn't
+take a degree in archery to see that nearly <strong>two thirds</strong>
+of the surveyed hosts have significant security problems.  About a
+third of them can be broken into with almost no effort at all.  
+<strong>I estimate that approximately 3/4 of all surveyed sites could
+be broken into if significant force and effort were applied.</strong>
+
+<p>
+
+Some additional commentary:
+
+<ul>
+
+<li> Why are the numbers so high?  There is no <strong>one</strong>
+	problem that all hosts have.  It's a bit of this problem, a bit of
+	that problem.  If anything, it is that the hosts are trying to
+	do too much at once.  They are Web, news, nameservice, ftp and
+	other types of servers, they are <cite>user</cite> machines - that 
+	is, people use the computer for general purpose things, like mail, 
+	WWW browsing, etc.  None of these are wrong or harmful by
+	themself, but way too much is going on on these hosts.
+	<p>
+
+	To make a host secure, you need to keep things simple and small.  
+	More than one function (such as being a WWW server, a mailhub, 
+	etc.) per host is simply too difficult <strong>in practice</strong>
+	to keep secure.  Theoretically there should be almost no difference,
+	but humans are not merely theoretical creatures.
+
+<p>
+
+<li> Note is how similar the results are for the surveyed hosts; four 
+	out of the five types of sites range from 61 to 69 percent total 
+	vulnerabilities.  If a host has a higher than usual yellow
+	vulnerability score, then they usually have a low red one, and
+	vice-versa.  I would surmise that if more hosts were surveyed and
+	more tests were run the final numbers would be even closer together.
+	
+</ul>
+
+<p>
+
+To repeat an earlier and very important point: it is vital to note that 
+there is a significant difference between a bank, credit union, federal
+agency, or whatever, and the real, physical location of the organization.
+Most Web sites amount to what is primarily an advertisement on the 
+Internet, and the systems are often managed by an ISP or business that 
+is entirely unrelated to the real organization.  And though some WWW
+sites provide considerable amounts of information,
+and the number of services being offered is rising,
+it is important to see that even if you could break into one of the 
+Web sites in this report you couldn't actually steal any money!  This
+is not to say, of course, that such a thing couldn't happen in the future
+as the Internet is relied on for more and more commercial and government
+ventures.
+
+<p>
+
+Here are some of the reasons these high-profile hosts are 
+in more danger than their randomly chosen cousins:
+
+<p>
+
+<ul>
+
+<li> More services being run.  The configuration woes of Web, name service
+	protocols,
+	gopher, ftp, and other network service programs add considerably 
+	to the security problems on the Internet.
+
+<p>
+
+<li> Commercialization of the Internet.  The intense competition among 
+	the many different vendors forces out products that are poorly
+	designed, written, and tested.  And when security is usually not 
+	even on the top 10 list of customer wants, it will almost always
+	get short <a href="glossary.html#shrift">shrift.</a>  Netscape 
+	programs (for instance) have wonderful
+	functionality (when they don't crash), but the company is
+	notorious for its abysmal security architecture and coding 
+	practices - and they are not alone in this category.  Most
+	companies use bright programmers who work long hours and
+	think that they have little use for software engineering practices 
+	and security architectures, and they certainly have no training 
+	or experience about how to write secure code.
+
+	<p>
+
+	By far the worst offenders are Microsoft and the various 
+	Unix vendors that provide the OS's fueling virtually all of the
+	surveyed and random hosts.  They demonstrate all of the above problems,
+	despite the fact that they have been around long enough to know 
+	better (they're probably saying the same thing about me.)  While
+	at least most of the Unix vendors admit to some serious
+	security problems from time to time, you would think that 
+	NT and Windows 95 were paragons of safety if you listened to
+	Microsoft long enough.  The appalling manner in which Microsoft
+	documents its operating systems and refuses to disseminate serious
+	security problems on their products borders on criminal
+	(I even like and use several Microsoft products, but their
+	philosophy on security is abhorrent to me.)
+
+<p>
+
+<li> Lots of attention is being paid to the Web and security.  Fueled
+	by Java, the Mitnick chase, SATAN, etc., the denizens of
+	the Internet now are thinking about security in ever greater
+	numbers, and have
+	<a href="biblio.html">very good methods</a>
+	for disseminating information to like-minded people.  Discussions
+	on how to break into computing systems as well as how to defend 
+	them are growing in number, but unfortunately the information 
+	often doesn't make it to people outside these specialized circles.
+
+<p>
+
+<li> Businesses and other organizations are coming to the net, 
+	expecting turnkey solutions to their company needs.  
+	Unfortunately, the technology for this
+	has not arrived, at least with respect to security.  Powerful
+	workstations running complex operating systems, network services,
+	and applications are not like cash-registers, and should not
+	be treated in the same way.
+	This illustrates the serious paridigm shift from the real to 
+	the virtual world that appears to be missing from the 
+	conciousness of Information superhighway.
+	With the ignorance about security combined with the
+	supreme emphasis on functionality and performance, you have a
+	situation like... well, a situation that looks almost exactly like
+	what we have today.
+
+	<p> 
+
+	One of the the things that this survey has proven to me is that 
+	people really <strong>do</strong> need a turnkey solution for the
+	Internet; they don't have the resources or the expertise to
+	set up a reasonably secure system on the Internet.  But, as far
+	as I know, this sort of solution does not exist yet.
+
+</ul>
+ 
+
+<p>
+
+Which brings us to the next question: if these hosts have so many 
+security problems, why isn't something being done to eliminate
+them?  It's a good question, and a question with no easy answer.
+
+<p>
+
+I generally don't care one way or the other if people don't want to
+learn about computer security; I'm content living alone in my world
+of obsessions.  But issues of computer security, whether people like it or 
+not,
+are increasingly encroaching upon the everyday life of more
+and more of the population of the world.
+With something on the order of 10% of the United States 
+currently using the WWW, and increasing numbers of important organizations 
+having at least
+some sort of presence there, security becomes more than an 
+abstract intellectual 
+curiosity.  I'm not advocating that the casual layperson learn about 
+security - however, I am encouraging them to <strong>demand</strong> 
+that these crucial
+organizations that provide all sorts of social, cultural, and
+professional
+services behave as responsibly on the Internet as they do off of
+it.
+
+<p>
+
+To be fair, I must say that there are <strong>many</strong> sites and
+locations that have done a very fine job of protecting their on-line
+resources.  There is no reason that
+others could not do the same.  However, my experience with large
+organizations has shown me that, while it is possible to have
+a secure site, it is 
+<strong>very</strong> difficult.  There are many technical strategies to
+keep in mind while attempting to keep a site secure, and, combined 
+with the incredible fluidity and dynamism of computer security today, 
+it is increasingly difficult to use techniques and architectures
+that are 
+<a href="footies.html#design">ill-designed for our current situation.</a>
+All of this is further exacerbated by the governments in the world making it
+very difficult to create a safe and private world by making valuable
+cryptographic techniques and practices difficult to legally implement
+or utilize.
+
+<p>
+
+In any case, having a secure site is <strong>not</strong> about
+having a technical guru throw up a firewall (no matter how secure it
+is initially) and then having the guru disappear for a year or more,
+until the next upgrade or because a security disaster is in progress.
+
+Regretfully, this is how a great 
+many systems are put together (and I'm being very charitable about the 
+"guru" label!)  
+<a href="footies.html#farmers_law">Farmer's law </a> says that the
+security on a computer system degrades in direct proportion to the amount 
+you use the system.
+
+To make things worse, the social problems can be of even greater concern
+and are more difficult to solve.  Ignorant or malicious users do more
+damage to system security than any other factors.  And finally,
+protecting your
+organization against <a href="glossary.html#se">social engineering</a> 
+should be a real concern, especially with larger organizations.
+
+<p>
+
+<h3><a name="rant">Assorted (sordid?) Thoughts</a></h3>
+
+I wrote this paper (is a collection of web pages a "paper"?) to try
+to educate and alert people to what I consider an absolutely appalling
+situation.  Banks, governments, and other trusted institutions
+are racing into a complex technical arena that they appear to know very
+little about and to be doing still less to learn about.  What is worse is 
+that in their mad rush to appear
+technically savant they seem to have discarded any sense of
+social and cultural responsibility to their constituents.
+
+<p>
+
+In the meantime, what can individuals do to protect themselves?  
+Would it be reasonable for 
+a person or an organization to rate the security level of systems on the net
+without the permission of the systems involved?  One of the tenets of this
+paper was that no one would see which sites were actually involved or
+found vulnerable.  Would it have been more of a public service to disclose
+the findings, so that WWW consumers could make intelligent and informed
+decisions about using various services, or so that they could complain
+to the agencies involved so that they could improve their security?  
+Since such a service does not yet exist, would it be reasonable for an 
+individual to test the security a site her/himself, given strong enough
+motivation, such as the potential for monetary loss?  
+
+In "real life" no one would dream of putting money in a
+bank without it being guaranteed of its safety acording to
+government laws and standards.
+But where are the standards in cyberspace?  While there are laws
+to protect your resources on-line, such as with credit card
+theft, most companies don't keep 20,000 credit cards in a file where
+anyone could reach in and steal them, which is exactly what happened with the 
+<a href="http://www.takedown.com/">Shimomura/Mitnick case</a> and Netcom.
+
+<p>
+
+What this survey revealed 
+should be totally unacceptable, at least
+to anyone considering using the WWW/Internet for financial purposes.
+So far system crackers have been generally benign - but as money starts
+to show its face on public networks, I fear that this behavior will 
+become the exception rather than the rule.
+
+
+
+<p>
+<h3><a name="i_commerce">The future of the WWW and Internet Commerce</a></h3>
+
+<p>
+That many people call me an "expert" about a field I have studied and
+worked in for such a short time is equally disturbing.  Computer 
+security is a young field, in which very little research has been
+done to study practical applications in real life security situations.
+How this dovetails with our increasing love affair with computers and 
+the Internet bodes ill for us, at least in the short-term.  
+
+<p>
+
+But it is important to emphasize that, despite
+my diatribes about the current situation and the practices used
+by many Internet sites, Internet commerce and on-line communications 
+<strong>can</strong> be effective and reasonably secure.  
+This will only be possible, however, if people remember that, despite
+how private and secure their communication is,
+if an intruder can break into their
+or the recipient's computer and capture the message, all is lost.
+Secure commerce and WWW communications requires
+two basic components needed to secure network communication: 
+
+<p>
+
+<ul>
+
+<li> secure communication.  This typically means a strong cryptographic 
+	system that provides <a href="glossary.html#crypto">authentication and 
+	encryption</a>.  Technically this is a moderately easy thing to
+	accomplish, but many, if not most, governments have laws that
+	prevent this from becoming a reality on the Internet.  Netscape's
+	40 bit SSL security on their browsers is a 
+	<a href="http://pauillac.inria.fr/~doligez/ssl/">joke</a>
+	(this is no fault of Netscape - it's a federally mandated artificial
+	limitation.)  The computing department of the
+	Helsinki University of Technology provides a 
+	<a href="http://www.cs.hut.fi/ssh/crypto/">wonderful
+	page on cryptography</a>, if you'd like more information on this.
+
+<p>
+<li> secure endpoints:
+
+	<p>
+
+	<ul>
+	<li> Servers, the computers that provide the services
+	and information used today, should be at least moderately secure.  
+	While there currently is no standard (and it is not clear whether or
+	not such a thing is possible) to measure whether a machine
+	is "secure" or not, there are some 
+	<a href="appendix_a.html">generally accepted guidelines</a>
+	that can be adhered to.
+
+	<p>
+
+	<li> Clients, the computers that consume the services provided
+	by the servers, should be as secure as the servers that they
+	communicate with.  This is often
+	much easier than securing the servers, but there are two significant
+	problems.  First, individual users quite often control the security 
+	of their own computers, without having much technical experience
+	or security education.  This means that they often do things 
+	that inadvertantly
+	compromise a system or site's security.  Second, 
+	the impact of a client's security on a larger organization's overall
+	security is often overlooked and even more frequently flatly
+	ignored.  It's a serious subject, few have covered it, and I 
+	could write another paper on this subject alone, but I've 
+	compiled <a href="appendix_c.html">a few suggestions</a>
+	to attempt to cover the basics of this thorny subject.
+	</ul>
+
+</ul>
+
+<p>
+Needless to say, we have a long way to go.
+
+<p>
+
+<a name="final"><h3>The Final Solution</h3></a>
+
+I forsee at least three basic solutions that we shall see more 
+of in the future:
+
+<ul>
+
+<li> Continuous monitoring.  <strong>Consistency</strong> is the key
+to effective security.  Most organizations don't have the resources or
+expertise to monitor their own critical systems effectively.  Having a 
+third party (a security consultant on retainer or a organization who 
+specializes in this) do this on a regular basis, running security programs,
+patching security problems found (or at least informing you of 
+potential problems), keeping a continual eye on the latest in security
+programs, bugs, etc. could be a cost-effective solution.
+
+<p>
+This individual or organization would have a significant amount of power 
+over the sites it covered, which, of course, would require a great deal 
+of resources and trust from all involved.  Needless to say, they must have 
+impeccable security themselves.  The danger would be diminished
+if they didn't have an account on your systems, but the effectiveness
+would also be lessened.  
+
+<p>
+<li> Getting a "stamp of approval".
+
+Unfortunately, unlike in the financial markets, there are no 
+<a href="footies.html#orgs_o_note">organizations of note</a>
+that monitor sites or give any assurance that they are secure.  
+Such a thing is certainly possible, although difficult to do, given the 
+dynamism of the field.  But
+if an organization could give their stamp of approval confirming
+that a site was relatively secure, it might be a way of 
+getting around the current uncertainty.  
+Such an organization would either create or utilize a reasonably standard
+<a href="glossary.html#policy">security policy</a> for any host in
+question; great care would have to be taken to ensure that the security 
+policy that the host was being audited against was very clear and concise.
+
+<p>
+Just like the "continual monitoring" solution, this organization would 
+perform routine security audits and have a significant amount of power 
+over the sites it covered, which, of course, would require a great deal 
+of resources and trust from all involved.
+
+<p>
+
+<li>Better security "out of the box" from the OS and program vendors.
+This is the most difficult solution to implement, but probably the 
+only way a real long-term solution can be obtained.
+
+</ul>
+
+<p>
+I do hope this paper has proven to be both educational and useful for you.
+I won't be doing this again anytime this millenium... and hopefully there
+will be no reason for anyone to do it the next, as systems become more
+and more secure.  While I'm not holding my breath for this, I 
+<strong>am</strong> waiting for it!
+
+<p>
+
+Best of luck -
+
+<blockquote>
+
+<table CELLSPACING=15 CELLPADDING=15>
+<tr><td> <strong>dan farmer</strong><br></td>
+    <td> <img src="aids-ribbon-small.gif"></td>
+    <td>        Dec 18th, 1996</td>
+</table>
+</blockquote>
+
+<p>
+
+<TABLE><TR><TD><NOBR><a href="dan.html"><IMG border=0 SRC="test3.gif"></a><a href="introduction.html"><IMG border=0 SRC="intro.gif"></a><a href="purpose.html"><IMG border=0 SRC="purpose1.gif"></a><a href="lucky_ones.html"><IMG border=0 SRC="select.gif"></a><a href="testing.html"><IMG border=0 SRC="methods.gif"></a><a href="conclusions.html"><IMG border=0 SRC="conclusions.gif"></a><a href="index2.html"><IMG border=0 SRC="apps.gif"></NOBR></TD></TR></TABLE>
+ 
+</TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>

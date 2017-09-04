@@ -1,0 +1,1023 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+   <title>      TITAN 3.8 FAQ</title>
+</head>
+<body>
+
+<div CLASS="Body">
+<center><img SRC="titan.jpg" height=458 width=381></center>
+</div>
+
+<div CLASS="Body"><a NAME="pgfId=424068"></a></div>
+
+<h1 CLASS="Heading1">
+<a NAME="pgfId=424069"></a>TITAN 3.8 FAQ</h1>
+
+<div CLASS="Heading1">Check out the <a href="whats-new.html">What is New
+in 3.8</a> sections for changes/additions in this release</div>
+
+<h3>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>&nbsp;&nbsp; <font size=+0>1) Question:
+Titan isn't as chatty as it used to be. How do I get the verbose output
+back?</font></b></h3>
+<font size=+0><b>Answer:</b><tt> </tt></font>Why would you want to? :-)
+<p>Actually, Titan and all of its modules were changed to allow you to
+pick how much chattiness is appropriate for your environment /mood. I say
+mood, because you may want Titan to be chatty when you first learn Titan
+conventions, or you may want as much verbosity as possible when running
+in verify (-v) audit mode, but there are other times when you will want
+Titan to&nbsp; just shut up and do its thing. The verbosity of output has
+been made configurable for just these reasons. To change the level of how
+much verbosity output you want, modify:
+<h3>
+<tt><font size=+0>$TITANDIR/lib/misc_functions.sh (TITANDIR/lib is a symlink).
+Change "print_level=1" and "echo_out=t_echo.res"</font></tt></h3>
+
+<p><p><tt># File name that t_echo prints to if it doesn't go to the screen</tt>
+<p><tt>#echo_out="/dev/null"</tt>
+<p><tt>echo_out="t_echo.res"</tt>
+<p><tt>#</tt>
+<p><tt># t_echo (output_level, output)</tt>
+<p><tt>#</tt>
+<p><tt># Where output_level is one of these:</tt>
+<p><tt>#</tt>
+<p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 = Actions done or problems
+found, not even error messages</tt>
+<p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 = Error messages</tt>
+<p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 = Pass/fail informational,
+chatty stuff</tt>
+<p><tt>#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 = debug</tt>
+<p><tt>#</tt>
+<p>&nbsp;
+<h3>
+&nbsp;&nbsp;<font size=+0>&nbsp; 2<tt>) Question: Titan has a whole lot
+of modules that it disables that I need left alone. How do I get Titan
+to only fix specific things?</tt></font></h3>
+
+<h3>
+Answer:</h3>
+Be careful. We wrote each modules for a reason. If you're either sure you
+need the service, or you are willing to risk leaving it enabled, then read
+on. We agree that different systems have different security needs. A user
+desktop sitting behind a firewall and assuming (ass-u-me) the other security
+layers are in place, and working, doesn't need all of the Titan modules
+run on it. We prefer (from the security standpoint) to break things, and
+then have you turn on only the services that you can't live without. Don't
+despair, we have made it easy for you to accomplish this, but we would
+be remiss if we didn't warn you first. If you know what you're doing, and
+have a good understanding of why Titan disables the things it does, then
+(and only then) you are ready for building configuration files for the
+different system types under your control. We honestly believe that after
+a short time playing with Titan, you will be using the "-c" feature as
+your default, and get the most satisfaction out of running Titan this way.
+But let me stress again YOU ARE WATERING DOWN YOUR SECURITY. Okay now lets
+look at a sample configuration file, and how Titan runs it. This is a real
+simple sample. We call this file "simple-sample"
+<p><tt>------------------cut---here----------------------------------------------------</tt>
+<p><tt># Short sample configuration file</tt>
+<p><tt># Titan is smart enough to not run lines starting with a "#" so
+put in comments</tt>
+<p><tt># to remind yourself why you changed things</tt>
+<p><tt># You can mix and match "-f", "-v", (or -i for that matter, not
+that -i makes sense</tt>
+<p><tt># here)</tt>
+<p><tt># Titan expects that each line has two arguments; the module to</tt>
+<p><tt># run AND the run flag</tt>
+<p><tt># run the following line in "-v" verify mode. Titan only verifies
+the fix is in</tt>
+<p><tt># place. no change is made to the system. See system audit Q&amp;A
+below!</tt>
+<p><tt>add-umask.sh -v</tt>
+<p><tt># go ahead and change the file ownership's using the "-f" (fix)
+flag</tt>
+<p><tt>file-own.sh -f</tt>
+<p><tt># run these module as well in fix mode</tt>
+<p><tt>utmp.sh -f</tt>
+<p><tt>vold.sh -f</tt>
+<p><tt>my-new-module.sh -f</tt>
+<p><tt>------------------end sample configuration--------------------------------------</tt>
+<p>&nbsp;
+<h3>
+<tt><font size=+0>3) Question: Wait. Titan as a system audit tool? Tell
+me more!</font></tt></h3>
+
+<h3>
+<tt><font size=+0>Answer:</font></tt></h3>
+<tt><font size=+0>YOU BET! The third biggest uses for Titan (the first
+being to FIX security problems; the second is Titan's use as a security
+learning tool) and the use security consultants and auditors will like
+best about Titan is its ability to be run on a Unix system and report things
+that may be security issues. A checklist that runs all the checks and produces
+a simple report. There are three&nbsp; ways of accomplishing this. The
+first way is to look at "TitanReport," and run it. TitanReport is designed
+to run (out of cron) all Titan modules "-verify" and send the results via
+e-mail. For all three of these; make sure you pre-set print_level=3. See
+Question 1 above. The second way is to run Titan -v, and gathering up the
+$TITANDIR/logs/* files and</font></tt>
+<p><tt><font size=+0>the "t_echo.res" files. The third way is to build
+a configuration file (audit.config) that lists out all the Titan modules
+you want to run "-verify" and running "Titan -c audit.config". In this
+way you can use Titan to audit firewalls, servers, and desktops using a
+separate configuration that matches your security policy (you do have a
+security policy don't you?)</font></tt>
+<p><tt><font size=+0>We encourage you to use the Titan framework, and
+write your own modules. If you do, please donate them to Titan. We will
+take all modules and incorporate them into the next release of Titan.</font></tt>
+<h3 CLASS="MarginNote">
+<a NAME="pgfId=424267"></a><tt><font size=+0>4) Question: Which Modules
+should I use for a Server, a Firewall, A desktop?</font></tt></h3>
+
+<h3 CLASS="MarginNote">
+<a NAME="pgfId=426777"></a><tt><font size=+0>Answer:</font></tt></h3>
+
+<div CLASS="MarginNote"><tt><font size=+0>&nbsp;&nbsp;&nbsp; That depends.
+Take a look at Server.config, Firewall.config, and Desktop.config</font></tt></div>
+
+<h3 CLASS="MarginNote">
+<a NAME="pgfId=426779"></a><tt><font size=+0>Here are my recommendations
+broken down by OS.</font></tt></h3>
+
+<h3 CLASS="Heading1">
+<a NAME="pgfId=426772"></a><u>SunOS 4.1.X</u></h3>
+
+<h6 CLASS="Heading2">
+<a NAME="pgfId=426781"></a><font size=+1>Firewall -</font></h6>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426927"></a><tt>All titan modules
+should be run and then some! I'd walk through /etc/rc.local and /etc/rc
+and disable everything that you didn't want to run at start-up time. Also
+consider running ASET in the tune-high mode. Additionally look in the optional
+directory for the patch to turn off forwarding of source routed packets.</tt></div>
+
+<div CLASS="Body"><a NAME="pgfId=426782"></a></div>
+
+<h6 CLASS="Heading2">
+<a NAME="pgfId=426783"></a><font size=+1>Server</font></h6>
+
+<div CLASS="Paragraph"><a NAME="pgfId=427256"></a><tt>Run all titan modules
+except possibly routed.sh if the system is a router.</tt></div>
+
+<div CLASS="Paragraph"><tt>Also run tftpServer.sh if the system is a diskless
+workstation server, or run tftp-disable.sh if the system does not boot
+diskless workstations. Check aliases.sh and decode.sh one may be more restrictive
+than your policy allows. Inetd.conf.sh might need to be modified. Also
+consider running ASET in the tune-med mode</tt></div>
+
+<div CLASS="Body"><a NAME="pgfId=426784"></a></div>
+
+<h6 CLASS="Heading2">
+<a NAME="pgfId=426785"></a><font size=+1>Desktop</font></h6>
+
+<div CLASS="Paragraph"><a NAME="pgfId=427275"></a><tt>Run all titan scripts
+except tftpServer.sh. Inetd.conf.sh might need to be modified. Also consider
+running ASET in the tune-low mode</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=427269"></a></div>
+
+<h3 CLASS="Heading1">
+<a NAME="pgfId=426773"></a><u>Solaris 2.X</u></h3>
+
+<div CLASS="MarginNote"><a NAME="pgfId=426769"></a></div>
+
+<h6 CLASS="Heading2">
+<a NAME="pgfId=426792"></a><font size=+1>Firewall -</font></h6>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426918"></a><tt>All titan modules
+should be run and then some. You might want to turn off sendmail for instance
+completely, on the firewall and just pass mail to a protected mailserver.
+All other titan modules should be run with the following caveat. On a Proxy
+firewall such as TIS that doesn't have a Windowing System GUI (curses based
+GUI) All titan modules can be run and in fact I would also either do a
+fresh install of the OS and only install the "core" unix utilities or do
+a pkgrm of all the un-needed utilities. DO NOT RUN anon-ftp.sh unless the
+systems is supposed to be an anonymous ftp server.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426917"></a><tt>So what are the "unneeded"
+utilities?</tt>
+<p><tt>I can't answer that without knowing what you are going to use the
+firewall for in more details. Here instead is a list of Solaris 2.X utilities
+that you should think about removing from a Proxy firewall.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426797"></a></div>
+
+<div CLASS="Paragraph">
+<blockquote>
+<li>
+<a NAME="pgfId=426798"></a><tt>Any of the Compiler utilities. You shouldn't
+be compiling on the firewall. You also don't want crackers (cracker = criminal
+hacker) being able to compile things on your firewall. (note you might
+make the compile utilities directory mode 700 owned by root; if you have
+to compile on the firewall)</tt></li>
+</blockquote>
+</div>
+
+<div CLASS="Paragraph">
+<blockquote>
+<li>
+<a NAME="pgfId=426800"></a><tt>All of the System administration applications
+as well as the System and network administration packages. These are made
+for remote administration. Why risk having someone else remotely administering
+your firewall?</tt></li>
+</blockquote>
+</div>
+
+<div CLASS="Paragraph">
+<blockquote>
+<li>
+<a NAME="pgfId=426801"></a><tt>All the Audio applications unless you have
+some sort of audio alert set up to detect intrusion attempts (doubtful)</tt></li>
+</blockquote>
+</div>
+
+<div CLASS="Paragraph">
+<blockquote>
+<li>
+<a NAME="pgfId=426803"></a><tt>All the SunOS Binary Compatibility packages.
+its amazing how many older breaking tools will no longer work if this package
+isn't available.</tt></li>
+</blockquote>
+</div>
+
+<div CLASS="Paragraph">
+<blockquote>
+<li>
+<a NAME="pgfId=426805"></a><tt>All the CC/GCC tools (used by the compiler)
+compile somewhere else or at least have a build directory that is mode
+0700 owned by root. If intruder can compile on your system then, well,
+you have already lost.</tt></li>
+</blockquote>
+</div>
+
+<div CLASS="Paragraph">
+<blockquote>
+<li>
+<a NAME="pgfId=426807"></a><tt>Unless you are using a GUI *on* the firewall
+system (such as running FW-1 GUI; fwui locally) then you can remove all
+of the GX cg6 device drivers.</tt></li>
+</blockquote>
+</div>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426809"></a><tt>Again if you are not using a GUI, then remove
+all the CDE (common desktop environment)</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426810"></a><tt>windowing system stuff. Note; you can still
+re-display GUI application to a remote server without this being installed.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426787"></a><tt>Remove all the DT (desktop login environment).</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426817"></a><tt>Remove all the HotJava browser portions</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426821"></a><tt>Remove all the UTF-8 unless you are using
+a GUI *on* the Firewall system.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426824"></a><tt>If you are not using the Federated naming
+System (man fns) then remove all the references to this such as SUNWfns</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426826"></a><tt>Remove all the SunOS header files support
+unless for some reason you're using binaries compiled from a SunOS system.
+This also applies to the binary compatibility packages.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426838"></a><tt>All the X11 fonts also go unless you run
+a windowing system locally</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426840"></a><tt>Any Java support unless you run java locally
+(a DMZ Web server might; but the Firewall shouldn't)</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426842"></a><tt>Remove all the KCMS support unless you're
+using a GUI (even then consider it)</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426847"></a><tt>Any of the WorkShop support can be removed
+unless you run a Sun workshop application (such as the C compiler not recommended
+to be run on the firewall)</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426820"></a><tt>The FlexLM (License Manager) may need to
+be there so that licensed software packages can run (FW-1). However if
+you don't need it, this is one less daemon running and should be considered
+for removal. Proxy firewalls most often don't need the license manager
+daemon.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426853"></a><tt>On a firewall system the LP services can
+often be removed unless you run a local printer to capture hard copy of
+log files. If you leave this installed, you should disable LP unless you
+actually run a (line) printer. Some sites leave this installed but disabled
+until it is needed e.g., until a break-in and a need for stringent logging.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426855"></a><tt>All the Motif support can be removed unless
+the CDE window system is run.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426857"></a><tt>The SNMP agents are most commonly removed
+or disabled on a firewall system. This is because they can give out information
+to intruders. Unless you are using SNMP to send alerts to an internal system,
+then remove the SNMP packages. If you do use SNMP alerts, make sure and
+block SNMP on the external router.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426860"></a><tt>NIS can often (and should be) removed from
+the firewall system. Exceptions are older SunOS 4.1.X systems which needed
+NIS to run for DNS to work. If you don't need it; remove it.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426862"></a><tt>The NT$ support is the Network Time Protocol.
+If you use NTP to synchronize clocks, leave this in. Systems that might
+use this are Digital Token Databases that use time displays (Security Dynamics)
+or you may be using an atomic clock service to synchronize your Server
+or internal systems clocks. if you do use xntpd or NTP services you should
+most likely wrapper the service so that only specific trusted locations
+can modify your systems sense of reality. An interesting attack would be
+to reset the system clock back 20 minutes so that a time based token becomes
+valid again.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426864"></a><tt>Open Windows and open look packages can
+be removed on Proxy Firewalls without a GUI, as well as Firewall Systems
+that don't manage the firewall via local GUI.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426866"></a><tt>The Power management support can be removed
+on a firewall. I don't know of any firewalls that should shut themselves
+down after N minutes of idle time. However powerd can be used to shutdown
+systems on low power conditions. If you use UPS and don't use another software
+package supplied by the UPS vendor, powerd might be useful to have. If
+you do leave this running make sure and wrapper the service.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426869"></a><tt>The Solstice Enterprise agent can probably
+be removed as well.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426875"></a><tt>Sparc Compilers binary compatibility can
+be removed unless you are cross compiling SunOS binaries on your firewall
+(not recommended)</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426877"></a><tt>The Solaris Naming Enabler I can't find
+what it does.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426879"></a><tt>Spell Checking Engine can probably be removed
+from most firewalls</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426881"></a><tt>SUNWsregu can be removed</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426886"></a><tt>SUNWsrh can be removed</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426891"></a><tt>All the ToolTalk utilities can be removed</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426892"></a><tt>All the vold utilities can be removed unless
+you are lazy about mounting floppies or CD's.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<a NAME="pgfId=426893"></a><tt>All the XGL, XIL, and X window system can
+be removed unless you run a local GUI.</tt></li>
+</blockquote>
+
+<blockquote>
+<li CLASS="Paragraph">
+<tt>All or at least most all of the /etc/rc*.d directories and the start
+up scripts that are in each of them.</tt></li>
+</blockquote>
+
+<h6 CLASS="Heading2">
+<a NAME="pgfId=426788"></a><font size=+1>Server</font></h6>
+
+<div CLASS="Body"><a NAME="pgfId=426934"></a></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426935"></a><tt>All titan modules
+should be run except the following.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426941"></a></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426942"></a><tt>anon-ftp.setup.sh
+should only be run on a system that you want people to anonymously ftp
+to (limited number of systems).</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426944"></a><tt>lpsched.sh should
+be left on if the system is a print server or if persons login and print
+from the system.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426945"></a><tt>nsswitch.sh may need
+to be modified for Servers if NIS or DNS is being used.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426946"></a><tt>disable_ip_holes
+may need to be modified if the Server is a router. You will probably want
+to allow the ip_forwarding in this case.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426940"></a><tt>The snpmdx and dmi
+titan modules would not be run if the system was being remotely monitored/managed
+via SNMP.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426790"></a><tt>inetd.sh may need
+to be modified if other services that run out of inetd.conf are required
+on the server.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426947"></a><tt>routed.sh would not
+be run on a Server system that was acting as a router.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426948"></a><tt>vold.sh would not
+be run on a system where users were allowed to mount software from floppy
+or CD media. Caution should be taken that they can't mount a suid root
+copy of ksh and thus bypass security. That is why you might want to disable
+vold.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426956"></a><tt>ziplock.sh should
+probably NOT be run on any system that isn't a firewall system. And then
+only on a proxy or tightly controlled system.</tt></div>
+
+<h6 CLASS="Heading2">
+<a NAME="pgfId=426789"></a><tt><font size=+1>Desktop</font></tt></h6>
+
+<div CLASS="Body"><a NAME="pgfId=426957"></a></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426958"></a><tt>All titan modules
+can be run except the following.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426960"></a><tt>anon-ftp.setup.sh
+should not be run.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426961"></a><tt>automount.sh may
+be left on if the Automounter of file systems is permitted</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426770"></a><tt>inetd.sh may need
+to be modified if things like calendar manager is run on the desktop</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426973"></a><tt>lpsched.sh might
+be left on so users can print.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426974"></a><tt>nsswitch.sh may need
+to be modified if DNS and NIS is used.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426980"></a><tt>vold.sh should not
+be run if users are allowed to mount floppies or CD's locally</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426981"></a><tt>ziplock.sh should
+NOT be run on desktops.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=426986"></a><tt>Note- depending on
+the windowing system used you may need to leave on some RPC services</tt></div>
+
+<h3 CLASS="MarginNote">
+<a NAME="pgfId=426764"></a><font size=+0>5 )Question: How do I build my
+own titan module?</font></h3>
+
+<h3 CLASS="MarginNote">
+<a NAME="pgfId=427006"></a><font size=+0>Answer:</font></h3>
+
+<div CLASS="MarginNote"><font size=+0>Start out with the arch/sol2sun4/src/stubs/skeleton
+script. It was put there for just that reason. Lets examine it in detail.</font></div>
+
+<div CLASS="MarginNote"><tt>The first line ":" this character is similar
+to using "#!/bin/sh" the difference is that it is possible that "sh" doesn't
+live in "/bin" thus if we use ":" we tell the system to use the kernel
+default shell which for mot unicies is the bourn shell "sh". In Linux its
+bash, but since bash has all the standard bourne shell syntax (and more)
+things just work.</tt></div>
+
+<div CLASS="MarginNote"><tt>The second line sets the umask value so that
+any files created by the script have a sane default file mask.</tt></div>
+
+<div CLASS="MarginNote"><tt>The next few lines are Copyright and License
+notices and required for legal purposes.</tt></div>
+
+<div CLASS="Paragraph"><a NAME="pgfId=427026"></a></div>
+
+<ul>
+<ul>
+<div CLASS="Paragraph1">
+<ul>
+<ul><font color="#3366FF">:</font></ul>
+</ul>
+</div>
+
+<ul>
+<ul>
+<div CLASS="Paragraph1"><font color="#3366FF">#</font></div>
+
+<div CLASS="Paragraph1"><font color="#3366FF">umask 022</font></div>
+
+<div CLASS="Paragraph1"><font color="#3366FF"># This tool suite was written
+by and is copyright by Brad Powell Dan Farmer, and</font></div>
+
+<div CLASS="Paragraph1"><font color="#3366FF"># Matt Archibald 1992, 1993,
+1994, 1995, 1996, 1997, 1998, 1999, 2000</font></div>
+
+<div CLASS="Paragraph1"><font color="#3366FF"># The copyright holder disclaims
+all responsibility or liability with</font></div>
+
+<div CLASS="Paragraph1"><font color="#3366FF"># respect to its usage or
+its effect upon hardware or computer</font></div>
+
+<div CLASS="Paragraph1"><font color="#3366FF"># systems, and maintains
+copyright as set out in the "LICENSE"</font></div>
+
+<div CLASS="Paragraph1"><font color="#3366FF"># document which accompanies
+distribution.</font></div>
+</ul>
+</ul>
+</ul>
+</ul>
+
+<div CLASS="MarginNote"><a NAME="pgfId=427009"></a></div>
+
+<div CLASS="MarginNote"><tt>Next we have a setup section and the sanity
+check section. We use "MYNAME" so that error messages will echo the name
+of the script that the error occurred from. The sanity check calls the
+sub-script "sanity_check" which checks for execution by "root" as well
+as checks that the user passed the required number of arguments (-Verify,
+-Intro, -Fix)</tt></div>
+
+<h6 CLASS="MarginNote">
+<a NAME="pgfId=427038"></a></h6>
+
+<ul>&nbsp;</ul>
+
+<ul>
+<ul>
+<ul>
+<div CLASS="Paragraph1">
+<ul><tt><font color="#3366FF">MYNAME=`basename $0`</font></tt></ul>
+</div>
+
+<ul>
+<div CLASS="Paragraph1"><tt><font color="#3366FF"># did things work out
+or not?</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">action=`./sanity_check
+$MYNAME $1`</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">if test $? -ne root;
+then</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">exit 1</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">fi</font></tt></div>
+</ul>
+</ul>
+</ul>
+</ul>
+
+<div CLASS="MarginNote"><a NAME="pgfId=427039"></a>
+<p><tt>Next add in a SAVEFILE definition. This is important so that on
+every new system installed with Titan, the backtit.sh module will be able
+to save off a copy of the origional file. A SAVEFILE lines commonly looks
+like this:</tt>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<font color="#3366FF">SAVEFILE='etc/foo /etc/bar /usr/bin/function'</font>
+<p><tt><font color="#330000">All files that are to be backed are listed
+here with a comma separating each file name.</font></tt>
+<p><tt><font color="#330000">Notice the .misc_functions.sh. This is a simple
+library-like include. It sets up the verbosity for the "t_echo" functions
+you see in all titan modules. We use t_echo instead of "echo" so that the
+user of Titan can control just how chatty titan output is.</font></tt>
+<p>&nbsp;
+<p>&nbsp;</div>
+
+<div CLASS="MarginNote"><tt>The next part of a titan module is the Introduction
+section Intro(). We use a simple trick so that any text you place between
+the "EOF_INTRO" keywords gets echoed to the screen when the user starts
+a titan script with the "-i", "-I" or "-Introduction" flag. e.g., if a
+user runs "add_umask.sh -i" all the lines in the add_umask.sh script between
+the "EOF_INTRO" words are displayed to his/her terminal using the cat command.</tt></div>
+
+<p>&nbsp;
+<ul>
+<ul>
+<ul>
+<ul>
+<div CLASS="Paragraph1"><tt><font color="#3366FF">Intro() {</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">cat &lt;&lt; EOF_INTRO</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">Add in the information
+on what the script does here</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">EOF_INTRO</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">}</font></tt></div>
+</ul>
+</ul>
+</ul>
+</ul>
+
+<div CLASS="MarginNote"><tt>The next section of a titan script is the Check()
+function. This is the pert of the script that is used when a titan script
+is run in the "-v" verify mode. Look through a few of the titan scripts
+to see some of the ways the Check() function checks out the system. The
+only standard thing that titan does in a Check() function is to produce
+a "PASSES CHECK" or a "FAILS CHECK" so users can figure out if this titan
+fix is needed or already applied to the system. Notice that all three sections
+Intro(), Check(), and Fix() are bound by brackets "{and}" at the beginning
+and end of the function. Example Check function using a simple if, then,
+else, fi sequence.</tt></div>
+
+<ul>
+<div CLASS="MarginNote"><a NAME="pgfId=427064"></a></div>
+</ul>
+
+<ul>
+<ul>
+<ul>
+<ul>
+<div CLASS="Paragraph1"><tt><font color="#3366FF">Check() {</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">if [ -f /etc/init.d/init.dmi
+]; then</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">echo " dmi daemon is
+enabled: FAILS CHECK"</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">exit 1</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">else</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">echo " dmi doesn't start
+at boot time: PASSES CHECK"</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">fi</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">}</font></tt></div>
+</ul>
+</ul>
+</ul>
+</ul>
+
+<div CLASS="MarginNote"><tt>The next portion of a titan script is the Fix()
+function. This is where we actually change or modify system files. This
+function is only invoked when the user specifically runs a titan script
+with the "-f", "-F", "-fix" flag. The structure is similar to the Intro()
+and Check() structure but commonly has more lines since files are modified.
+Example Fix() function which moves and renames start-up files so that on
+system boot these scripts are no longer run by the system; thus disabling
+that function. Again we use a simple if, then, else, fi sequence.</tt></div>
+
+<div CLASS="Paragraph1"><a NAME="pgfId=427109"></a></div>
+
+<ul>
+<ul>
+<ul>
+<ul>
+<div CLASS="Paragraph1"><tt><font color="#3366FF">Fix() {</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">if [ -f /etc/init.d/init.dmi
+]; then</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">echo " Saving /etc/init.d/init.dmi
+to /etc/init.d-init.dmi.ORIG"</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">/bin/mv /etc/init.d/init.dmi
+/etc/init.d-init.dmi.ORIG.$$</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">/bin/mv /etc/rc2.d/K77dmi
+/etc/rc2.d-K77dmi.ORIG.$$</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">/bin/mv /etc/rc3.d/S77dmi
+/etc/rc3.d/S77dmi.ORIG.$$</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">chmod 0100 /etc/init.d-init.dmi.ORIG.$$</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">chmod 0100 /etc/rc2.d-K77dmi.ORIG.$$</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">chmod 0100 /etc/rc3.d/S77dmi.ORIG.$$</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">if [ $? -ne 0 ]; then</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">echo " ERROR: Could not
+rename /etc/rc3.d/S77dmi ; exiting"</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">exit 1</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">else</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">echo "Done ... "</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">fi</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">fi</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">}</font></tt></div>
+</ul>
+</ul>
+</ul>
+</ul>
+
+<div CLASS="MarginNote"><tt>The last section of a titan script is the action
+section. This is pretty generic for all scripts. We basically check to
+see which flag the user specified and then run that function. e.g. if the
+user typed "foo.sh -f" then we run the Fix() function. If the users types
+anything that isn't a n "-i, -v, -f" (capital or lower case) then we simply
+print out an error message with the usage lines and exit.</tt></div>
+
+<ul>
+<ul>
+<ul>
+<ul><tt><font color="#3366FF">action=$1</font></tt>
+<p><tt><font color="#3366FF">case $action in</font></tt>
+<p><tt><font color="#3366FF">&nbsp;-[Ff]*)</font></tt>
+<p><tt><font color="#3366FF">Fix</font></tt>
+<p><tt><font color="#3366FF">;;</font></tt>
+<p><tt><font color="#3366FF">&nbsp;-[Vv]*)</font></tt>
+<p><tt><font color="#3366FF">Check</font></tt>
+<p><tt><font color="#3366FF">;;</font></tt>
+<p><tt><font color="#3366FF">&nbsp;-[Ii]*)</font></tt>
+<p><tt><font color="#3366FF">Intro</font></tt>
+<p><tt><font color="#3366FF">;;</font></tt>
+<p><tt><font color="#3366FF">*)</font></tt>
+<p><tt><font color="#3366FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ERROR: Invalid arg $action"</font></tt>
+<p><tt><font color="#3366FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ERROR: Usage $MYNAME -[ivf]
+(I)ntro/(V)erify/(F)ix"</font></tt>
+<p><tt><font color="#3366FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+echo " "</font></tt></ul>
+</ul>
+</ul>
+</ul>
+
+<div CLASS="MarginNote"><tt>That is basically it.</tt></div>
+
+<div CLASS="MarginNote"><tt>There are a few other functions you should
+be aware of.</tt>
+<p><tt>The "Titan-Config" (Titan-Config -i" (install) script figures out
+your OS type and makes links to the proper Titan modules. Titan-Config
+also asks if you want to create a backup of all the files Titan modifies.
+This is needed in the event you want to recover from titan being too aggressive
+about security and breaking some of your functionality. The untit.sh utility
+is called when "Titan-Config -d" (de-install) is used. Untit.sh removes
+all changes Titan performed (assuming you made a backup when you ran "Titan-Config
+-i"</tt>
+<p>&nbsp;</div>
+
+<div CLASS="MarginNote"><tt>The Titan script runs *all* commands in the
+$TITANDIR/bin/modules directory that are</tt>
+<p><tt>a) a file, and b) are executable. Thus you can move all the scripts
+that you don't want run to another location or simply change the mode of
+the file, and Titan will not run them.</tt></div>
+
+<div CLASS="MarginNote"><tt>Example: By just creating a new script called
+"runme.sh" which accepts the standard titan arguments (-i, -v or -f) and
+putting it into the $TITANDIR/bin/modules directory, and calling "Titan
+-F" would cause all the scripts that are in the $TITANDIR/bin/modules&nbsp;
+directory to be run&nbsp; with the "-f" flag including your new module.</tt></div>
+
+<div CLASS="MarginNote"><tt>Example2: Removing all the scripts except script
+a.sh, b.sh, c.sh and running "Titan -v" would cause titan to only run a.sh,
+b.sh, and c.sh with the "-v "flag. No other script would be run. An easier
+way would be to build a configuration file and list the modules you want
+run including the run flag, and running "Titan -c config.file"</tt>
+<p><tt>misc_functions.sh is there so that you can use the t_echo (t_echo
+[0,1,2,3]) function to set the level of verbosity on the output of your
+script.</tt>
+<p>&nbsp;</div>
+
+<div CLASS="MarginNote"><tt>sanity_check script is there so that you don't
+have to build that functionality into your script, all you need do is supply
+the MYNAME, and call sanity_check from your new titan script.</tt></div>
+
+<ul>
+<ul>
+<ul>
+<ul>
+<div CLASS="Paragraph1"><tt><font color="#3366FF">MYNAME=`basename $0`</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF"># did things work out
+or not?</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">action=`./sanity_check
+$MYNAME $1`</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">if test $? -ne root ;
+then</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">exit 1</font></tt></div>
+
+<div CLASS="Paragraph1"><tt><font color="#3366FF">fi</font></tt></div>
+</ul>
+</ul>
+</ul>
+</ul>
+
+<div CLASS="MarginNote"><tt>Lastly the is_root sub-function is called by
+the sanity_check script to check and report if the caller is running as
+root.</tt></div>
+
+<h3 CLASS="MarginNote">
+<tt><font size=+0>6) Question: Where do I get the latest version of titan?</font></tt></h3>
+
+<h3 CLASS="MarginNote">
+<tt><font size=+0>Answer:</font></tt></h3>
+
+<h3 CLASS="MarginNote">
+<tt><font size=+0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://www.fish.com/titan/index.html">http://www.fish.com/titan/index.html</a></font></tt></h3>
+
+<h3 CLASS="MarginNote">
+<tt><font size=+0>7) Question: If I write a titan module and want to share
+it, how do I get it into the next release?</font></tt></h3>
+
+<h3 CLASS="MarginNote">
+<tt><font size=+0>Answer:</font></tt></h3>
+
+<h3 CLASS="MarginNote">
+<tt><font size=+0>&nbsp;</font></tt></h3>
+
+<blockquote><tt><font size=+0><a href="mailto:titan@fish.com">Send Mail
+to titan@fish.com</a></font></tt></blockquote>
+<a NAME="418156"></a>
+<h3>
+<tt><font size=+0>8) Question: When I run rhosts.sh Titan goes off and
+reports huge amounts of rhosts users. What is going on?</font></tt></h3>
+
+<h3 CLASS="MarginNote">
+<tt><font size=+0>Answer:</font></tt></h3>
+
+<div CLASS="MarginNote"><tt><font size=+0>Titan is dutifully reporting
+the fact that automounter is running and most likely NIS. Thus all these
+users not only have access to your current system, but if any one of their
+accounts is compromised, and a "+ +" rhosts entered into their account
+then <b>your</b> system is now compromised. We don't line automounter for
+this reason. If you don't want Titan finding these, then either turn off
+automounter (permanently) using automounter.sh and or use the nsswitch.sh
+module to turn off NIS.</font></tt>
+<p>&nbsp;
+<h3>
+<tt><font size=+0>9) What is noshell.c?</font></tt></h3>
+
+<h3>
+<tt><font size=+0>Answer:</font></tt></h3>
+<tt><font size=+0>Noshell.c is the proper way for Titan to be able to disable
+users (or non-users) login shell. The module disable-accounts.sh places
+a simple shell script into /sbin/noshell and sets the login shell of non-users</font></tt>
+<p><tt><font size=+0>such as "bin" and "sys" to /sbin/noshell. This should
+only be <b>temporary </b>until you can compile and install the</font></tt>
+<p><tt><font size=+0>Titan/src1/noshell.c program. Both the shell script
+as well as the noshell binary do roughly the same thing, but building a
+statically linked binary to disable the users shell is much safer that
+using a bourne shell script for this purpose.</font></tt>
+<p>&nbsp;
+<h3>
+<tt><font size=+0>10) Question: What IS runas.c?</font></tt></h3>
+
+<h3>
+<tt><font size=+0>Answer:</font></tt></h3>
+<tt><font size=+0>Runas.c is a small C program that allows administrators
+a generic way to run daemons as non privileged users.</font></tt>
+<p><tt><font size=+0>Runas.c is the moral equivalent of doing a "su -
+daemon -c /usr/bin/blah" The difference is that runas first strips off
+the environment and also doesn't require that the users shell in /etc/password
+be a valid/real shell. If for example you already ran disable-accounts.sh
+on your system, then the user's shell for user "daemon" would be /sbin/noshell
+which isn't a shell at all but a warning device that someone is trying
+to break in using a system account. Runas in this regard is cleaner than
+using "su -c"</font></tt>
+<p><tt><font size=+0>So why do a su -c or runas in the first place? Well
+many daemons get started up in system run files such as</font></tt>
+<p><tt><font size=+0>/etc/rc2.d/S*. These daemons are started as root
+and as such hold root privileged. If there is a bug in the daemon code
+and a remote user can connect to the daemon they can potentially run programs
+as root. Runas allows you to start system daemons or (any non-standard
+daemons) after setting the user ID the daemon should run at.</font></tt>
+<p><tt><font size=+0>Assumptions:</font></tt>
+<ul>
+<li>
+<tt><font size=+0>Many daemons have to run as root. Things like in.telnetd
+need to set the user ID to the proper user when that user logs in. For
+this to happen, in.telnetd has to run as root. Runas should not be used
+in the scenario. Commonly (but not always) things running out of /etc/inetd.conf
+cannot use runas.</font></tt></li>
+
+<li>
+<tt><font size=+0>Many daemons run on a privileged port. Runas should not
+be used on these since only root can open a privileged port (range is commonly
+the first 1024 ports on the system)</font></tt></li>
+
+<li>
+<tt><font size=+0>Runas can be used for many other daemon processes, but
+we have to assume that if you modify the program to run as a different
+UID that the start-up/configuration files as well as the log files are
+writeable by the daemon. It may be required that you chown directories
+or files so that the daemon can run as a non-root user.</font></tt></li>
+</ul>
+
+<p><p><tt><font size=+0><b>NOTE-</b> For things that don't need to read
+system utilities, it is better to run the daemon in a chrooted environment
+as well as under a non privledged user ID. Look for Wietse Venema's&nbsp;
+chrootuid.c as a better approach for things like httpd.</font></tt>
+<p>&nbsp;
+<h3>
+<tt><font size=+0>11) How do I use runas?</font></tt></h3>
+
+<h3>
+<tt><font size=+0>Answer:</font></tt></h3>
+<tt><font size=+0>After first compiling the source in Titan,v3.6/src1 (we
+always ship using source code so you can review it) you would check if
+the daemon can run as a non-root process (see assumptions above) then you
+would modify the start-up line to call runas before the daemon is called.</font></tt>
+<p><tt><font size=+0>Example:</font></tt>
+<p><tt><font size=+0>&nbsp;&nbsp;&nbsp; /etc/rc2.d/S73nfs.client</font></tt>
+<p><tt><font size=+0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ORIGINAL LINE:</font></tt>
+<p><tt><font size=+0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/usr/lib/nfs/lockd > /dev/console 2>&amp;1</font></tt>
+<p><tt><font size=+0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+NEW LINE using runas:</font></tt>
+<p><tt><font size=+0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/sbin/runas 60001 60001 /usr/lib/nfs/lockd > /dev/console 2>&amp;1</font></tt>
+<p><tt><font size=+0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+^^^^^ ^^^^^</font></tt>
+<p><tt><font size=+0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+UID and GID of user "nobody"</font></tt>
+<p><tt><font size=+0>This example would run the NFS lockd as user nobody
+(example only)</font></tt>
+<p>&nbsp;
+<p>&nbsp;
+<h3>
+<tt><font size=+0>12) After running Titan I can't login</font></tt></h3>
+<b><tt><font size=+0>Answer:</font></tt></b>
+<p><tt><font size=+0>Its possible that in the event you didn't have a
+root password set (blank root password) before running Titan, that the
+disable-accounts.sh will have done its job (correctly) and disabled all
+accounts that don't have a password including root! To eliminate this issue
+make sure you have a root password set before running titan.</font></tt></div>
+<tt><font size=+0><a href="TITAN_documentation.html">Back to Titan Main
+Documentation Page</a></font></tt>
+<h5>
+<a NAME="418157"></a></h5>
+
+</body>
+</html>

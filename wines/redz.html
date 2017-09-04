@@ -1,0 +1,1273 @@
+
+
+<html>
+
+<link href="wine.css" rel="stylesheet">
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+
+
+<body>
+
+<center>
+<div>
+A simple (trivial?) comparison of wines and what descriptive words
+from a set of wine reviews.</br>
+
+The darker the color means wines are more similar; I used 9 color
+scales (adding black for perfect matches) from http://colorbrewer2.org/.</br>
+
+Similarity is calculated by simply counting up the most frequent words 
+used to describe the wines and seeing how many match in the top 10 for each.
+
+</div>
+
+<table><tr>
+<td bgcolor='#fff5f0'>0.0</td>
+<td bgcolor='#fee0d2'>0.1</td>
+<td bgcolor='#fcbba1'>0.2</td>
+<td bgcolor='#fc9272'>0.3</td>
+<td bgcolor='#fb6a4a'>0.4</td>
+<td bgcolor='#ef3b2c'>0.5</td>
+<td bgcolor='#cb181d'>0.6</td>
+<td bgcolor='#a50f15'>0.7</td>
+<td bgcolor='#67000d'>0.8</td>
+<td bgcolor='#000000'>0.9</td>
+</tr></table>
+
+</center>
+
+<p>
+
+<font size=-1>
+<table class='wine'>
+
+<tr>
+<td> </td>
+<td><div title="barbera"> barbera </div>
+<td><div title="bordeaux style red blend"> bordeaux&nbspsty </div>
+<td><div title="cabernet franc"> cabernet&nbspfra </div>
+<td><div title="cabernet sauvignon"> cabernet&nbspsau </div>
+<td><div title="carignan"> carignan </div>
+<td><div title="gamay"> gamay </div>
+<td><div title="greek red"> greek&nbspred </div>
+<td><div title="grenache"> grenache </div>
+<td><div title="italian red"> italian&nbspred </div>
+<td><div title="malbec"> malbec </div>
+<td><div title="merlot"> merlot </div>
+<td><div title="mourvedre"> mourvedre </div>
+<td><div title="nebbiolo"> nebbiolo </div>
+<td><div title="other red"> other&nbspred </div>
+<td><div title="petit verdot"> petit&nbspverdot </div>
+<td><div title="petite sirah"> petite&nbspsirah </div>
+<td><div title="pinot noir"> pinot&nbspnoir </div>
+<td><div title="pinotage"> pinotage </div>
+<td><div title="port blend"> port&nbspblend </div>
+<td><div title="portuguese red"> portuguese&nbspr </div>
+<td><div title="red blend"> red&nbspblend </div>
+<td><div title="rhone style red blend"> rhone&nbspstyle&nbsp </div>
+<td><div title="sangiovese"> sangiovese </div>
+<td><div title="shiraz syrah"> shiraz&nbspsyrah </div>
+<td><div title="spanish red"> spanish&nbspred </div>
+<td><div title="tempranillo"> tempranillo </div>
+<td><div title="zinfandel"> zinfandel </div>
+<tr>
+<td><div title="barbera"> barbera </div>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fcbba1" title="<nobr>barbera vs. bordeaux style red blend</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>barbera vs. cabernet franc</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>barbera vs. cabernet sauvignon</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>barbera vs. carignan</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>barbera vs. gamay</nobr><br /><b>(3)</b> cherry, acidity, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>barbera vs. greek red</nobr><br /><b>(4)</b> cherry, spice, fruit, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>barbera vs. grenache</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>barbera vs. italian red</nobr><br /><b>(5)</b> cherry, spice, fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>barbera vs. malbec</nobr><br /><b>(3)</b> fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>barbera vs. merlot</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>barbera vs. mourvedre</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>barbera vs. nebbiolo</nobr><br /><b>(5)</b> cherry, spice, fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>barbera vs. other red</nobr><br /><b>(3)</b> fruit, finish, aromas"> </td>
+<td bgcolor="#fcbba1" title="<nobr>barbera vs. petit verdot</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>barbera vs. petite sirah</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>barbera vs. pinot noir</nobr><br /><b>(4)</b> cherry, acidity, fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>barbera vs. pinotage</nobr><br /><b>(4)</b> cherry, spice, fruit, finish"> </td>
+<td bgcolor="#fcbba1" title="<nobr>barbera vs. port blend</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#fcbba1" title="<nobr>barbera vs. portuguese red</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>barbera vs. red blend</nobr><br /><b>(5)</b> cherry, spice, fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>barbera vs. rhone style red blend</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>barbera vs. sangiovese</nobr><br /><b>(5)</b> cherry, spice, fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>barbera vs. shiraz syrah</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>barbera vs. spanish red</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>barbera vs. tempranillo</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>barbera vs. zinfandel</nobr><br /><b>(4)</b> cherry, spice, fruit, finish"> </td>
+</tr>
+<tr>
+<td><div title="bordeaux style red blend"> bordeaux&nbspsty </div>
+<td bgcolor="#fcbba1" title="<nobr>bordeaux style red blend vs. barbera</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="black">
+6
+</td>
+<td bgcolor="#fb6a4a" title="<nobr>bordeaux style red blend vs. cabernet franc</nobr><br /><b>(4)</b> ripe, fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. cabernet sauvignon</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>bordeaux style red blend vs. carignan</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#cb181d" title="<nobr>bordeaux style red blend vs. gamay</nobr><br /><b>(6)</b> acidity, fruit, tannins, fruits, ripe, black"> </td>
+<td bgcolor="#fee0d2" title="<nobr>bordeaux style red blend vs. greek red</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fcbba1" title="<nobr>bordeaux style red blend vs. grenache</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. italian red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>bordeaux style red blend vs. malbec</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. merlot</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fee0d2" title="<nobr>bordeaux style red blend vs. mourvedre</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. nebbiolo</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. other red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. petit verdot</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. petite sirah</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. pinot noir</nobr><br /><b>(3)</b> acidity, fruit, tannins"> </td>
+<td bgcolor="#fcbba1" title="<nobr>bordeaux style red blend vs. pinotage</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>bordeaux style red blend vs. port blend</nobr><br /><b>(5)</b> ripe, acidity, fruit, tannins, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>bordeaux style red blend vs. portuguese red</nobr><br /><b>(6)</b> acidity, fruit, tannins, fruits, ripe, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>bordeaux style red blend vs. red blend</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. rhone style red blend</nobr><br /><b>(3)</b> fruit, black, tannins"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. sangiovese</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. shiraz syrah</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fee0d2" title="<nobr>bordeaux style red blend vs. spanish red</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fcbba1" title="<nobr>bordeaux style red blend vs. tempranillo</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>bordeaux style red blend vs. zinfandel</nobr><br /><b>(3)</b> ripe, fruit, tannins"> </td>
+</tr>
+<tr>
+<td><div title="cabernet franc"> cabernet&nbspfra </div>
+<td bgcolor="#fc9272" title="<nobr>cabernet franc vs. barbera</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet franc vs. bordeaux style red blend</nobr><br /><b>(4)</b> ripe, fruit, tannins, black"> </td>
+<td bgcolor="black">
+6
+</td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet franc vs. cabernet sauvignon</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet franc vs. carignan</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet franc vs. gamay</nobr><br /><b>(5)</b> cherry, ripe, fruit, tannins, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>cabernet franc vs. greek red</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet franc vs. grenache</nobr><br /><b>(4)</b> cherry, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet franc vs. italian red</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>cabernet franc vs. malbec</nobr><br /><b>(3)</b> fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet franc vs. merlot</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>cabernet franc vs. mourvedre</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet franc vs. nebbiolo</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet franc vs. other red</nobr><br /><b>(4)</b> black, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet franc vs. petit verdot</nobr><br /><b>(4)</b> black, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet franc vs. petite sirah</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet franc vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet franc vs. pinotage</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet franc vs. port blend</nobr><br /><b>(4)</b> ripe, fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet franc vs. portuguese red</nobr><br /><b>(4)</b> ripe, fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet franc vs. red blend</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet franc vs. rhone style red blend</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet franc vs. sangiovese</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet franc vs. shiraz syrah</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>cabernet franc vs. spanish red</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet franc vs. tempranillo</nobr><br /><b>(4)</b> cherry, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet franc vs. zinfandel</nobr><br /><b>(5)</b> cherry, ripe, fruit, tannins, finish"> </td>
+</tr>
+<tr>
+<td><div title="cabernet sauvignon"> cabernet&nbspsau </div>
+<td bgcolor="#fc9272" title="<nobr>cabernet sauvignon vs. barbera</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>cabernet sauvignon vs. bordeaux style red blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet sauvignon vs. cabernet franc</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet sauvignon vs. carignan</nobr><br /><b>(4)</b> cherry, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet sauvignon vs. gamay</nobr><br /><b>(4)</b> cherry, fruit, tannins, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>cabernet sauvignon vs. greek red</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet sauvignon vs. grenache</nobr><br /><b>(4)</b> cherry, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet sauvignon vs. italian red</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>cabernet sauvignon vs. malbec</nobr><br /><b>(3)</b> finish, fruit, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>cabernet sauvignon vs. merlot</nobr><br /><b>(6)</b> cherry, fruit, tannins, blackberry, finish, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>cabernet sauvignon vs. mourvedre</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet sauvignon vs. nebbiolo</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet sauvignon vs. other red</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet sauvignon vs. petit verdot</nobr><br /><b>(5)</b> fruit, black, finish, tannins, blackberry"> </td>
+<td bgcolor="#cb181d" title="<nobr>cabernet sauvignon vs. petite sirah</nobr><br /><b>(6)</b> cherry, fruit, blackberry, tannins, finish, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet sauvignon vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet sauvignon vs. pinotage</nobr><br /><b>(4)</b> cherry, finish, tannins, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>cabernet sauvignon vs. port blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>cabernet sauvignon vs. portuguese red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet sauvignon vs. red blend</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet sauvignon vs. rhone style red blend</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet sauvignon vs. sangiovese</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>cabernet sauvignon vs. shiraz syrah</nobr><br /><b>(6)</b> cherry, fruit, blackberry, tannins, finish, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>cabernet sauvignon vs. spanish red</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>cabernet sauvignon vs. tempranillo</nobr><br /><b>(4)</b> cherry, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>cabernet sauvignon vs. zinfandel</nobr><br /><b>(5)</b> cherry, fruit, finish, tannins, blackberry"> </td>
+</tr>
+<tr>
+<td><div title="carignan"> carignan </div>
+<td bgcolor="#fb6a4a" title="<nobr>carignan vs. barbera</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fcbba1" title="<nobr>carignan vs. bordeaux style red blend</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>carignan vs. cabernet franc</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>carignan vs. cabernet sauvignon</nobr><br /><b>(4)</b> cherry, finish, tannins, fruit"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#fb6a4a" title="<nobr>carignan vs. gamay</nobr><br /><b>(4)</b> cherry, berry, fruit, tannins"> </td>
+<td bgcolor="#cb181d" title="<nobr>carignan vs. greek red</nobr><br /><b>(6)</b> cherry, fruit, nose, berry, palate, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>carignan vs. grenache</nobr><br /><b>(5)</b> cherry, palate, fruit, finish, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>carignan vs. italian red</nobr><br /><b>(6)</b> cherry, fruit, tannins, finish, berry, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>carignan vs. malbec</nobr><br /><b>(6)</b> fruit, nose, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>carignan vs. merlot</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>carignan vs. mourvedre</nobr><br /><b>(6)</b> cherry, fruit, finish, berry, palate, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>carignan vs. nebbiolo</nobr><br /><b>(6)</b> cherry, fruit, tannins, finish, berry, aromas"> </td>
+<td bgcolor="#a50f15" title="<nobr>carignan vs. other red</nobr><br /><b>(7)</b> fruit, tannins, nose, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>carignan vs. petit verdot</nobr><br /><b>(3)</b> finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>carignan vs. petite sirah</nobr><br /><b>(4)</b> cherry, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>carignan vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>carignan vs. pinotage</nobr><br /><b>(6)</b> cherry, fruit, tannins, finish, berry, palate"> </td>
+<td bgcolor="#fcbba1" title="<nobr>carignan vs. port blend</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#fcbba1" title="<nobr>carignan vs. portuguese red</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>carignan vs. red blend</nobr><br /><b>(5)</b> cherry, aromas, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>carignan vs. rhone style red blend</nobr><br /><b>(4)</b> cherry, finish, fruit, tannins"> </td>
+<td bgcolor="#cb181d" title="<nobr>carignan vs. sangiovese</nobr><br /><b>(6)</b> cherry, fruit, tannins, finish, berry, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>carignan vs. shiraz syrah</nobr><br /><b>(5)</b> cherry, palate, finish, tannins, fruit"> </td>
+<td bgcolor="#a50f15" title="<nobr>carignan vs. spanish red</nobr><br /><b>(7)</b> cherry, fruit, nose, finish, berry, palate, aromas"> </td>
+<td bgcolor="#a50f15" title="<nobr>carignan vs. tempranillo</nobr><br /><b>(7)</b> cherry, fruit, nose, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>carignan vs. zinfandel</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+</tr>
+<tr>
+<td><div title="gamay"> gamay </div>
+<td bgcolor="#fc9272" title="<nobr>gamay vs. barbera</nobr><br /><b>(3)</b> cherry, acidity, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>gamay vs. bordeaux style red blend</nobr><br /><b>(6)</b> acidity, fruit, tannins, fruits, ripe, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>gamay vs. cabernet franc</nobr><br /><b>(5)</b> cherry, ripe, fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>gamay vs. cabernet sauvignon</nobr><br /><b>(4)</b> cherry, fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>gamay vs. carignan</nobr><br /><b>(4)</b> cherry, berry, fruit, tannins"> </td>
+<td bgcolor="black">
+10
+</td>
+<td bgcolor="#fc9272" title="<nobr>gamay vs. greek red</nobr><br /><b>(3)</b> cherry, berry, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>gamay vs. grenache</nobr><br /><b>(3)</b> cherry, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>gamay vs. italian red</nobr><br /><b>(5)</b> cherry, berry, fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>gamay vs. malbec</nobr><br /><b>(3)</b> berry, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>gamay vs. merlot</nobr><br /><b>(4)</b> cherry, fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>gamay vs. mourvedre</nobr><br /><b>(3)</b> cherry, berry, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>gamay vs. nebbiolo</nobr><br /><b>(5)</b> cherry, berry, fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>gamay vs. other red</nobr><br /><b>(4)</b> berry, fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>gamay vs. petit verdot</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>gamay vs. petite sirah</nobr><br /><b>(4)</b> cherry, fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>gamay vs. pinot noir</nobr><br /><b>(4)</b> cherry, acidity, fruit, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>gamay vs. pinotage</nobr><br /><b>(4)</b> cherry, berry, fruit, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>gamay vs. port blend</nobr><br /><b>(5)</b> ripe, acidity, fruit, tannins, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>gamay vs. portuguese red</nobr><br /><b>(6)</b> acidity, fruit, tannins, fruits, ripe, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>gamay vs. red blend</nobr><br /><b>(3)</b> cherry, fruit, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>gamay vs. rhone style red blend</nobr><br /><b>(4)</b> cherry, fruit, black, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>gamay vs. sangiovese</nobr><br /><b>(5)</b> cherry, berry, fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>gamay vs. shiraz syrah</nobr><br /><b>(4)</b> cherry, fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>gamay vs. spanish red</nobr><br /><b>(3)</b> cherry, berry, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>gamay vs. tempranillo</nobr><br /><b>(4)</b> cherry, berry, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>gamay vs. zinfandel</nobr><br /><b>(4)</b> cherry, ripe, fruit, tannins"> </td>
+</tr>
+<tr>
+<td><div title="greek red"> greek&nbspred </div>
+<td bgcolor="#fb6a4a" title="<nobr>greek red vs. barbera</nobr><br /><b>(4)</b> cherry, spice, fruit, aromas"> </td>
+<td bgcolor="#fee0d2" title="<nobr>greek red vs. bordeaux style red blend</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fcbba1" title="<nobr>greek red vs. cabernet franc</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#fcbba1" title="<nobr>greek red vs. cabernet sauvignon</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>greek red vs. carignan</nobr><br /><b>(6)</b> cherry, fruit, nose, berry, palate, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>greek red vs. gamay</nobr><br /><b>(3)</b> cherry, berry, fruit"> </td>
+<td bgcolor="black">
+9
+</td>
+<td bgcolor="#fb6a4a" title="<nobr>greek red vs. grenache</nobr><br /><b>(4)</b> cherry, palate, fruit, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>greek red vs. italian red</nobr><br /><b>(5)</b> cherry, spice, berry, fruit, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>greek red vs. malbec</nobr><br /><b>(5)</b> berry, palate, fruit, aromas, nose"> </td>
+<td bgcolor="#fcbba1" title="<nobr>greek red vs. merlot</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>greek red vs. mourvedre</nobr><br /><b>(5)</b> cherry, berry, palate, fruit, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>greek red vs. nebbiolo</nobr><br /><b>(5)</b> cherry, spice, berry, fruit, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>greek red vs. other red</nobr><br /><b>(5)</b> berry, palate, fruit, aromas, nose"> </td>
+<td bgcolor="#fee0d2" title="<nobr>greek red vs. petit verdot</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fcbba1" title="<nobr>greek red vs. petite sirah</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#fcbba1" title="<nobr>greek red vs. pinot noir</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>greek red vs. pinotage</nobr><br /><b>(5)</b> cherry, spice, berry, palate, fruit"> </td>
+<td bgcolor="#fee0d2" title="<nobr>greek red vs. port blend</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fee0d2" title="<nobr>greek red vs. portuguese red</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>greek red vs. red blend</nobr><br /><b>(4)</b> cherry, spice, fruit, aromas"> </td>
+<td bgcolor="#fcbba1" title="<nobr>greek red vs. rhone style red blend</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>greek red vs. sangiovese</nobr><br /><b>(5)</b> cherry, spice, berry, fruit, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>greek red vs. shiraz syrah</nobr><br /><b>(3)</b> cherry, palate, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>greek red vs. spanish red</nobr><br /><b>(6)</b> cherry, fruit, nose, berry, palate, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>greek red vs. tempranillo</nobr><br /><b>(6)</b> cherry, fruit, nose, berry, palate, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>greek red vs. zinfandel</nobr><br /><b>(3)</b> cherry, spice, fruit"> </td>
+</tr>
+<tr>
+<td><div title="grenache"> grenache </div>
+<td bgcolor="#fb6a4a" title="<nobr>grenache vs. barbera</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fcbba1" title="<nobr>grenache vs. bordeaux style red blend</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>grenache vs. cabernet franc</nobr><br /><b>(4)</b> cherry, fruit, finish, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>grenache vs. cabernet sauvignon</nobr><br /><b>(4)</b> cherry, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>grenache vs. carignan</nobr><br /><b>(5)</b> cherry, palate, fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>grenache vs. gamay</nobr><br /><b>(3)</b> cherry, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>grenache vs. greek red</nobr><br /><b>(4)</b> cherry, palate, fruit, aromas"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#cb181d" title="<nobr>grenache vs. italian red</nobr><br /><b>(6)</b> cherry, fruit, sweet, finish, aromas, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>grenache vs. malbec</nobr><br /><b>(5)</b> aromas, palate, fruit, finish, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>grenache vs. merlot</nobr><br /><b>(4)</b> cherry, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>grenache vs. mourvedre</nobr><br /><b>(5)</b> cherry, palate, fruit, finish, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>grenache vs. nebbiolo</nobr><br /><b>(5)</b> cherry, aromas, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>grenache vs. other red</nobr><br /><b>(5)</b> aromas, palate, fruit, finish, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>grenache vs. petit verdot</nobr><br /><b>(3)</b> finish, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>grenache vs. petite sirah</nobr><br /><b>(4)</b> cherry, finish, fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>grenache vs. pinot noir</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>grenache vs. pinotage</nobr><br /><b>(4)</b> cherry, palate, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>grenache vs. port blend</nobr><br /><b>(3)</b> sweet, fruit, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>grenache vs. portuguese red</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>grenache vs. red blend</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>grenache vs. rhone style red blend</nobr><br /><b>(4)</b> cherry, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>grenache vs. sangiovese</nobr><br /><b>(5)</b> cherry, aromas, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>grenache vs. shiraz syrah</nobr><br /><b>(5)</b> cherry, palate, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>grenache vs. spanish red</nobr><br /><b>(5)</b> cherry, palate, fruit, finish, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>grenache vs. tempranillo</nobr><br /><b>(6)</b> cherry, fruit, finish, palate, aromas, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>grenache vs. zinfandel</nobr><br /><b>(4)</b> cherry, sweet, fruit, finish"> </td>
+</tr>
+<tr>
+<td><div title="italian red"> italian&nbspred </div>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. barbera</nobr><br /><b>(5)</b> cherry, spice, fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>italian red vs. bordeaux style red blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. cabernet franc</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. cabernet sauvignon</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>italian red vs. carignan</nobr><br /><b>(6)</b> cherry, fruit, tannins, finish, berry, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. gamay</nobr><br /><b>(5)</b> cherry, berry, fruit, tannins, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. greek red</nobr><br /><b>(5)</b> cherry, spice, berry, fruit, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>italian red vs. grenache</nobr><br /><b>(6)</b> cherry, fruit, sweet, finish, aromas, black"> </td>
+<td bgcolor="black">
+9
+</td>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. malbec</nobr><br /><b>(5)</b> berry, aromas, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. merlot</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. mourvedre</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="#67000d" title="<nobr>italian red vs. nebbiolo</nobr><br /><b>(8)</b> cherry, fruit, tannins, spice, finish, berry, aromas, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>italian red vs. other red</nobr><br /><b>(6)</b> fruit, tannins, finish, berry, aromas, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>italian red vs. petit verdot</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. petite sirah</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>italian red vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>italian red vs. pinotage</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, berry"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>italian red vs. port blend</nobr><br /><b>(4)</b> sweet, fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>italian red vs. portuguese red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>italian red vs. red blend</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. rhone style red blend</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#67000d" title="<nobr>italian red vs. sangiovese</nobr><br /><b>(8)</b> cherry, fruit, tannins, spice, finish, berry, black, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. shiraz syrah</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>italian red vs. spanish red</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>italian red vs. tempranillo</nobr><br /><b>(6)</b> cherry, fruit, finish, berry, aromas, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>italian red vs. zinfandel</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, sweet, finish"> </td>
+</tr>
+<tr>
+<td><div title="malbec"> malbec </div>
+<td bgcolor="#fc9272" title="<nobr>malbec vs. barbera</nobr><br /><b>(3)</b> fruit, finish, aromas"> </td>
+<td bgcolor="#fcbba1" title="<nobr>malbec vs. bordeaux style red blend</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>malbec vs. cabernet franc</nobr><br /><b>(3)</b> fruit, finish, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>malbec vs. cabernet sauvignon</nobr><br /><b>(3)</b> finish, fruit, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>malbec vs. carignan</nobr><br /><b>(6)</b> fruit, nose, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>malbec vs. gamay</nobr><br /><b>(3)</b> berry, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>malbec vs. greek red</nobr><br /><b>(5)</b> berry, palate, fruit, aromas, nose"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>malbec vs. grenache</nobr><br /><b>(5)</b> aromas, palate, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>malbec vs. italian red</nobr><br /><b>(5)</b> berry, aromas, fruit, finish, black"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#fc9272" title="<nobr>malbec vs. merlot</nobr><br /><b>(3)</b> fruit, finish, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>malbec vs. mourvedre</nobr><br /><b>(6)</b> fruit, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>malbec vs. nebbiolo</nobr><br /><b>(5)</b> berry, aromas, fruit, finish, black"> </td>
+<td bgcolor="#67000d" title="<nobr>malbec vs. other red</nobr><br /><b>(8)</b> fruit, nose, plum, finish, berry, palate, black, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>malbec vs. petit verdot</nobr><br /><b>(3)</b> finish, fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>malbec vs. petite sirah</nobr><br /><b>(3)</b> finish, fruit, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>malbec vs. pinot noir</nobr><br /><b>(2)</b> fruit, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>malbec vs. pinotage</nobr><br /><b>(5)</b> berry, plum, palate, fruit, finish"> </td>
+<td bgcolor="#fcbba1" title="<nobr>malbec vs. port blend</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>malbec vs. portuguese red</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>malbec vs. red blend</nobr><br /><b>(3)</b> fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>malbec vs. rhone style red blend</nobr><br /><b>(3)</b> finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>malbec vs. sangiovese</nobr><br /><b>(5)</b> berry, aromas, fruit, finish, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>malbec vs. shiraz syrah</nobr><br /><b>(4)</b> palate, finish, fruit, black"> </td>
+<td bgcolor="#a50f15" title="<nobr>malbec vs. spanish red</nobr><br /><b>(7)</b> fruit, nose, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#67000d" title="<nobr>malbec vs. tempranillo</nobr><br /><b>(8)</b> fruit, nose, plum, finish, berry, palate, black, aromas"> </td>
+<td bgcolor="#fcbba1" title="<nobr>malbec vs. zinfandel</nobr><br /><b>(2)</b> fruit, finish"> </td>
+</tr>
+<tr>
+<td><div title="merlot"> merlot </div>
+<td bgcolor="#fc9272" title="<nobr>merlot vs. barbera</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>merlot vs. bordeaux style red blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>merlot vs. cabernet franc</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>merlot vs. cabernet sauvignon</nobr><br /><b>(6)</b> cherry, fruit, tannins, blackberry, finish, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>merlot vs. carignan</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>merlot vs. gamay</nobr><br /><b>(4)</b> cherry, fruit, tannins, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>merlot vs. greek red</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>merlot vs. grenache</nobr><br /><b>(4)</b> cherry, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>merlot vs. italian red</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>merlot vs. malbec</nobr><br /><b>(3)</b> fruit, finish, black"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fc9272" title="<nobr>merlot vs. mourvedre</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>merlot vs. nebbiolo</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>merlot vs. other red</nobr><br /><b>(4)</b> black, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>merlot vs. petit verdot</nobr><br /><b>(5)</b> fruit, black, finish, tannins, blackberry"> </td>
+<td bgcolor="#cb181d" title="<nobr>merlot vs. petite sirah</nobr><br /><b>(6)</b> cherry, fruit, blackberry, tannins, finish, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>merlot vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>merlot vs. pinotage</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>merlot vs. port blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>merlot vs. portuguese red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>merlot vs. red blend</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>merlot vs. rhone style red blend</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>merlot vs. sangiovese</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>merlot vs. shiraz syrah</nobr><br /><b>(6)</b> cherry, fruit, blackberry, tannins, finish, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>merlot vs. spanish red</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>merlot vs. tempranillo</nobr><br /><b>(4)</b> cherry, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>merlot vs. zinfandel</nobr><br /><b>(5)</b> cherry, finish, fruit, tannins, blackberry"> </td>
+</tr>
+<tr>
+<td><div title="mourvedre"> mourvedre </div>
+<td bgcolor="#fb6a4a" title="<nobr>mourvedre vs. barbera</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fee0d2" title="<nobr>mourvedre vs. bordeaux style red blend</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>mourvedre vs. cabernet franc</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>mourvedre vs. cabernet sauvignon</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>mourvedre vs. carignan</nobr><br /><b>(6)</b> cherry, fruit, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>mourvedre vs. gamay</nobr><br /><b>(3)</b> cherry, berry, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>mourvedre vs. greek red</nobr><br /><b>(5)</b> cherry, berry, palate, fruit, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>mourvedre vs. grenache</nobr><br /><b>(5)</b> cherry, palate, fruit, finish, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>mourvedre vs. italian red</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>mourvedre vs. malbec</nobr><br /><b>(6)</b> fruit, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>mourvedre vs. merlot</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#ef3b2c" title="<nobr>mourvedre vs. nebbiolo</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>mourvedre vs. other red</nobr><br /><b>(6)</b> fruit, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fcbba1" title="<nobr>mourvedre vs. petit verdot</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>mourvedre vs. petite sirah</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>mourvedre vs. pinot noir</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>mourvedre vs. pinotage</nobr><br /><b>(6)</b> cherry, fruit, plum, finish, berry, palate"> </td>
+<td bgcolor="#fee0d2" title="<nobr>mourvedre vs. port blend</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fee0d2" title="<nobr>mourvedre vs. portuguese red</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>mourvedre vs. red blend</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>mourvedre vs. rhone style red blend</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>mourvedre vs. sangiovese</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>mourvedre vs. shiraz syrah</nobr><br /><b>(4)</b> cherry, palate, finish, fruit"> </td>
+<td bgcolor="#a50f15" title="<nobr>mourvedre vs. spanish red</nobr><br /><b>(7)</b> cherry, fruit, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#a50f15" title="<nobr>mourvedre vs. tempranillo</nobr><br /><b>(7)</b> cherry, fruit, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>mourvedre vs. zinfandel</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+</tr>
+<tr>
+<td><div title="nebbiolo"> nebbiolo </div>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. barbera</nobr><br /><b>(5)</b> cherry, spice, fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>nebbiolo vs. bordeaux style red blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. cabernet franc</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. cabernet sauvignon</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>nebbiolo vs. carignan</nobr><br /><b>(6)</b> cherry, fruit, tannins, finish, berry, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. gamay</nobr><br /><b>(5)</b> cherry, berry, fruit, tannins, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. greek red</nobr><br /><b>(5)</b> cherry, spice, berry, fruit, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. grenache</nobr><br /><b>(5)</b> cherry, aromas, fruit, finish, black"> </td>
+<td bgcolor="#67000d" title="<nobr>nebbiolo vs. italian red</nobr><br /><b>(8)</b> cherry, fruit, tannins, spice, finish, berry, aromas, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. malbec</nobr><br /><b>(5)</b> berry, aromas, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. merlot</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. mourvedre</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="black">
+10
+</td>
+<td bgcolor="#cb181d" title="<nobr>nebbiolo vs. other red</nobr><br /><b>(6)</b> fruit, tannins, finish, berry, black, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>nebbiolo vs. petit verdot</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. petite sirah</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>nebbiolo vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>nebbiolo vs. pinotage</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, berry"> </td>
+<td bgcolor="#fc9272" title="<nobr>nebbiolo vs. port blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>nebbiolo vs. portuguese red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>nebbiolo vs. red blend</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. rhone style red blend</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#67000d" title="<nobr>nebbiolo vs. sangiovese</nobr><br /><b>(8)</b> cherry, fruit, tannins, spice, finish, berry, black, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. shiraz syrah</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. spanish red</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>nebbiolo vs. tempranillo</nobr><br /><b>(6)</b> cherry, fruit, finish, berry, aromas, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>nebbiolo vs. zinfandel</nobr><br /><b>(5)</b> cherry, spice, fruit, tannins, finish"> </td>
+</tr>
+<tr>
+<td><div title="other red"> other&nbspred </div>
+<td bgcolor="#fc9272" title="<nobr>other red vs. barbera</nobr><br /><b>(3)</b> fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>other red vs. bordeaux style red blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>other red vs. cabernet franc</nobr><br /><b>(4)</b> black, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>other red vs. cabernet sauvignon</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="#a50f15" title="<nobr>other red vs. carignan</nobr><br /><b>(7)</b> fruit, tannins, nose, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>other red vs. gamay</nobr><br /><b>(4)</b> berry, fruit, tannins, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>other red vs. greek red</nobr><br /><b>(5)</b> berry, palate, fruit, aromas, nose"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>other red vs. grenache</nobr><br /><b>(5)</b> aromas, palate, fruit, finish, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>other red vs. italian red</nobr><br /><b>(6)</b> fruit, tannins, finish, berry, aromas, black"> </td>
+<td bgcolor="#67000d" title="<nobr>other red vs. malbec</nobr><br /><b>(8)</b> fruit, nose, plum, finish, berry, palate, black, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>other red vs. merlot</nobr><br /><b>(4)</b> black, fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>other red vs. mourvedre</nobr><br /><b>(6)</b> fruit, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>other red vs. nebbiolo</nobr><br /><b>(6)</b> fruit, tannins, finish, berry, black, aromas"> </td>
+<td bgcolor="black">
+10
+</td>
+<td bgcolor="#fb6a4a" title="<nobr>other red vs. petit verdot</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>other red vs. petite sirah</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>other red vs. pinot noir</nobr><br /><b>(3)</b> fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>other red vs. pinotage</nobr><br /><b>(6)</b> fruit, tannins, plum, finish, berry, palate"> </td>
+<td bgcolor="#fc9272" title="<nobr>other red vs. port blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>other red vs. portuguese red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>other red vs. red blend</nobr><br /><b>(4)</b> aromas, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>other red vs. rhone style red blend</nobr><br /><b>(4)</b> tannins, finish, fruit, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>other red vs. sangiovese</nobr><br /><b>(6)</b> fruit, tannins, finish, berry, black, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>other red vs. shiraz syrah</nobr><br /><b>(5)</b> black, palate, finish, tannins, fruit"> </td>
+<td bgcolor="#a50f15" title="<nobr>other red vs. spanish red</nobr><br /><b>(7)</b> fruit, nose, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#67000d" title="<nobr>other red vs. tempranillo</nobr><br /><b>(8)</b> fruit, nose, plum, finish, berry, palate, black, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>other red vs. zinfandel</nobr><br /><b>(3)</b> fruit, tannins, finish"> </td>
+</tr>
+<tr>
+<td><div title="petit verdot"> petit&nbspverdot </div>
+<td bgcolor="#fcbba1" title="<nobr>petit verdot vs. barbera</nobr><br /><b>(2)</b> fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>petit verdot vs. bordeaux style red blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petit verdot vs. cabernet franc</nobr><br /><b>(4)</b> black, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>petit verdot vs. cabernet sauvignon</nobr><br /><b>(5)</b> fruit, black, finish, tannins, blackberry"> </td>
+<td bgcolor="#fc9272" title="<nobr>petit verdot vs. carignan</nobr><br /><b>(3)</b> finish, tannins, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>petit verdot vs. gamay</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fee0d2" title="<nobr>petit verdot vs. greek red</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>petit verdot vs. grenache</nobr><br /><b>(3)</b> fruit, finish, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petit verdot vs. italian red</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>petit verdot vs. malbec</nobr><br /><b>(3)</b> finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>petit verdot vs. merlot</nobr><br /><b>(5)</b> finish, black, fruit, tannins, blackberry"> </td>
+<td bgcolor="#fcbba1" title="<nobr>petit verdot vs. mourvedre</nobr><br /><b>(2)</b> fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petit verdot vs. nebbiolo</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petit verdot vs. other red</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#cb181d" title="<nobr>petit verdot vs. petite sirah</nobr><br /><b>(6)</b> fruit, blackberry, tannins, finish, tannic, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>petit verdot vs. pinot noir</nobr><br /><b>(3)</b> fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>petit verdot vs. pinotage</nobr><br /><b>(3)</b> finish, tannins, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>petit verdot vs. port blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>petit verdot vs. portuguese red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>petit verdot vs. red blend</nobr><br /><b>(3)</b> fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petit verdot vs. rhone style red blend</nobr><br /><b>(4)</b> tannins, finish, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petit verdot vs. sangiovese</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>petit verdot vs. shiraz syrah</nobr><br /><b>(5)</b> fruit, black, blackberry, tannins, finish"> </td>
+<td bgcolor="#fcbba1" title="<nobr>petit verdot vs. spanish red</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>petit verdot vs. tempranillo</nobr><br /><b>(3)</b> finish, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petit verdot vs. zinfandel</nobr><br /><b>(4)</b> fruit, finish, tannins, blackberry"> </td>
+</tr>
+<tr>
+<td><div title="petite sirah"> petite&nbspsirah </div>
+<td bgcolor="#fc9272" title="<nobr>petite sirah vs. barbera</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>petite sirah vs. bordeaux style red blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>petite sirah vs. cabernet franc</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>petite sirah vs. cabernet sauvignon</nobr><br /><b>(6)</b> cherry, fruit, tannins, blackberry, finish, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petite sirah vs. carignan</nobr><br /><b>(4)</b> cherry, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petite sirah vs. gamay</nobr><br /><b>(4)</b> cherry, fruit, tannins, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>petite sirah vs. greek red</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petite sirah vs. grenache</nobr><br /><b>(4)</b> cherry, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>petite sirah vs. italian red</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>petite sirah vs. malbec</nobr><br /><b>(3)</b> finish, fruit, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>petite sirah vs. merlot</nobr><br /><b>(6)</b> cherry, fruit, tannins, blackberry, finish, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>petite sirah vs. mourvedre</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>petite sirah vs. nebbiolo</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petite sirah vs. other red</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>petite sirah vs. petit verdot</nobr><br /><b>(6)</b> fruit, tannins, blackberry, finish, tannic, black"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fb6a4a" title="<nobr>petite sirah vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petite sirah vs. pinotage</nobr><br /><b>(4)</b> cherry, finish, tannins, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>petite sirah vs. port blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>petite sirah vs. portuguese red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petite sirah vs. red blend</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>petite sirah vs. rhone style red blend</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>petite sirah vs. sangiovese</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>petite sirah vs. shiraz syrah</nobr><br /><b>(6)</b> cherry, fruit, blackberry, tannins, finish, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>petite sirah vs. spanish red</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>petite sirah vs. tempranillo</nobr><br /><b>(4)</b> cherry, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>petite sirah vs. zinfandel</nobr><br /><b>(5)</b> cherry, fruit, blackberry, tannins, finish"> </td>
+</tr>
+<tr>
+<td><div title="pinot noir"> pinot&nbspnoir </div>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. barbera</nobr><br /><b>(4)</b> cherry, acidity, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>pinot noir vs. bordeaux style red blend</nobr><br /><b>(3)</b> acidity, fruit, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. cabernet franc</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. cabernet sauvignon</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. carignan</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. gamay</nobr><br /><b>(4)</b> cherry, acidity, fruit, tannins"> </td>
+<td bgcolor="#fcbba1" title="<nobr>pinot noir vs. greek red</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>pinot noir vs. grenache</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. italian red</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fcbba1" title="<nobr>pinot noir vs. malbec</nobr><br /><b>(2)</b> fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. merlot</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>pinot noir vs. mourvedre</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. nebbiolo</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>pinot noir vs. other red</nobr><br /><b>(3)</b> fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>pinot noir vs. petit verdot</nobr><br /><b>(3)</b> fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. petite sirah</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="black">
+6
+</td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. pinotage</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>pinot noir vs. port blend</nobr><br /><b>(3)</b> acidity, fruit, tannins"> </td>
+<td bgcolor="#fc9272" title="<nobr>pinot noir vs. portuguese red</nobr><br /><b>(3)</b> acidity, fruit, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. red blend</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. rhone style red blend</nobr><br /><b>(4)</b> cherry, finish, fruit, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. sangiovese</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. shiraz syrah</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>pinot noir vs. spanish red</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>pinot noir vs. tempranillo</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinot noir vs. zinfandel</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+</tr>
+<tr>
+<td><div title="pinotage"> pinotage </div>
+<td bgcolor="#fb6a4a" title="<nobr>pinotage vs. barbera</nobr><br /><b>(4)</b> cherry, spice, fruit, finish"> </td>
+<td bgcolor="#fcbba1" title="<nobr>pinotage vs. bordeaux style red blend</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinotage vs. cabernet franc</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinotage vs. cabernet sauvignon</nobr><br /><b>(4)</b> cherry, finish, tannins, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>pinotage vs. carignan</nobr><br /><b>(6)</b> cherry, fruit, tannins, finish, berry, palate"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinotage vs. gamay</nobr><br /><b>(4)</b> cherry, berry, fruit, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>pinotage vs. greek red</nobr><br /><b>(5)</b> cherry, spice, berry, palate, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinotage vs. grenache</nobr><br /><b>(4)</b> cherry, palate, fruit, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>pinotage vs. italian red</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, berry"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>pinotage vs. malbec</nobr><br /><b>(5)</b> berry, plum, palate, fruit, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinotage vs. merlot</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>pinotage vs. mourvedre</nobr><br /><b>(6)</b> cherry, fruit, plum, finish, berry, palate"> </td>
+<td bgcolor="#cb181d" title="<nobr>pinotage vs. nebbiolo</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, berry"> </td>
+<td bgcolor="#cb181d" title="<nobr>pinotage vs. other red</nobr><br /><b>(6)</b> fruit, tannins, plum, finish, berry, palate"> </td>
+<td bgcolor="#fc9272" title="<nobr>pinotage vs. petit verdot</nobr><br /><b>(3)</b> finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinotage vs. petite sirah</nobr><br /><b>(4)</b> cherry, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinotage vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#fcbba1" title="<nobr>pinotage vs. port blend</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#fcbba1" title="<nobr>pinotage vs. portuguese red</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>pinotage vs. red blend</nobr><br /><b>(5)</b> cherry, spice, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>pinotage vs. rhone style red blend</nobr><br /><b>(4)</b> cherry, finish, fruit, tannins"> </td>
+<td bgcolor="#cb181d" title="<nobr>pinotage vs. sangiovese</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, berry"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>pinotage vs. shiraz syrah</nobr><br /><b>(5)</b> cherry, palate, finish, tannins, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>pinotage vs. spanish red</nobr><br /><b>(6)</b> cherry, fruit, plum, finish, berry, palate"> </td>
+<td bgcolor="#cb181d" title="<nobr>pinotage vs. tempranillo</nobr><br /><b>(6)</b> cherry, fruit, plum, finish, berry, palate"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>pinotage vs. zinfandel</nobr><br /><b>(5)</b> cherry, spice, fruit, tannins, finish"> </td>
+</tr>
+<tr>
+<td><div title="port blend"> port&nbspblend </div>
+<td bgcolor="#fcbba1" title="<nobr>port blend vs. barbera</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>port blend vs. bordeaux style red blend</nobr><br /><b>(5)</b> ripe, acidity, fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>port blend vs. cabernet franc</nobr><br /><b>(4)</b> ripe, fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>port blend vs. cabernet sauvignon</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>port blend vs. carignan</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>port blend vs. gamay</nobr><br /><b>(5)</b> ripe, acidity, fruit, tannins, black"> </td>
+<td bgcolor="#fee0d2" title="<nobr>port blend vs. greek red</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>port blend vs. grenache</nobr><br /><b>(3)</b> sweet, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>port blend vs. italian red</nobr><br /><b>(4)</b> sweet, fruit, tannins, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>port blend vs. malbec</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>port blend vs. merlot</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fee0d2" title="<nobr>port blend vs. mourvedre</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>port blend vs. nebbiolo</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>port blend vs. other red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>port blend vs. petit verdot</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>port blend vs. petite sirah</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>port blend vs. pinot noir</nobr><br /><b>(3)</b> acidity, fruit, tannins"> </td>
+<td bgcolor="#fcbba1" title="<nobr>port blend vs. pinotage</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#ef3b2c" title="<nobr>port blend vs. portuguese red</nobr><br /><b>(5)</b> ripe, acidity, fruit, tannins, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>port blend vs. red blend</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#fc9272" title="<nobr>port blend vs. rhone style red blend</nobr><br /><b>(3)</b> fruit, black, tannins"> </td>
+<td bgcolor="#fc9272" title="<nobr>port blend vs. sangiovese</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>port blend vs. shiraz syrah</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fee0d2" title="<nobr>port blend vs. spanish red</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fcbba1" title="<nobr>port blend vs. tempranillo</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>port blend vs. zinfandel</nobr><br /><b>(4)</b> ripe, sweet, fruit, tannins"> </td>
+</tr>
+<tr>
+<td><div title="portuguese red"> portuguese&nbspr </div>
+<td bgcolor="#fcbba1" title="<nobr>portuguese red vs. barbera</nobr><br /><b>(2)</b> acidity, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>portuguese red vs. bordeaux style red blend</nobr><br /><b>(6)</b> acidity, fruit, tannins, fruits, ripe, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>portuguese red vs. cabernet franc</nobr><br /><b>(4)</b> ripe, fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. cabernet sauvignon</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>portuguese red vs. carignan</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#cb181d" title="<nobr>portuguese red vs. gamay</nobr><br /><b>(6)</b> acidity, fruit, tannins, fruits, ripe, black"> </td>
+<td bgcolor="#fee0d2" title="<nobr>portuguese red vs. greek red</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fcbba1" title="<nobr>portuguese red vs. grenache</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. italian red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>portuguese red vs. malbec</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. merlot</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fee0d2" title="<nobr>portuguese red vs. mourvedre</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. nebbiolo</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. other red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. petit verdot</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. petite sirah</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. pinot noir</nobr><br /><b>(3)</b> acidity, fruit, tannins"> </td>
+<td bgcolor="#fcbba1" title="<nobr>portuguese red vs. pinotage</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>portuguese red vs. port blend</nobr><br /><b>(5)</b> ripe, acidity, fruit, tannins, black"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#fcbba1" title="<nobr>portuguese red vs. red blend</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. rhone style red blend</nobr><br /><b>(3)</b> fruit, black, tannins"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. sangiovese</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. shiraz syrah</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fee0d2" title="<nobr>portuguese red vs. spanish red</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fcbba1" title="<nobr>portuguese red vs. tempranillo</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>portuguese red vs. zinfandel</nobr><br /><b>(3)</b> ripe, fruit, tannins"> </td>
+</tr>
+<tr>
+<td><div title="red blend"> red&nbspblend </div>
+<td bgcolor="#ef3b2c" title="<nobr>red blend vs. barbera</nobr><br /><b>(5)</b> cherry, spice, fruit, finish, aromas"> </td>
+<td bgcolor="#fcbba1" title="<nobr>red blend vs. bordeaux style red blend</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. cabernet franc</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. cabernet sauvignon</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>red blend vs. carignan</nobr><br /><b>(5)</b> cherry, aromas, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>red blend vs. gamay</nobr><br /><b>(3)</b> cherry, fruit, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. greek red</nobr><br /><b>(4)</b> cherry, spice, fruit, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. grenache</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>red blend vs. italian red</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>red blend vs. malbec</nobr><br /><b>(3)</b> fruit, finish, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. merlot</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. mourvedre</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>red blend vs. nebbiolo</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. other red</nobr><br /><b>(4)</b> aromas, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>red blend vs. petit verdot</nobr><br /><b>(3)</b> fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. petite sirah</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>red blend vs. pinotage</nobr><br /><b>(5)</b> cherry, spice, fruit, tannins, finish"> </td>
+<td bgcolor="#fcbba1" title="<nobr>red blend vs. port blend</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="#fcbba1" title="<nobr>red blend vs. portuguese red</nobr><br /><b>(2)</b> fruit, tannins"> </td>
+<td bgcolor="black">
+6
+</td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. rhone style red blend</nobr><br /><b>(4)</b> cherry, finish, fruit, tannins"> </td>
+<td bgcolor="#cb181d" title="<nobr>red blend vs. sangiovese</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. shiraz syrah</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. spanish red</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>red blend vs. tempranillo</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>red blend vs. zinfandel</nobr><br /><b>(5)</b> cherry, spice, fruit, tannins, finish"> </td>
+</tr>
+<tr>
+<td><div title="rhone style red blend"> rhone&nbspstyle&nbsp </div>
+<td bgcolor="#fc9272" title="<nobr>rhone style red blend vs. barbera</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>rhone style red blend vs. bordeaux style red blend</nobr><br /><b>(3)</b> fruit, black, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>rhone style red blend vs. cabernet franc</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>rhone style red blend vs. cabernet sauvignon</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>rhone style red blend vs. carignan</nobr><br /><b>(4)</b> cherry, finish, fruit, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>rhone style red blend vs. gamay</nobr><br /><b>(4)</b> cherry, fruit, black, tannins"> </td>
+<td bgcolor="#fcbba1" title="<nobr>rhone style red blend vs. greek red</nobr><br /><b>(2)</b> cherry, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>rhone style red blend vs. grenache</nobr><br /><b>(4)</b> cherry, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>rhone style red blend vs. italian red</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>rhone style red blend vs. malbec</nobr><br /><b>(3)</b> finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>rhone style red blend vs. merlot</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>rhone style red blend vs. mourvedre</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>rhone style red blend vs. nebbiolo</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>rhone style red blend vs. other red</nobr><br /><b>(4)</b> tannins, finish, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>rhone style red blend vs. petit verdot</nobr><br /><b>(4)</b> tannins, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>rhone style red blend vs. petite sirah</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>rhone style red blend vs. pinot noir</nobr><br /><b>(4)</b> cherry, finish, fruit, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>rhone style red blend vs. pinotage</nobr><br /><b>(4)</b> cherry, finish, fruit, tannins"> </td>
+<td bgcolor="#fc9272" title="<nobr>rhone style red blend vs. port blend</nobr><br /><b>(3)</b> fruit, black, tannins"> </td>
+<td bgcolor="#fc9272" title="<nobr>rhone style red blend vs. portuguese red</nobr><br /><b>(3)</b> fruit, black, tannins"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>rhone style red blend vs. red blend</nobr><br /><b>(4)</b> cherry, finish, fruit, tannins"> </td>
+<td bgcolor="black">
+5
+</td>
+<td bgcolor="#ef3b2c" title="<nobr>rhone style red blend vs. sangiovese</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>rhone style red blend vs. shiraz syrah</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>rhone style red blend vs. spanish red</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>rhone style red blend vs. tempranillo</nobr><br /><b>(4)</b> cherry, finish, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>rhone style red blend vs. zinfandel</nobr><br /><b>(4)</b> cherry, finish, fruit, tannins"> </td>
+</tr>
+<tr>
+<td><div title="sangiovese"> sangiovese </div>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. barbera</nobr><br /><b>(5)</b> cherry, spice, fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>sangiovese vs. bordeaux style red blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. cabernet franc</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. cabernet sauvignon</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>sangiovese vs. carignan</nobr><br /><b>(6)</b> cherry, fruit, tannins, finish, berry, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. gamay</nobr><br /><b>(5)</b> cherry, berry, fruit, tannins, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. greek red</nobr><br /><b>(5)</b> cherry, spice, berry, fruit, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. grenache</nobr><br /><b>(5)</b> cherry, aromas, fruit, finish, black"> </td>
+<td bgcolor="#67000d" title="<nobr>sangiovese vs. italian red</nobr><br /><b>(8)</b> cherry, fruit, tannins, spice, finish, berry, black, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. malbec</nobr><br /><b>(5)</b> berry, aromas, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. merlot</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. mourvedre</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="#67000d" title="<nobr>sangiovese vs. nebbiolo</nobr><br /><b>(8)</b> cherry, fruit, tannins, spice, finish, berry, black, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>sangiovese vs. other red</nobr><br /><b>(6)</b> fruit, tannins, finish, berry, black, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>sangiovese vs. petit verdot</nobr><br /><b>(4)</b> black, finish, tannins, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. petite sirah</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>sangiovese vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>sangiovese vs. pinotage</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, berry"> </td>
+<td bgcolor="#fc9272" title="<nobr>sangiovese vs. port blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>sangiovese vs. portuguese red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>sangiovese vs. red blend</nobr><br /><b>(6)</b> cherry, fruit, tannins, spice, finish, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. rhone style red blend</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. shiraz syrah</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. spanish red</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>sangiovese vs. tempranillo</nobr><br /><b>(6)</b> cherry, fruit, finish, berry, aromas, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>sangiovese vs. zinfandel</nobr><br /><b>(5)</b> cherry, spice, fruit, tannins, finish"> </td>
+</tr>
+<tr>
+<td><div title="shiraz syrah"> shiraz&nbspsyrah </div>
+<td bgcolor="#fc9272" title="<nobr>shiraz syrah vs. barbera</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>shiraz syrah vs. bordeaux style red blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. cabernet franc</nobr><br /><b>(5)</b> cherry, black, fruit, tannins, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>shiraz syrah vs. cabernet sauvignon</nobr><br /><b>(6)</b> cherry, fruit, tannins, blackberry, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. carignan</nobr><br /><b>(5)</b> cherry, palate, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>shiraz syrah vs. gamay</nobr><br /><b>(4)</b> cherry, fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>shiraz syrah vs. greek red</nobr><br /><b>(3)</b> cherry, palate, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. grenache</nobr><br /><b>(5)</b> cherry, palate, fruit, finish, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. italian red</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>shiraz syrah vs. malbec</nobr><br /><b>(4)</b> palate, finish, fruit, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>shiraz syrah vs. merlot</nobr><br /><b>(6)</b> cherry, fruit, tannins, blackberry, finish, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>shiraz syrah vs. mourvedre</nobr><br /><b>(4)</b> cherry, palate, fruit, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. nebbiolo</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. other red</nobr><br /><b>(5)</b> black, palate, finish, tannins, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. petit verdot</nobr><br /><b>(5)</b> fruit, black, finish, tannins, blackberry"> </td>
+<td bgcolor="#cb181d" title="<nobr>shiraz syrah vs. petite sirah</nobr><br /><b>(6)</b> cherry, fruit, blackberry, tannins, finish, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>shiraz syrah vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. pinotage</nobr><br /><b>(5)</b> cherry, palate, finish, tannins, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>shiraz syrah vs. port blend</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>shiraz syrah vs. portuguese red</nobr><br /><b>(3)</b> fruit, tannins, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>shiraz syrah vs. red blend</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. rhone style red blend</nobr><br /><b>(5)</b> cherry, tannins, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. sangiovese</nobr><br /><b>(5)</b> cherry, black, finish, tannins, fruit"> </td>
+<td bgcolor="black">
+7
+</td>
+<td bgcolor="#fb6a4a" title="<nobr>shiraz syrah vs. spanish red</nobr><br /><b>(4)</b> cherry, palate, finish, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. tempranillo</nobr><br /><b>(5)</b> cherry, palate, finish, fruit, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>shiraz syrah vs. zinfandel</nobr><br /><b>(5)</b> cherry, fruit, blackberry, tannins, finish"> </td>
+</tr>
+<tr>
+<td><div title="spanish red"> spanish&nbspred </div>
+<td bgcolor="#fb6a4a" title="<nobr>spanish red vs. barbera</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fee0d2" title="<nobr>spanish red vs. bordeaux style red blend</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>spanish red vs. cabernet franc</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>spanish red vs. cabernet sauvignon</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#a50f15" title="<nobr>spanish red vs. carignan</nobr><br /><b>(7)</b> cherry, fruit, nose, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>spanish red vs. gamay</nobr><br /><b>(3)</b> cherry, berry, fruit"> </td>
+<td bgcolor="#cb181d" title="<nobr>spanish red vs. greek red</nobr><br /><b>(6)</b> cherry, fruit, nose, berry, palate, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>spanish red vs. grenache</nobr><br /><b>(5)</b> cherry, palate, fruit, finish, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>spanish red vs. italian red</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="#a50f15" title="<nobr>spanish red vs. malbec</nobr><br /><b>(7)</b> fruit, nose, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>spanish red vs. merlot</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#a50f15" title="<nobr>spanish red vs. mourvedre</nobr><br /><b>(7)</b> cherry, fruit, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>spanish red vs. nebbiolo</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="#a50f15" title="<nobr>spanish red vs. other red</nobr><br /><b>(7)</b> fruit, nose, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fcbba1" title="<nobr>spanish red vs. petit verdot</nobr><br /><b>(2)</b> finish, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>spanish red vs. petite sirah</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#fc9272" title="<nobr>spanish red vs. pinot noir</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>spanish red vs. pinotage</nobr><br /><b>(6)</b> cherry, fruit, plum, finish, berry, palate"> </td>
+<td bgcolor="#fee0d2" title="<nobr>spanish red vs. port blend</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fee0d2" title="<nobr>spanish red vs. portuguese red</nobr><br /><b>(1)</b> fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>spanish red vs. red blend</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>spanish red vs. rhone style red blend</nobr><br /><b>(3)</b> cherry, finish, fruit"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>spanish red vs. sangiovese</nobr><br /><b>(5)</b> cherry, berry, fruit, finish, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>spanish red vs. shiraz syrah</nobr><br /><b>(4)</b> cherry, palate, finish, fruit"> </td>
+<td bgcolor="black">
+8
+</td>
+<td bgcolor="#67000d" title="<nobr>spanish red vs. tempranillo</nobr><br /><b>(8)</b> cherry, fruit, nose, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>spanish red vs. zinfandel</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+</tr>
+<tr>
+<td><div title="tempranillo"> tempranillo </div>
+<td bgcolor="#fb6a4a" title="<nobr>tempranillo vs. barbera</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fcbba1" title="<nobr>tempranillo vs. bordeaux style red blend</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>tempranillo vs. cabernet franc</nobr><br /><b>(4)</b> cherry, fruit, finish, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>tempranillo vs. cabernet sauvignon</nobr><br /><b>(4)</b> cherry, finish, fruit, black"> </td>
+<td bgcolor="#a50f15" title="<nobr>tempranillo vs. carignan</nobr><br /><b>(7)</b> cherry, fruit, nose, finish, berry, palate, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>tempranillo vs. gamay</nobr><br /><b>(4)</b> cherry, berry, fruit, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>tempranillo vs. greek red</nobr><br /><b>(6)</b> cherry, fruit, nose, berry, palate, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>tempranillo vs. grenache</nobr><br /><b>(6)</b> cherry, fruit, finish, palate, aromas, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>tempranillo vs. italian red</nobr><br /><b>(6)</b> cherry, fruit, finish, berry, black, aromas"> </td>
+<td bgcolor="#67000d" title="<nobr>tempranillo vs. malbec</nobr><br /><b>(8)</b> fruit, nose, plum, finish, berry, palate, black, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>tempranillo vs. merlot</nobr><br /><b>(4)</b> cherry, fruit, finish, black"> </td>
+<td bgcolor="#a50f15" title="<nobr>tempranillo vs. mourvedre</nobr><br /><b>(7)</b> cherry, fruit, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="#cb181d" title="<nobr>tempranillo vs. nebbiolo</nobr><br /><b>(6)</b> cherry, fruit, finish, berry, aromas, black"> </td>
+<td bgcolor="#67000d" title="<nobr>tempranillo vs. other red</nobr><br /><b>(8)</b> fruit, nose, plum, finish, berry, palate, black, aromas"> </td>
+<td bgcolor="#fc9272" title="<nobr>tempranillo vs. petit verdot</nobr><br /><b>(3)</b> finish, fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>tempranillo vs. petite sirah</nobr><br /><b>(4)</b> cherry, finish, fruit, black"> </td>
+<td bgcolor="#fc9272" title="<nobr>tempranillo vs. pinot noir</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>tempranillo vs. pinotage</nobr><br /><b>(6)</b> cherry, fruit, plum, finish, berry, palate"> </td>
+<td bgcolor="#fcbba1" title="<nobr>tempranillo vs. port blend</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fcbba1" title="<nobr>tempranillo vs. portuguese red</nobr><br /><b>(2)</b> fruit, black"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>tempranillo vs. red blend</nobr><br /><b>(4)</b> cherry, fruit, finish, aromas"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>tempranillo vs. rhone style red blend</nobr><br /><b>(4)</b> cherry, finish, fruit, black"> </td>
+<td bgcolor="#cb181d" title="<nobr>tempranillo vs. sangiovese</nobr><br /><b>(6)</b> cherry, fruit, finish, berry, aromas, black"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>tempranillo vs. shiraz syrah</nobr><br /><b>(5)</b> cherry, palate, finish, fruit, black"> </td>
+<td bgcolor="#67000d" title="<nobr>tempranillo vs. spanish red</nobr><br /><b>(8)</b> cherry, fruit, nose, plum, finish, berry, palate, aromas"> </td>
+<td bgcolor="black">
+9
+</td>
+<td bgcolor="#fc9272" title="<nobr>tempranillo vs. zinfandel</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+</tr>
+<tr>
+<td><div title="zinfandel"> zinfandel </div>
+<td bgcolor="#fb6a4a" title="<nobr>zinfandel vs. barbera</nobr><br /><b>(4)</b> cherry, spice, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>zinfandel vs. bordeaux style red blend</nobr><br /><b>(3)</b> ripe, fruit, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>zinfandel vs. cabernet franc</nobr><br /><b>(5)</b> cherry, ripe, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>zinfandel vs. cabernet sauvignon</nobr><br /><b>(5)</b> cherry, fruit, finish, tannins, blackberry"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>zinfandel vs. carignan</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>zinfandel vs. gamay</nobr><br /><b>(4)</b> cherry, ripe, fruit, tannins"> </td>
+<td bgcolor="#fc9272" title="<nobr>zinfandel vs. greek red</nobr><br /><b>(3)</b> cherry, spice, fruit"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>zinfandel vs. grenache</nobr><br /><b>(4)</b> cherry, sweet, fruit, finish"> </td>
+<td bgcolor="#cb181d" title="<nobr>zinfandel vs. italian red</nobr><br /><b>(6)</b> cherry, fruit, tannins, sweet, spice, finish"> </td>
+<td bgcolor="#fcbba1" title="<nobr>zinfandel vs. malbec</nobr><br /><b>(2)</b> fruit, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>zinfandel vs. merlot</nobr><br /><b>(5)</b> cherry, finish, fruit, tannins, blackberry"> </td>
+<td bgcolor="#fc9272" title="<nobr>zinfandel vs. mourvedre</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>zinfandel vs. nebbiolo</nobr><br /><b>(5)</b> cherry, spice, fruit, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>zinfandel vs. other red</nobr><br /><b>(3)</b> fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>zinfandel vs. petit verdot</nobr><br /><b>(4)</b> fruit, finish, tannins, blackberry"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>zinfandel vs. petite sirah</nobr><br /><b>(5)</b> cherry, fruit, blackberry, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>zinfandel vs. pinot noir</nobr><br /><b>(4)</b> cherry, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>zinfandel vs. pinotage</nobr><br /><b>(5)</b> cherry, spice, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>zinfandel vs. port blend</nobr><br /><b>(4)</b> ripe, sweet, fruit, tannins"> </td>
+<td bgcolor="#fc9272" title="<nobr>zinfandel vs. portuguese red</nobr><br /><b>(3)</b> ripe, fruit, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>zinfandel vs. red blend</nobr><br /><b>(5)</b> cherry, spice, fruit, tannins, finish"> </td>
+<td bgcolor="#fb6a4a" title="<nobr>zinfandel vs. rhone style red blend</nobr><br /><b>(4)</b> cherry, finish, fruit, tannins"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>zinfandel vs. sangiovese</nobr><br /><b>(5)</b> cherry, spice, fruit, tannins, finish"> </td>
+<td bgcolor="#ef3b2c" title="<nobr>zinfandel vs. shiraz syrah</nobr><br /><b>(5)</b> cherry, fruit, blackberry, tannins, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>zinfandel vs. spanish red</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="#fc9272" title="<nobr>zinfandel vs. tempranillo</nobr><br /><b>(3)</b> cherry, fruit, finish"> </td>
+<td bgcolor="black">
+9
+</td>
+</tr>
+</table>
+<div>
+Top matches for each wine, if had a score of 6/10 or higher
+</div><div>
+<p>
+<strong>barbera</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>bordeaux&nbspstyle&nbspred&nbspblend</strong> <p>
+<blockquote>
+gamay : 6 
+<br>
+portuguese_red : 6 
+<br>
+</blockquote>
+<p>
+<strong>cabernet&nbspfranc</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>cabernet&nbspsauvignon</strong> <p>
+<blockquote>
+merlot : 6 
+<br>
+shiraz_syrah : 6 
+<br>
+petite_sirah : 6 
+<br>
+</blockquote>
+<p>
+<strong>carignan</strong> <p>
+<blockquote>
+spanish_red : 7 
+<br>
+tempranillo : 7 
+<br>
+other_red : 7 
+<br>
+greek_red : 6 
+<br>
+italian_red : 6 
+<br>
+malbec : 6 
+<br>
+pinotage : 6 
+<br>
+sangiovese : 6 
+<br>
+mourvedre : 6 
+<br>
+nebbiolo : 6 
+<br>
+</blockquote>
+<p>
+<strong>gamay</strong> <p>
+<blockquote>
+portuguese_red : 6 
+<br>
+bordeaux_style_red_blend : 6 
+<br>
+</blockquote>
+<p>
+<strong>greek&nbspred</strong> <p>
+<blockquote>
+spanish_red : 6 
+<br>
+tempranillo : 6 
+<br>
+carignan : 6 
+<br>
+</blockquote>
+<p>
+<strong>grenache</strong> <p>
+<blockquote>
+italian_red : 6 
+<br>
+tempranillo : 6 
+<br>
+</blockquote>
+<p>
+<strong>italian&nbspred</strong> <p>
+<blockquote>
+sangiovese : 8 
+<br>
+nebbiolo : 8 
+<br>
+grenache : 6 
+<br>
+pinotage : 6 
+<br>
+red_blend : 6 
+<br>
+tempranillo : 6 
+<br>
+other_red : 6 
+<br>
+carignan : 6 
+<br>
+zinfandel : 6 
+<br>
+</blockquote>
+<p>
+<strong>malbec</strong> <p>
+<blockquote>
+tempranillo : 8 
+<br>
+other_red : 8 
+<br>
+spanish_red : 7 
+<br>
+carignan : 6 
+<br>
+mourvedre : 6 
+<br>
+</blockquote>
+<p>
+<strong>merlot</strong> <p>
+<blockquote>
+cabernet_sauvignon : 6 
+<br>
+shiraz_syrah : 6 
+<br>
+petite_sirah : 6 
+<br>
+</blockquote>
+<p>
+<strong>mourvedre</strong> <p>
+<blockquote>
+spanish_red : 7 
+<br>
+tempranillo : 7 
+<br>
+malbec : 6 
+<br>
+pinotage : 6 
+<br>
+other_red : 6 
+<br>
+carignan : 6 
+<br>
+</blockquote>
+<p>
+<strong>nebbiolo</strong> <p>
+<blockquote>
+italian_red : 8 
+<br>
+sangiovese : 8 
+<br>
+pinotage : 6 
+<br>
+red_blend : 6 
+<br>
+tempranillo : 6 
+<br>
+other_red : 6 
+<br>
+carignan : 6 
+<br>
+</blockquote>
+<p>
+<strong>other&nbspred</strong> <p>
+<blockquote>
+malbec : 8 
+<br>
+tempranillo : 8 
+<br>
+spanish_red : 7 
+<br>
+carignan : 7 
+<br>
+italian_red : 6 
+<br>
+pinotage : 6 
+<br>
+sangiovese : 6 
+<br>
+mourvedre : 6 
+<br>
+nebbiolo : 6 
+<br>
+</blockquote>
+<p>
+<strong>petit&nbspverdot</strong> <p>
+<blockquote>
+petite_sirah : 6 
+<br>
+</blockquote>
+<p>
+<strong>petite&nbspsirah</strong> <p>
+<blockquote>
+petit_verdot : 6 
+<br>
+merlot : 6 
+<br>
+cabernet_sauvignon : 6 
+<br>
+shiraz_syrah : 6 
+<br>
+</blockquote>
+<p>
+<strong>pinot&nbspnoir</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>pinotage</strong> <p>
+<blockquote>
+italian_red : 6 
+<br>
+spanish_red : 6 
+<br>
+tempranillo : 6 
+<br>
+other_red : 6 
+<br>
+carignan : 6 
+<br>
+sangiovese : 6 
+<br>
+mourvedre : 6 
+<br>
+nebbiolo : 6 
+<br>
+</blockquote>
+<p>
+<strong>port&nbspblend</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>portuguese&nbspred</strong> <p>
+<blockquote>
+gamay : 6 
+<br>
+bordeaux_style_red_blend : 6 
+<br>
+</blockquote>
+<p>
+<strong>red&nbspblend</strong> <p>
+<blockquote>
+italian_red : 6 
+<br>
+sangiovese : 6 
+<br>
+nebbiolo : 6 
+<br>
+</blockquote>
+<p>
+<strong>rhone&nbspstyle&nbspred&nbspblend</strong> <p>
+<blockquote>
+</blockquote>
+<p>
+<strong>sangiovese</strong> <p>
+<blockquote>
+italian_red : 8 
+<br>
+nebbiolo : 8 
+<br>
+pinotage : 6 
+<br>
+red_blend : 6 
+<br>
+tempranillo : 6 
+<br>
+other_red : 6 
+<br>
+carignan : 6 
+<br>
+</blockquote>
+<p>
+<strong>shiraz&nbspsyrah</strong> <p>
+<blockquote>
+merlot : 6 
+<br>
+cabernet_sauvignon : 6 
+<br>
+petite_sirah : 6 
+<br>
+</blockquote>
+<p>
+<strong>spanish&nbspred</strong> <p>
+<blockquote>
+tempranillo : 8 
+<br>
+malbec : 7 
+<br>
+other_red : 7 
+<br>
+carignan : 7 
+<br>
+mourvedre : 7 
+<br>
+greek_red : 6 
+<br>
+pinotage : 6 
+<br>
+</blockquote>
+<p>
+<strong>tempranillo</strong> <p>
+<blockquote>
+malbec : 8 
+<br>
+spanish_red : 8 
+<br>
+other_red : 8 
+<br>
+carignan : 7 
+<br>
+mourvedre : 7 
+<br>
+greek_red : 6 
+<br>
+grenache : 6 
+<br>
+italian_red : 6 
+<br>
+pinotage : 6 
+<br>
+sangiovese : 6 
+<br>
+nebbiolo : 6 
+<br>
+</blockquote>
+<p>
+<strong>zinfandel</strong> <p>
+<blockquote>
+italian_red : 6 
+<br>
+</blockquote>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="wine.js"></script>
+
+</body>
+</html>
+

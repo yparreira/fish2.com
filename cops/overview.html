@@ -1,0 +1,176 @@
+<html>
+<HEAD>
+<TITLE>COPS overview</TITLE>
+<LINK REV="made" HREF="mailto:zen@www.trouble.org">
+</HEAD>
+ 
+<body bgcolor=#ffffff>
+
+<h1>COPS Overview</h1>
+<p>
+Welcome!  This is a quick intro to COPS (Computer Oracle and Password
+System.)  COPS is a collection of security tools that are designed
+specifically to aid the typical UNIX systems administrator, programmer,
+operator, or consultant in the oft neglected area of computer security.
+
+<p>
+The package can be broken down into three key parts.  The first is
+the actual set of programs that attempt to automate security checks that
+are often performed manually (or perhaps with self written short shell
+scripts or programs) by a systems administrator.  The second part is the
+documentation, which details how to set up, operate, and to interpret any
+results given by the programs.  Finally, COPS is an evolving beast.  It
+includes a list of possible extensions that might appear in future releases,
+as well as pointers to other works in UNIX security that could not be
+included at this time, due to space or other restrictions.
+
+<p>
+<hr>
+<h2>Specifics</h2>
+<hr>
+<p>
+COPS is a collection of about a dozen (actually, a few more, but
+a dozen is such a good sounding number) programs that each attempt
+to tackle a different problem area of UNIX security.  Here is what it
+currently checks:
+
+<ul>
+<li>  file, directory, and device permissions/modes.
+
+<li>  poor passwords.
+
+<li>  content, format, and security of password and group files.
+
+<li>  the programs and files run in /etc/rc* and cron(tab) files.
+
+<li>  existance of root-SUID files, their writeability, and whether or not
+   they are shell scripts.
+
+<li>  a CRC check against important binaries or key files to report any
+   changes therein. 
+
+<li>  writability of users home directories and startup files (.profile,
+   .cshrc, etc.) 
+
+<li>  anonymous ftp setup.
+
+<li>  unrestricted tftp, decode alias in sendmail, SUID uudecode problems, 
+   hidden shells inside inetd.conf, rexd running in inetd.conf.
+
+<li>  miscellaneous root checks -- current directory in the search path,
+   a "+" in /etc/host.equiv, unrestricted NFS mounts, ensuring root is 
+   in /etc/ftpusers, etc.
+
+<li>  dates of CERT advisories vs. key files.  This checks the dates that
+   various bugs and security holes were reported by CERT against the
+   actual date on the file in question.  A positive result doesn't
+   always mean that a bug was found, but it is a good indication that
+   you should look at the advisory and file for further clues.  A
+   negative result, obviously, does not mean that your software has no
+   holes, merely that it has been modified in SOME way (perhaps merely
+   "touch"'ed) since the advisory was sent out.
+
+<li>  the Kuang expert system.  This takes a set of rules and tries to
+   determine if your system can be compromised (for a more complete list 
+   of all of the checks, look at the file "release.notes" or
+   "cops.report"; for more on Kuang, look at at "kuang.man".)
+
+</ul>
+
+<p>
+All of the programs merely warn the user of a potential problem --
+COPS DOES NOT ATTEMPT TO CORRECT OR EXPLOIT ANY OF THE POTENTIAL
+PROBLEMS IT FINDS!  There is an option to generate a file containing
+shell commands that attempt to fix (at least of subset of) the problems
+found, but it should be carefully examined, possibly edited, and
+finally must be run manually, and probably by root, since many of the
+problems that need to be corrected deal with system files.  COPS
+will either mail or create a file (user selectable) containing the
+problems it finds while running on your system.  Because COPS does
+not correct potential hazards it finds, it does _not_ have to be run
+by a privileged account (i.e. root or whomever.)  The only security
+check that should be run by root to get maximum results is the SUID
+checker: although it can be run as an unprivileged user, it should be
+run as root so that it can find all the SUID files in a system.  In
+addition, if key binaries are not world-readable, only executable, the
+CRC checking program ("crc.chk") needs to be run as a privileged user
+to read the files in question to get the result.  Also note that COPS
+cannot used to probe a host remotely; all the tests and checks made
+require a shell that is on the host being tested.
+
+<p>
+The programs that make up COPS were originally written primarily in
+Bourne shell (using awk, sed, grep, etc.) for (hopefully) maximum
+portability, with a few written in C for speed (most notably parts of
+the Kuang expert system and the implementation of fast user home
+directory searching), but the entire system should run on most BSD and
+System V machines with a minimum of tweaking.  In addition, a perl
+version is included that, while perhaps not as portable as the shell/C
+version, has some advantages.
+
+<p>
+<hr>
+<h2>What COPS is <strong>not</strong></h2>
+<hr>
+<p>
+
+COPS mostly provides a method of checking for common procedural
+errors.  It is not meant to be used as a replacement for common sense or
+user/operator/administrative alertness!  Think of it as an aid, a first
+line of defense, not as an impenetrable shield against security woes.
+An experienced wrong-doer could easily circumvent *any* protection that
+COPS can give.  However, COPS *can* aid a system in protecting its users
+from (their own?) ignorance, carelessness, and the occasional malcontent
+user.
+
+<p>
+Once again, COPS does not directly correct any errors found.  There
+are several reasons for this: first and foremost, computer security is a
+slippery beast.  What is a major breach in security at one site may be a
+standard policy of openness at another site.  Additionally, in order to
+correct all problems it finds, it would have to be run as a privileged
+user; I'm not going to go into the myriad problems of running SUID shell
+scripts -- suffice it to say it's a bad idea that can give an attacker
+privileges equal to whatever account the shell is SUID to.
+
+<p>
+<hr>
+<h2>Summary</h2>
+<hr>
+<p>
+
+COPS is meant to be a tool to aid in the tightening of security, not
+as a weapon to be used by an enemy to find security flaws in a system.
+It may be argued that allowing anyone to have access to such a tool may
+be dangerous.  But hopefully the overall benefit for systems that use
+this package will outweigh any negative impact.  To me it is akin to a
+law enforcement problem -- that although telling the public how to break
+into a house may foster a slight rise in break-in attempts, the overall
+rise in public awareness on how to defend themselves would actually result
+in a drop in break-ins.  The crackers with black hats already know how
+to crush system defenses and have similar tools, I'm sure.  It's time
+we fought back.
+
+<p>
+COPS is not the final answer to anyone's security woes.  You can use
+the system as long as you realize that COPS has no warranty, implied
+or otherwise, and that any problems that you may have with it are
+not my or any of the other authors' fault.  I will certainly attempt to
+help you solve them, if I am able.  If you have ideas for additional
+programs, or a better implementation of any of the programs here, I would
+be very interested in seeing them.
+
+<p>
+So good luck, and I hope you find COPS useful as we plunge into UNIX
+of the 1990's.
+
+<p>
+<pre>
+   dan farmer
+   zen@death.corp.sun.com
+
+   May 18, 1993
+</pre>
+
+</body>
+</html>
